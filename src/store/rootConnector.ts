@@ -10,7 +10,7 @@ const mapStateToProps = (state: IAppState) => ({
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   setLang: (lang: string) => dispatch({
-    type: 'SET_LANG', lang,
+    type: 'SET_LANG', payload: { lang },
   }),
 });
 

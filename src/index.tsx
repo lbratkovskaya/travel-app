@@ -4,7 +4,6 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import rootReducer from './store/rootReducer';
 import App from './components/App';
-import 'fontsource-roboto';
 import './index.scss';
 
 const store = createStore(rootReducer);

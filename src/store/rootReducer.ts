@@ -9,7 +9,7 @@ const initialState: IAppState = {
 const rootReducer = (state: IAppState = initialState, action: any) => {
   switch (action.type) {
     case 'SET_LANG':
-      return { ...state, lang: action.lang };
+      return { ...state, lang: action.payload.lang };
     default:
   }
   return state;

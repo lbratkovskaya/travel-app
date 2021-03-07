@@ -6,6 +6,7 @@ export type rootProps = ConnectedProps<typeof rootConnector>;
 
 const mapStateToProps = (state: IAppState) => ({
   lang: state.lang,
+  countries: state.countries,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({

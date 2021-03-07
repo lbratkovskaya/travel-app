@@ -1,6 +1,11 @@
 import { IAppState, RootReducerAction } from './types';
 
 const initialState: IAppState = {
+  loggedIn: false,
+  registred: false,
+  failedAttempt: false,
+  userName: '',
+  userImage: '',
   lang: 'EN',
   countries: [{
     id: 'br',
@@ -54,6 +59,16 @@ const rootReducer = (state: IAppState = initialState, action: RootReducerAction)
   switch (action.type) {
     case 'SET_LANG':
       return { ...state, lang: action.payload.lang };
+    case 'LOGGED_IN':
+      return { ...state, loggedIn: action.payload.loggedIn };
+    case 'REGISTRED':
+      return { ...state, registred: action.payload.registred };
+    case 'FAILED_ATTEMPT':
+      return { ...state, failedAttempt: action.payload.failedAttempt };
+    case 'SET_USER_IMAGE':
+      return { ...state, userImage: action.payload.userImage };
+    case 'SET_USER_NAME':
+      return { ...state, userName: action.payload.userName };
     default:
   }
   return state;

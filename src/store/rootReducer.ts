@@ -1,9 +1,4 @@
-import { Country } from '../types';
-
-export interface IAppState {
-  lang: 'EN' | 'RU' | 'DE',
-  countries: Country[],
-}
+import { IAppState, RootReducerAction } from './types';
 
 const initialState: IAppState = {
   lang: 'EN',
@@ -55,7 +50,7 @@ const initialState: IAppState = {
   ],
 };
 
-const rootReducer = (state: IAppState = initialState, action: any) => {
+const rootReducer = (state: IAppState = initialState, action: RootReducerAction) => {
   switch (action.type) {
     case 'SET_LANG':
       return { ...state, lang: action.payload.lang };

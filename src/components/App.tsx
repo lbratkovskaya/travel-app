@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   BrowserRouter,
-  Redirect,
   Route,
   Switch,
 } from 'react-router-dom';
@@ -37,13 +36,12 @@ const App: React.FC<rootProps> = (props: rootProps) => (
     </Button>
     <BrowserRouter>
       <Switch>
-        <Route path="/countries">
-          <MainPage />
-        </Route>
         <Route path="/country/:countryId">
           <CountryPage />
         </Route>
-        <Redirect path="/" to="/countries" />
+        <Route path="/">
+          <MainPage />
+        </Route>
       </Switch>
     </BrowserRouter>
   </div>

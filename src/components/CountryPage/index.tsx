@@ -5,7 +5,9 @@ import {
 import {
   useParams,
 } from 'react-router-dom';
-import { rootProps } from '../../store/rootConnector';
+import rootConnector, {
+  rootProps,
+} from '../../store/rootConnector';
 import { URLParamTypes } from '../../types';
 
 const CountryPage: React.FC<rootProps> = () => {
@@ -18,4 +20,4 @@ const CountryPage: React.FC<rootProps> = () => {
   return (<div title={t(`${countryId}.name`)}>{t(`${countryId}.name`)}</div>);
 };
 
-export default CountryPage;
+export default rootConnector(CountryPage);

@@ -16,6 +16,7 @@ import rootConnector,
 {
   rootProps,
 } from '../../store/rootConnector';
+import { Country } from '../../types';
 
 const useStyles = makeStyles(() => createStyles({
   root: {
@@ -52,9 +53,9 @@ const ImagesGrid: React.FC<rootProps> = (props: rootProps) => {
   return (
     <div className={classes.root}>
       <GridList className={classes.gridList} cols={2.5}>
-        {countries.map((country) => (
+        {countries.map((country: Country) => (
           <GridListTile key={country.pictureURL}>
-            <Link to={`country/${country.id}`}>
+            <Link to={`/country/${country.id}`}>
               <img
                 src={country.pictureURL}
                 alt={t(`${country.id}.name`)}

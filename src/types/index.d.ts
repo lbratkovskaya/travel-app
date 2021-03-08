@@ -1,9 +1,8 @@
-interface Country {
+export interface Country {
   id: string,
   name: string,
   pictureURL: string,
 }
-
-interface URLParamTypes {
+export interface URLParamTypes {
   countryId: string,
 }

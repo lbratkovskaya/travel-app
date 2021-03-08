@@ -1,3 +1,5 @@
+import { Country } from '../types';
+
 export interface IAppState {
   lang: 'EN' | 'RU' | 'DE',
   countries: Country[],

@@ -1,9 +1,13 @@
-import {createStore, applyMiddleware, compose} from 'redux';
-import rootReducer from './rootReducer';
 import ReduxThunk from 'redux-thunk';
+import {
+  createStore,
+  applyMiddleware,
+  compose,
+} from 'redux';
+import rootReducer from './rootReducer';
 
 declare global {
-  interface Window {
+  export interface Window {
     __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
   }
 }

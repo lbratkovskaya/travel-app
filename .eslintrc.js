@@ -1,4 +1,7 @@
 module.exports = {
+  globals: {
+    JSX: true,
+  },
   env: {
     browser: true,
     es2021: true,

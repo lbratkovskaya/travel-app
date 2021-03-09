@@ -1,0 +1,29 @@
+{
+  "br": {
+    "name": "Brazil"
+  },
+  "tz": {
+    "name": "Tanzania"
+  },
+  "sp": {
+    "name": "Spain"
+  },
+  "ca": {
+    "name": "Canada"
+  },
+  "in": {
+    "name": "India"
+  },
+  "ir": {
+    "name": "Ireland"
+  },
+  "ae": {
+    "name": "United Arab Emirates"
+  },
+  "nz": {
+    "name": "New Zealand"
+  },
+  "jp": {
+    "name": "Japan"
+  }
+}

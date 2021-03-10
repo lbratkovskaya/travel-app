@@ -1,6 +1,6 @@
 import { connect, ConnectedProps } from 'react-redux';
 import { Dispatch } from 'redux';
-import { IAppState } from './rootReducer';
+import { IAppState } from './types';
 
 export type rootProps = ConnectedProps<typeof rootConnector>;
 

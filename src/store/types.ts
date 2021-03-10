@@ -7,7 +7,8 @@ export interface IAppState {
   registred: boolean | undefined,
   userName: string | undefined,
   userImage: string | undefined,
-  failedAttempt: boolean | undefined
+  failedAttempt: boolean | undefined,
+  isLoading: boolean | undefined;
 }
 
 export interface RootReducerAction {
@@ -19,6 +20,7 @@ export interface RootReducerAction {
     registred?: boolean,
     userName?: string,
     userImage?: string,
-    failedAttempt?: boolean
+    failedAttempt?: boolean,
+    isLoading?: boolean;
   }
 }

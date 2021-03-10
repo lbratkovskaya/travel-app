@@ -11,6 +11,7 @@ import {
   Container,
   Modal,
   makeStyles,
+  CircularProgress,
 } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { IAppState } from '../../store/types';
@@ -22,20 +23,19 @@ interface ISignUpProps {
   handleSnowSignInForm: () => void;
 }
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   container: {
     backgroundColor: '#fff',
   },
   paper: {
-    marginTop: theme.spacing(8),
+    marginTop: '64px',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    paddingTop: theme.spacing(3),
-    paddingBottom: theme.spacing(3),
+    padding: '24px 0',
   },
   avatar: {
-    marginBottom: theme.spacing(1),
+    marginBottom: '8px',
   },
   userImage: {
     backgroundColor: '#fff',
@@ -43,10 +43,10 @@ const useStyles = makeStyles((theme) => ({
   },
   form: {
     width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(3),
+    marginTop: '24px',
   },
   submit: {
-    margin: theme.spacing(3, 0, 2),
+    margin: '24px 0 16px 0',
   },
   link: {
     color: 'blue',
@@ -55,6 +55,7 @@ const useStyles = makeStyles((theme) => ({
     '&:hover': {
       border: 'none',
       outline: 'none',
+      textDecoration: 'underline',
     },
     '&:focus': {
       border: 'none',
@@ -67,6 +68,9 @@ const useStyles = makeStyles((theme) => ({
     color: 'blue',
     backgroundColor: '#fff',
     border: 'none',
+  },
+  spinner: {
+    margin: '15px 0px',
   },
 }));
 
@@ -89,6 +93,7 @@ const SignUpForm: React.FC<ISignUpProps> = (props: ISignUpProps) => {
 
   const isRegistred = useSelector((state: IAppState) => state.registred);
   const isFailedAttempt = useSelector((state: IAppState) => state.failedAttempt);
+  const isLoading = useSelector((state: IAppState) => state.isLoading);
 
   const handleClose = () => {
     setEmailInvalid(false);
@@ -261,15 +266,18 @@ const SignUpForm: React.FC<ISignUpProps> = (props: ISignUpProps) => {
                 />
               </Grid>
             </Grid>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
-              {t('sign_up')}
-            </Button>
+            {isLoading ? <CircularProgress className={classes.spinner} />
+              : (
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  className={classes.submit}
+                >
+                  {t('sign_in')}
+                </Button>
+              )}
             <Grid container justify="flex-end">
               <Grid item>
                 <button

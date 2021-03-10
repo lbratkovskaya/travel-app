@@ -10,6 +10,7 @@ import {
   Container,
   Modal,
   makeStyles,
+  CircularProgress,
 } from '@material-ui/core';
 import { IAppState } from '../../store/types';
 import { signInUser } from '../../controller/handlers';
@@ -20,24 +21,23 @@ interface ISignInProps {
   handleShowSignUpForm: () => void;
 }
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   container: {
     backgroundColor: '#fff',
   },
   paper: {
-    marginTop: theme.spacing(8),
+    marginTop: '64px',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    paddingTop: theme.spacing(3),
-    paddingBottom: theme.spacing(3),
+    padding: '24px 0',
   },
   form: {
     width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
+    marginTop: '8px',
   },
   submit: {
-    margin: theme.spacing(3, 0, 2),
+    margin: '24px 0 16px 0',
   },
   link: {
     color: 'blue',
@@ -46,6 +46,7 @@ const useStyles = makeStyles((theme) => ({
     '&:hover': {
       border: 'none',
       outline: 'none',
+      textDecoration: 'underline',
     },
     '&:focus': {
       border: 'none',
@@ -59,6 +60,9 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#fff',
     border: 'none',
   },
+  spinner: {
+    margin: '15px 0px',
+  },
 }));
 
 const SignInForm: React.FC<ISignInProps> = (props: ISignInProps) => {
@@ -71,6 +75,7 @@ const SignInForm: React.FC<ISignInProps> = (props: ISignInProps) => {
   const [passwordEmpty, setPasswordEmpty] = React.useState(false);
   const isLoggedIn = useSelector((state: IAppState) => state.loggedIn);
   const isFailedAttempt = useSelector((state: IAppState) => state.failedAttempt);
+  const isLoading = useSelector((state: IAppState) => state.isLoading);
   const { t } = useTranslation();
 
   const handleClose = () => {
@@ -131,7 +136,6 @@ const SignInForm: React.FC<ISignInProps> = (props: ISignInProps) => {
               autoComplete={t('name')}
               error={userNameEmpty || isFailedAttempt}
               helperText={(userNameEmpty && t('name_empty')) || (isFailedAttempt && '')}
-              autoFocus
               onChange={(event) => {
                 setUserName(event.currentTarget.value);
               }}
@@ -161,15 +165,18 @@ const SignInForm: React.FC<ISignInProps> = (props: ISignInProps) => {
                 dispatch({ type: 'FAILED_ATTEMPT', payload: { failedAttempt: false } });
               }}
             />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
-              {t('sign_in')}
-            </Button>
+            {isLoading ? <CircularProgress className={classes.spinner} />
+              : (
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  className={classes.submit}
+                >
+                  {t('sign_in')}
+                </Button>
+              )}
             <Grid container justify="flex-end">
               <Grid item>
                 <button

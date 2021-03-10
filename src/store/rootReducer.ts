@@ -7,6 +7,7 @@ const initialState: IAppState = {
   userName: '',
   userImage: '',
   lang: 'EN',
+  isLoading: false,
   countries: [{
     id: 'br',
     name: 'Brazil',
@@ -69,6 +70,10 @@ const rootReducer = (state: IAppState = initialState, action: RootReducerAction)
       return { ...state, userImage: action.payload.userImage };
     case 'SET_USER_NAME':
       return { ...state, userName: action.payload.userName };
+    case 'SHOW_LOADER':
+      return { ...state, isLoading: action.payload.isLoading };
+    case 'HIDE_LOADER':
+      return { ...state, isLoading: action.payload.isLoading };
     default:
   }
   return state;

@@ -1,21 +1,25 @@
 import React from 'react';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import Grid from '@material-ui/core/Grid';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import { Modal } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
-import { signUpUser } from '../../controller/handlers';
+import { useTranslation } from 'react-i18next';
+import {
+  Avatar,
+  Button,
+  CssBaseline,
+  TextField,
+  Grid,
+  Typography,
+  Container,
+  Modal,
+  makeStyles,
+} from '@material-ui/core';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { IAppState } from '../../store/types';
+import { signUpUser } from '../../controller/handlers';
 
 interface ISignUpProps {
   isOpen: boolean,
-  handleClose: ()=>void;
+  handleClose: () => void;
+  handleSnowSignInForm: () => void;
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -31,7 +35,6 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(3),
   },
   avatar: {
-    // backgroundColor: theme.palette.secondary.main,
     marginBottom: theme.spacing(1),
   },
   userImage: {
@@ -45,9 +48,29 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  link: {
+    color: 'blue',
+  },
+  button: {
+    '&:hover': {
+      border: 'none',
+      outline: 'none',
+    },
+    '&:focus': {
+      border: 'none',
+      outline: 'none',
+    },
+    '&:active': {
+      border: 'none',
+      outline: 'none',
+    },
+    color: 'blue',
+    backgroundColor: '#fff',
+    border: 'none',
+  },
 }));
 
-const SignUpForm: React.FC<ISignUpProps> = (props:ISignUpProps) => {
+const SignUpForm: React.FC<ISignUpProps> = (props: ISignUpProps) => {
   const classes = useStyles();
 
   const dispatch = useDispatch();
@@ -61,7 +84,7 @@ const SignUpForm: React.FC<ISignUpProps> = (props:ISignUpProps) => {
   const [emailInvalid, setEmailInvalid] = React.useState(false);
   const [userNameEmpty, setUserNameEmpty] = React.useState(false);
   const [userEmailEmpty, setUserEmailEmpty] = React.useState(false);
-
+  const { t } = useTranslation();
   const [userImageToUpload, setUserImageToUpload] = React.useState<string | ArrayBuffer>();
 
   const isRegistred = useSelector((state: IAppState) => state.registred);
@@ -79,6 +102,22 @@ const SignUpForm: React.FC<ISignUpProps> = (props:ISignUpProps) => {
     setConfirmPassword('');
     dispatch({ type: 'FAILED_ATTEMPT', payload: { failedAttempt: false } });
     props.handleClose();
+  };
+
+  const handleSubmit = () => {
+    if (!userName.length) {
+      setUserNameEmpty(true);
+    } else if (!userEmail.length) {
+      setUserEmailEmpty(true);
+    } else if (!/\S+@\S+\.\S+/.test(userEmail)) {
+      setEmailInvalid(true);
+    } else if (password.length < 6) {
+      setPasswordTooShort(true);
+    } else if (password !== confirmPassword) {
+      setPasswordMissmatch(true);
+    } else {
+      dispatch(signUpUser(userName, userEmail, password, userImageToUpload));
+    }
   };
 
   React.useEffect(() => {
@@ -130,27 +169,12 @@ const SignUpForm: React.FC<ISignUpProps> = (props:ISignUpProps) => {
             </label>
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign up
+            {t('sign_up')}
           </Typography>
           <form
             className={classes.form}
             noValidate
-            onSubmit={() => {
-              // setIsRegistred(false)
-              if (!userName.length) {
-                setUserNameEmpty(true);
-              } else if (!userEmail.length) {
-                setUserEmailEmpty(true);
-              } else if (!/\S+@\S+\.\S+/.test(userEmail)) {
-                setEmailInvalid(true);
-              } else if (password.length < 6) {
-                setPasswordTooShort(true);
-              } else if (password !== confirmPassword) {
-                setPasswordMissmatch(true);
-              } else {
-                dispatch(signUpUser(userName, userEmail, password, userImageToUpload));
-              }
-            }}
+            onSubmit={handleSubmit}
           >
             <Grid container spacing={2}>
               <Grid item xs={12}>
@@ -158,13 +182,13 @@ const SignUpForm: React.FC<ISignUpProps> = (props:ISignUpProps) => {
                   variant="outlined"
                   required
                   fullWidth
-                  id="Name"
-                  label="Name"
+                  id="name"
+                  label={t('name')}
                   name="name"
-                  autoComplete="name"
+                  autoComplete={t('name')}
                   error={userNameEmpty || isFailedAttempt}
-                  helperText={(userNameEmpty && 'enter name')
-                              || (isFailedAttempt && 'name is already taken')}
+                  helperText={(userNameEmpty && t('name_empty'))
+                              || (isFailedAttempt && t('sign_up_error'))}
                   onChange={(event) => {
                     setUserName(event.currentTarget.value);
                     dispatch({ type: 'FAILED_ATTEMPT', payload: { failedAttempt: false } });
@@ -181,11 +205,11 @@ const SignUpForm: React.FC<ISignUpProps> = (props:ISignUpProps) => {
                   fullWidth
                   id="email"
                   error={userEmailEmpty || emailInvalid}
-                  helperText={(userEmailEmpty && 'enter email')
-                              || (emailInvalid && 'email is invalid')}
-                  label="Email Address"
+                  helperText={(userEmailEmpty && t('name_empty'))
+                              || (emailInvalid && t('email_invalid'))}
+                  label={t('email')}
                   name="email"
-                  autoComplete="email"
+                  autoComplete={t('email')}
                   onChange={(event) => {
                     setUserEmail(event.currentTarget.value);
                   }}
@@ -201,12 +225,12 @@ const SignUpForm: React.FC<ISignUpProps> = (props:ISignUpProps) => {
                   required
                   fullWidth
                   name="password"
-                  label="Password"
+                  label={t('password')}
                   type="password"
                   id="password"
                   error={passwordTooShort}
-                  helperText={passwordTooShort && 'password length should be more than 6 symbols'}
-                  autoComplete="current-password"
+                  helperText={passwordTooShort && t('password_invalid')}
+                  autoComplete={t('password')}
                   onChange={(event) => {
                     setPassword(event.currentTarget.value);
                   }}
@@ -222,12 +246,12 @@ const SignUpForm: React.FC<ISignUpProps> = (props:ISignUpProps) => {
                   required
                   fullWidth
                   name="confirm_password"
-                  label="Confirm password"
+                  label={t('confirm_password')}
                   type="password"
                   error={passwordMissmatch}
-                  helperText={passwordMissmatch && 'does not match'}
-                  id="confirm_password password"
-                  autoComplete="current-password"
+                  helperText={passwordMissmatch && t('passwords_error')}
+                  id="confirm_password"
+                  autoComplete={t('confirm_password')}
                   onChange={(event) => {
                     setConfirmPassword(event.currentTarget.value);
                   }}
@@ -244,13 +268,20 @@ const SignUpForm: React.FC<ISignUpProps> = (props:ISignUpProps) => {
               color="primary"
               className={classes.submit}
             >
-              Sign Up
+              {t('sign_up')}
             </Button>
             <Grid container justify="flex-end">
               <Grid item>
-                {/* <label onClick={() => { props.handleClose(); }}>
-                  Already have an account? Sign in
-                </label> */}
+                <button
+                  className={classes.button}
+                  type="button"
+                  onClick={() => {
+                    props.handleClose();
+                    props.handleSnowSignInForm();
+                  }}
+                >
+                  {t('sign_in_form_switcher')}
+                </button>
               </Grid>
             </Grid>
           </form>

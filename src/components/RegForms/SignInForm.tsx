@@ -1,19 +1,23 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import { Modal } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import {
+  Button,
+  CssBaseline,
+  TextField,
+  Grid,
+  Typography,
+  Container,
+  Modal,
+  makeStyles,
+} from '@material-ui/core';
 import { IAppState } from '../../store/types';
 import { signInUser } from '../../controller/handlers';
 
 interface ISignInProps {
   isOpen: boolean,
-  handleClose: ()=>void;
+  handleClose: () => void;
+  handleShowSignUpForm: () => void;
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -35,9 +39,29 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  link: {
+    color: 'blue',
+  },
+  button: {
+    '&:hover': {
+      border: 'none',
+      outline: 'none',
+    },
+    '&:focus': {
+      border: 'none',
+      outline: 'none',
+    },
+    '&:active': {
+      border: 'none',
+      outline: 'none',
+    },
+    color: 'blue',
+    backgroundColor: '#fff',
+    border: 'none',
+  },
 }));
 
-const SignInForm:React.FC<ISignInProps> = (props:ISignInProps) => {
+const SignInForm: React.FC<ISignInProps> = (props: ISignInProps) => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
@@ -47,11 +71,22 @@ const SignInForm:React.FC<ISignInProps> = (props:ISignInProps) => {
   const [passwordEmpty, setPasswordEmpty] = React.useState(false);
   const isLoggedIn = useSelector((state: IAppState) => state.loggedIn);
   const isFailedAttempt = useSelector((state: IAppState) => state.failedAttempt);
+  const { t } = useTranslation();
 
   const handleClose = () => {
     setPasswordEmpty(false);
     dispatch({ type: 'FAILED_ATTEMPT', payload: { failedAttempt: false } });
     props.handleClose();
+  };
+
+  const handleSubmit = () => {
+    if (!userName.length) {
+      setUserNameEmpty(true);
+    } else if (!password.length) {
+      setPasswordEmpty(true);
+    } else {
+      dispatch(signInUser(userName, password));
+    }
   };
 
   React.useEffect(() => {
@@ -78,32 +113,24 @@ const SignInForm:React.FC<ISignInProps> = (props:ISignInProps) => {
         <CssBaseline />
         <div className={classes.paper}>
           <Typography component="h1" variant="h5">
-            Sign in
+            {t('sign_in')}
           </Typography>
           <form
             className={classes.form}
             noValidate
-            onSubmit={() => {
-              if (!userName.length) {
-                setUserNameEmpty(true);
-              } else if (!password.length) {
-                setPasswordEmpty(true);
-              } else {
-                dispatch(signInUser(userName, password));
-              }
-            }}
+            onSubmit={handleSubmit}
           >
             <TextField
               variant="outlined"
               margin="normal"
               required
               fullWidth
-              id="Name"
-              label="Name"
+              id="name"
+              label={t('name')}
               name="name"
-              autoComplete="name"
+              autoComplete={t('name')}
               error={userNameEmpty || isFailedAttempt}
-              helperText={(userNameEmpty && 'enter name') || (isFailedAttempt && '')}
+              helperText={(userNameEmpty && t('name_empty')) || (isFailedAttempt && '')}
               autoFocus
               onChange={(event) => {
                 setUserName(event.currentTarget.value);
@@ -119,13 +146,13 @@ const SignInForm:React.FC<ISignInProps> = (props:ISignInProps) => {
               required
               fullWidth
               name="password"
-              label="Password"
+              label={t('password')}
               type="password"
               id="password"
-              autoComplete="current-password"
+              autoComplete={t('password')}
               error={passwordEmpty || isFailedAttempt}
-              helperText={(passwordEmpty && 'enter password')
-                          || (isFailedAttempt && 'wrong name or password')}
+              helperText={(passwordEmpty && t('password_empty'))
+                          || (isFailedAttempt && t('sign_in_eror'))}
               onChange={(event) => {
                 setPassword(event.currentTarget.value);
               }}
@@ -141,13 +168,20 @@ const SignInForm:React.FC<ISignInProps> = (props:ISignInProps) => {
               color="primary"
               className={classes.submit}
             >
-              Sign In
+              {t('sign_in')}
             </Button>
             <Grid container justify="flex-end">
               <Grid item>
-                {/* <label onClick={() => { props.handleClose(); }}>
-                  Don't have an account? Sign Up
-                </label> */}
+                <button
+                  className={classes.button}
+                  type="button"
+                  onClick={() => {
+                    props.handleClose();
+                    props.handleShowSignUpForm();
+                  }}
+                >
+                  {t('sign_up_form_switcher')}
+                </button>
               </Grid>
             </Grid>
           </form>

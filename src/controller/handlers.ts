@@ -1,4 +1,5 @@
 import React from 'react';
+import { Dispatch } from 'redux';
 import { rootProps } from '../store/rootConnector';
 import i18n from '../i18next';
 import backendUrl from '../consts';
@@ -11,7 +12,7 @@ const handleLangChange = (props: rootProps, event: React.SyntheticEvent) => {
 
 export default handleLangChange;
 
-export const signInUser = (name: string, password: string) => (dispatch: any) => {
+export const signInUser = (name: string, password: string) => (dispatch: Dispatch) => {
   fetch(`${backendUrl}/auth/login`, {
     method: 'POST',
     cache: 'no-cache',
@@ -35,7 +36,7 @@ export const signInUser = (name: string, password: string) => (dispatch: any) =>
 };
 
 export const signUpUser = (name: string, email: string, password: string,
-  image: ArrayBuffer|string|undefined) => (dispatch: any) => {
+  image: ArrayBuffer|string|undefined) => (dispatch: Dispatch) => {
   fetch(`${backendUrl}/auth/register`, {
     method: 'POST',
     cache: 'no-cache',

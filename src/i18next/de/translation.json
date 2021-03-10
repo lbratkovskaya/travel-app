@@ -25,5 +25,21 @@
   },
   "jp": {
     "name": "Japan"
-  }
+  },
+  "name": "Name",
+  "password": "Passwort",
+  "email": "Email",
+  "sign_in": "Einloggen",
+  "sign_up": "Anmelden",
+  "name_empty": "Name eingeben",
+  "password_empty": "Passwort eingeben",
+  "password_invalid": "Die Passwortlänge sollte mehr als 6 Symbole betragen",
+  "empty_email": "Email eingeben",
+  "email_invalid": "Email ist ungültig",
+  "confirm_password": "Kennwort bestätigen",
+  "passwords_error": "stimmt nicht überein",
+  "sign_in_eror": "falscher Name oder Passwort",
+  "sign_up_error": "Name ist bereits vergeben",
+  "sign_in_form_switcher": "Sie haben bereits ein Konto? Einloggen",
+  "sign_up_form_switcher": "Haben sie kein Konto? Anmeldung"
 }

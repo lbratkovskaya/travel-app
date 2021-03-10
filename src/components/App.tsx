@@ -13,12 +13,6 @@ import './App.scss';
 import SignInForm from './RegForms/SignInForm';
 import SignUpForm from './RegForms/SignUpForm';
 
-// const [showSignUpForm, setShowSignUpForm] = React.useState(false);
-// const handleCloseSignUpForm = () => setShowSignUpForm(false);
-// const handleShowSignUpForm = () => {
-//   setShowSignUpForm(true);
-// };
-
 const App: React.FC<rootProps> = (props: rootProps) => {
   const [showSignInForm, setShowSignInForm] = React.useState(false);
   const handleCloseSignInForm = () => setShowSignInForm(false);
@@ -30,16 +24,22 @@ const App: React.FC<rootProps> = (props: rootProps) => {
 
   return (
     <div className="App">
-      {/* <SignInForm show={showSignInForm} onHide={handleCloseSignInForm}/>
-      <SignUpForm show={showSignUpForm} onHide={handleCloseSignUpForm}/> */}
       <Button type="button" onClick={handleShowSignInForm}>
         open sign in form
       </Button>
       <Button type="button" onClick={handleShowSignUpForm}>
         open sign up form
       </Button>
-      <SignInForm isOpen={showSignInForm} handleClose={handleCloseSignInForm} />
-      <SignUpForm isOpen={showSignUpForm} handleClose={handleCloseSignUpForm} />
+      <SignInForm
+        isOpen={showSignInForm}
+        handleClose={handleCloseSignInForm}
+        handleShowSignUpForm={handleShowSignUpForm}
+      />
+      <SignUpForm
+        isOpen={showSignUpForm}
+        handleClose={handleCloseSignUpForm}
+        handleSnowSignInForm={handleShowSignInForm}
+      />
       Language:
       {' '}
       {props.lang}

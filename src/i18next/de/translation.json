@@ -44,5 +44,8 @@
   "sign_up_form_switcher": "Haben sie kein Konto? Anmeldung",
   "english": "Englisch",
   "russian": "Russisch",
-  "german": "Deutsche"
+  "german": "Deutsche",
+  "language": "Sprache",
+  "auth": "Genehmigung",
+  "log_out": "Ausloggen"
 }

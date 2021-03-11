@@ -10,17 +10,15 @@ import {
   MenuItem,
   Menu,
   InputBase,
-  Avatar
+  Avatar,
 } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import FlagIcon from '@material-ui/icons/Flag';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import { useSelector } from 'react-redux';
 import rootConnector, { rootProps } from '../../store/rootConnector';
 import handleLangChange from '../../controller/handlers';
 import SignInForm from '../RegForms/SignInForm';
 import SignUpForm from '../RegForms/SignUpForm';
-import { useSelector } from 'react-redux';
 import { IAppState } from '../../store/types';
 
 const useStyles = makeStyles((theme) => ({
@@ -109,13 +107,30 @@ const useStyles = makeStyles((theme) => ({
       },
     },
   },
+  circle: {
+    height: '25px',
+    width: '25px',
+  },
 }));
 
 const Header: React.FC<rootProps> = (props: rootProps) => {
-
   const classes = useStyles();
   const { t } = useTranslation();
   const language = useSelector((state: IAppState) => state.lang);
+  const isLoggedIn = useSelector((state: IAppState) => state.loggedIn);
+  const userName = useSelector((state: IAppState) => state.userName);
+  const userImage = useSelector((state: IAppState) => state.userImage);
+
+  const avatarSymbol = userName ? userName[0] : 'A';
+  const userAvatar = (
+    userImage
+      ? <Avatar className={classes.circle} src={userImage} />
+      : <Avatar className={classes.circle}>{avatarSymbol}</Avatar>
+  );
+
+  const avatarElement = !isLoggedIn
+    ? <Avatar className={classes.circle} src="./assets/avatar.ico" />
+    : userAvatar;
 
   const [showSignInForm, setShowSignInForm] = React.useState(false);
   const handleCloseSignInForm = () => setShowSignInForm(false);
@@ -156,21 +171,6 @@ const Header: React.FC<rootProps> = (props: rootProps) => {
 
   const authId = 'menu-auth';
   const langId = 'menu-lang';
-
-  let langIconUrl = '';
-  switch (language) {
-    case('EN'):
-      langIconUrl = 'https://res.cloudinary.com/dchuno7xl/image/upload/v1615461844/travel-app/EN_zxhy7g.ico`';
-      break;
-    case('RU'):
-      langIconUrl = 'https://res.cloudinary.com/dchuno7xl/image/upload/v1615461844/travel-app/RU_uf8kww.ico';
-      break;
-    case('DE'):
-      langIconUrl = 'https://res.cloudinary.com/dchuno7xl/image/upload/v1615461844/travel-app/DE_bcx0jw.ico';
-      break;
-    default:
-      break;
-  }
 
   const authMenu = (
     <Menu
@@ -272,9 +272,9 @@ const Header: React.FC<rootProps> = (props: rootProps) => {
           aria-haspopup="true"
           color="inherit"
         >
-          <FlagIcon />
+          <Avatar className={classes.circle} src={`./assets/${language}.ico`} />
         </IconButton>
-        <p>Profile</p>
+        <p>{t('language')}</p>
       </MenuItem>
       <MenuItem onClick={handleAuthMenuOpen}>
         <IconButton
@@ -283,9 +283,10 @@ const Header: React.FC<rootProps> = (props: rootProps) => {
           aria-haspopup="true"
           color="inherit"
         >
-          <AccountCircle />
+          {avatarElement}
+          {/* <Avatar className={classes.circle} src={avatarSrc} /> */}
         </IconButton>
-        <p>Profile</p>
+        <p>{isLoggedIn ? t('log_out') : t('auth')}</p>
       </MenuItem>
     </Menu>
   );
@@ -332,7 +333,7 @@ const Header: React.FC<rootProps> = (props: rootProps) => {
               onClick={handleLangMenuOpen}
               color="inherit"
             >
-              <Avatar src={langIconUrl} />
+              <Avatar className={classes.circle} src={`./assets/${language}.ico`} />
             </IconButton>
             <IconButton
               edge="end"
@@ -342,7 +343,8 @@ const Header: React.FC<rootProps> = (props: rootProps) => {
               onClick={handleAuthMenuOpen}
               color="inherit"
             >
-              <AccountCircle />
+              {avatarElement}
+              {/* kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk */}
             </IconButton>
           </div>
           <div className={classes.sectionMobile}>
@@ -366,7 +368,3 @@ const Header: React.FC<rootProps> = (props: rootProps) => {
 };
 
 export default rootConnector(Header);
-
-//https://res.cloudinary.com/dchuno7xl/image/upload/v1615461844/travel-app/EN_zxhy7g.ico
-//https://res.cloudinary.com/dchuno7xl/image/upload/v1615461844/travel-app/RU_uf8kww.ico
-//https://res.cloudinary.com/dchuno7xl/image/upload/v1615461844/travel-app/DE_bcx0jw.ico

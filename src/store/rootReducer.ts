@@ -1,6 +1,6 @@
 import { IAppState, RootReducerAction } from './types';
 
-const initialState: IAppState = {
+let initialState: IAppState = {
   loggedIn: false,
   registred: false,
   failedAttempt: false,
@@ -65,27 +65,42 @@ const initialState: IAppState = {
   ],
 };
 
+const savedAppState = localStorage.getItem('appState');
+if (savedAppState !== null) {
+  initialState = JSON.parse(savedAppState);
+}
+
 const rootReducer = (state: IAppState = initialState, action: RootReducerAction) => {
+  let newState = state;
   switch (action.type) {
     case 'SET_LANG':
-      return { ...state, lang: action.payload.lang };
+      newState = { ...state, lang: action.payload.lang };
+      break;
     case 'LOGGED_IN':
-      return { ...state, loggedIn: action.payload.loggedIn };
+      newState = { ...state, loggedIn: action.payload.loggedIn };
+      break;
     case 'REGISTRED':
-      return { ...state, registred: action.payload.registred };
+      newState = { ...state, registred: action.payload.registred };
+      break;
     case 'FAILED_ATTEMPT':
-      return { ...state, failedAttempt: action.payload.failedAttempt };
+      newState = { ...state, failedAttempt: action.payload.failedAttempt };
+      break;
     case 'SET_USER_IMAGE':
-      return { ...state, userImage: action.payload.userImage };
+      newState = { ...state, userImage: action.payload.userImage };
+      break;
     case 'SET_USER_NAME':
-      return { ...state, userName: action.payload.userName };
+      newState = { ...state, userName: action.payload.userName };
+      break;
     case 'SHOW_LOADER':
-      return { ...state, isLoading: action.payload.isLoading };
+      newState = { ...state, isLoading: action.payload.isLoading };
+      break;
     case 'HIDE_LOADER':
-      return { ...state, isLoading: action.payload.isLoading };
+      newState = { ...state, isLoading: action.payload.isLoading };
+      break;
     default:
   }
-  return state;
+  localStorage.setItem('appState', JSON.stringify(newState));
+  return newState;
 };
 
 export default rootReducer;

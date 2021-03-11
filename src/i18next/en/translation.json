@@ -44,5 +44,8 @@
   "sign_up_form_switcher": "Do not have an account? Sign Up",
   "english": "English",
   "russian": "Russian",
-  "german": "German"
+  "german": "German",
+  "language": "Language",
+  "auth": "Auth",
+  "log_out": "Log out"
 }

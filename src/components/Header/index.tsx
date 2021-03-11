@@ -10,6 +10,7 @@ import {
   MenuItem,
   Menu,
   InputBase,
+  Avatar
 } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
@@ -19,6 +20,8 @@ import rootConnector, { rootProps } from '../../store/rootConnector';
 import handleLangChange from '../../controller/handlers';
 import SignInForm from '../RegForms/SignInForm';
 import SignUpForm from '../RegForms/SignUpForm';
+import { useSelector } from 'react-redux';
+import { IAppState } from '../../store/types';
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -112,6 +115,7 @@ const Header: React.FC<rootProps> = (props: rootProps) => {
 
   const classes = useStyles();
   const { t } = useTranslation();
+  const language = useSelector((state: IAppState) => state.lang);
 
   const [showSignInForm, setShowSignInForm] = React.useState(false);
   const handleCloseSignInForm = () => setShowSignInForm(false);
@@ -152,6 +156,21 @@ const Header: React.FC<rootProps> = (props: rootProps) => {
 
   const authId = 'menu-auth';
   const langId = 'menu-lang';
+
+  let langIconUrl = '';
+  switch (language) {
+    case('EN'):
+      langIconUrl = 'https://res.cloudinary.com/dchuno7xl/image/upload/v1615461844/travel-app/EN_zxhy7g.ico`';
+      break;
+    case('RU'):
+      langIconUrl = 'https://res.cloudinary.com/dchuno7xl/image/upload/v1615461844/travel-app/RU_uf8kww.ico';
+      break;
+    case('DE'):
+      langIconUrl = 'https://res.cloudinary.com/dchuno7xl/image/upload/v1615461844/travel-app/DE_bcx0jw.ico';
+      break;
+    default:
+      break;
+  }
 
   const authMenu = (
     <Menu
@@ -313,7 +332,7 @@ const Header: React.FC<rootProps> = (props: rootProps) => {
               onClick={handleLangMenuOpen}
               color="inherit"
             >
-              <FlagIcon />
+              <Avatar src={langIconUrl} />
             </IconButton>
             <IconButton
               edge="end"
@@ -347,3 +366,7 @@ const Header: React.FC<rootProps> = (props: rootProps) => {
 };
 
 export default rootConnector(Header);
+
+//https://res.cloudinary.com/dchuno7xl/image/upload/v1615461844/travel-app/EN_zxhy7g.ico
+//https://res.cloudinary.com/dchuno7xl/image/upload/v1615461844/travel-app/RU_uf8kww.ico
+//https://res.cloudinary.com/dchuno7xl/image/upload/v1615461844/travel-app/DE_bcx0jw.ico

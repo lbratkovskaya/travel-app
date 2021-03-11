@@ -1,7 +1,7 @@
 import { Country } from '../types';
 
 export interface IAppState {
-  lang: 'EN' | 'RU' | 'DE' | undefined,
+  lang: 'en' | 'ru' | 'de' | undefined,
   countries: Country[],
   loggedIn: boolean | undefined,
   registred: boolean | undefined,
@@ -14,7 +14,7 @@ export interface IAppState {
 export interface RootReducerAction {
   type: string,
   payload: {
-    lang?: 'EN' | 'RU' | 'DE',
+    lang?: 'en' | 'ru' | 'de',
     countries?: Country[],
     loggedIn?: boolean,
     registred?: boolean,

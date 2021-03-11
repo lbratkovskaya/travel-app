@@ -1,11 +1,9 @@
-import React from 'react';
 import { Dispatch } from 'redux';
 import { rootProps } from '../store/rootConnector';
 import i18n from '../i18next';
 import backendUrl from '../consts';
 
-const handleLangChange = (props: rootProps, event: React.SyntheticEvent) => {
-  const lng = event.currentTarget.id;
+const handleLangChange = (props: rootProps, lng: string) => {
   props.setLang(lng);
   i18n.changeLanguage(lng);
 };

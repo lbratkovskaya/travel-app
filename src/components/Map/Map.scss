@@ -12,8 +12,7 @@
   top: 0.5rem;
   right: 0.5rem;
   cursor: pointer;
-  font-size: 1.5rem;
-  transition: opacity 0.2s, transform 0.2s !important;
+  transition: opacity 0.2s, transform 0.2s;
 
   &:hover {
     transform: scale(1.25);

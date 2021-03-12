@@ -11,7 +11,7 @@ module.exports = (env, options) => {
     entry: path.resolve(__filename, '../src/index.tsx'),
     output: {
       path: path.resolve(__dirname, 'build'),
-      publicPath: '',
+      publicPath: '/',
       filename: 'bundle.js',
     },
     devServer: {
@@ -19,6 +19,7 @@ module.exports = (env, options) => {
       port: 3000,
       writeToDisk: true,
       open: true,
+      historyApiFallback: true,
     },
     module: {
       rules: [

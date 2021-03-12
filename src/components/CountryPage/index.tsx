@@ -9,6 +9,7 @@ import rootConnector, {
   rootProps,
 } from '../../store/rootConnector';
 import { URLParamTypes } from '../../types';
+import Map from '../Map';
 
 const CountryPage: React.FC<rootProps> = () => {
   const { t } = useTranslation();
@@ -17,7 +18,12 @@ const CountryPage: React.FC<rootProps> = () => {
 
   // TODO
 
-  return (<div title={t(`${countryId}.name`)}>{t(`${countryId}.name`)}</div>);
+  return (
+    <>
+      <div title={t(`${countryId}.name`)}>{t(`${countryId}.name`)}</div>
+      <Map />
+    </>
+  );
 };
 
 export default rootConnector(CountryPage);

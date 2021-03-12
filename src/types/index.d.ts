@@ -2,7 +2,7 @@ export interface Country {
   id: string,
   name: string,
   pictureURL: string,
-  capitalLatLng?: [number, number] | undefined,
+  capitalLatLng: [number, number],
 }
 
 export interface URLParamTypes {

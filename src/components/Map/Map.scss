@@ -1,0 +1,24 @@
+@import url('https://unpkg.com/leaflet@1.7.1/dist/leaflet.css');
+
+.MapContainer {
+  position: relative;
+  width: 80%;
+  height: 400px;
+}
+
+.fullscreen-icon {
+  position: absolute;
+  z-index: 900;
+  top: 0.5rem;
+  right: 0.5rem;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.2s;
+
+  &:hover {
+    transform: scale(1.25);
+  }
+
+  &:active {
+    opacity: 0.6;
+  }
+}

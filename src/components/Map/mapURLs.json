@@ -1,0 +1,5 @@
+{
+  "en": "https://api.mapbox.com/styles/v1/alexeyteterin/ckm4i40vq20tz17lhsfmmwsi6/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiYWxleGV5dGV0ZXJpbiIsImEiOiJja2ppaHYyeDMxOXE2MnhvN3J5eXoxeXJ0In0.jr2Ql5GDOrgMXi1mWaUJBQ",
+  "ru": "https://api.mapbox.com/styles/v1/alexeyteterin/ckm4lcssq1m9g17nw6o9jxlpb/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiYWxleGV5dGV0ZXJpbiIsImEiOiJja2ppaHYyeDMxOXE2MnhvN3J5eXoxeXJ0In0.jr2Ql5GDOrgMXi1mWaUJBQ",
+  "de": "https://api.mapbox.com/styles/v1/alexeyteterin/ckm4muzslajrq17rzvmfmeo97/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiYWxleGV5dGV0ZXJpbiIsImEiOiJja2ppaHYyeDMxOXE2MnhvN3J5eXoxeXJ0In0.jr2Ql5GDOrgMXi1mWaUJBQ"
+}

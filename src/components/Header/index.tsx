@@ -12,9 +12,7 @@ import {
   Menu,
   Avatar,
 } from '@material-ui/core';
-import SearchIcon from '@material-ui/icons/Search';
 import MoreIcon from '@material-ui/icons/MoreVert';
-import rootConnector, { rootProps } from '../../store/rootConnector';
 import handleLangChange from '../../controller/handlers';
 import { IAppState } from '../../store/types';
 import SignInForm from '../RegForms/SignInForm';
@@ -51,9 +49,6 @@ const useStyles = makeStyles((theme) => ({
   },
   root: {
     flexGrow: 1,
-  },
-  menuButton: {
-    marginRight: '16px',
   },
   title: {
     flexGrow: 1,
@@ -94,37 +89,13 @@ const useStyles = makeStyles((theme) => ({
     },
     height: '70%',
   },
-  searchIcon: {
-    padding: theme.spacing(0, 2),
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  inputRoot: {
-    color: 'inherit',
-  },
-  inputInput: {
-    padding: '8px 8px 8px 0',
-    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      width: '12ch',
-      '&:focus': {
-        width: '20ch',
-      },
-    },
-  },
   circle: {
     height: '25px',
     width: '25px',
   },
 }));
 
-const Header: React.FC<rootProps> = (props: rootProps) => {
+const Header: React.FC = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -142,7 +113,7 @@ const Header: React.FC<rootProps> = (props: rootProps) => {
   );
 
   const avatarElement = !isLoggedIn
-    ? <Avatar className={classes.circle} src="./assets/avatar.ico" />
+    ? <Avatar className={classes.circle} src="/assets/avatar.ico" />
     : userAvatar;
 
   const [showSignInForm, setShowSignInForm] = React.useState(false);
@@ -257,7 +228,7 @@ const Header: React.FC<rootProps> = (props: rootProps) => {
     >
       <MenuItem
         onClick={() => {
-          handleLangChange(props, 'en');
+          dispatch(handleLangChange('en'));
           handleLangMenuClose();
         }}
       >
@@ -265,7 +236,7 @@ const Header: React.FC<rootProps> = (props: rootProps) => {
       </MenuItem>
       <MenuItem
         onClick={() => {
-          handleLangChange(props, 'ru');
+          dispatch(handleLangChange('ru'));
           handleLangMenuClose();
         }}
       >
@@ -273,7 +244,7 @@ const Header: React.FC<rootProps> = (props: rootProps) => {
       </MenuItem>
       <MenuItem
         onClick={() => {
-          handleLangChange(props, 'de');
+          dispatch(handleLangChange('de'));
           handleLangMenuClose();
         }}
       >
@@ -292,13 +263,10 @@ const Header: React.FC<rootProps> = (props: rootProps) => {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      { window.location.pathname === '/'
+      {window.location.pathname === '/'
       && (
       <MenuItem>
         <div className={`${classes.search_mobile}`}>
-          <div className={classes.searchIcon}>
-            <SearchIcon />
-          </div>
           <Search />
         </div>
       </MenuItem>
@@ -310,7 +278,7 @@ const Header: React.FC<rootProps> = (props: rootProps) => {
           aria-haspopup="true"
           color="inherit"
         >
-          <Avatar className={classes.circle} src={`./assets/${language}.ico`} />
+          <Avatar className={classes.circle} src={`/assets/${language}.ico`} />
         </IconButton>
         <p>{t('language')}</p>
       </MenuItem>
@@ -343,7 +311,7 @@ const Header: React.FC<rootProps> = (props: rootProps) => {
       <AppBar className={classes.appBar} position="static">
         <Toolbar>
           <a href="/">
-            <Avatar src="./assets/logo.svg" />
+            <Avatar src="/assets/logo.svg" />
           </a>
           <Typography
             className={classes.titleLogo}
@@ -352,12 +320,7 @@ const Header: React.FC<rootProps> = (props: rootProps) => {
             Travel app
           </Typography>
           <div className={classes.sectionDesktop}>
-            <div className={classes.search}>
-              <div className={classes.searchIcon}>
-                <SearchIcon />
-              </div>
-              <Search />
-            </div>
+            {window.location.pathname === '/' && <Search />}
             <IconButton
               edge="end"
               aria-label="Choose language"
@@ -366,7 +329,7 @@ const Header: React.FC<rootProps> = (props: rootProps) => {
               onClick={handleLangMenuOpen}
               color="inherit"
             >
-              <Avatar className={classes.circle} src={`./assets/${language}.ico`} />
+              <Avatar className={classes.circle} src={`/assets/${language}.ico`} />
             </IconButton>
             <IconButton
               edge="end"
@@ -400,4 +363,4 @@ const Header: React.FC<rootProps> = (props: rootProps) => {
   );
 };
 
-export default rootConnector(Header);
+export default Header;

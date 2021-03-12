@@ -10,6 +10,7 @@ import rootConnector, {
 } from '../../store/rootConnector';
 import { URLParamTypes } from '../../types';
 import Map from '../Map';
+import Header from '../Header';
 
 const CountryPage: React.FC<rootProps> = () => {
   const { t } = useTranslation();
@@ -19,7 +20,10 @@ const CountryPage: React.FC<rootProps> = () => {
 
   return (
     <>
-      <div title={t(`${countryId}.name`)}>{t(`${countryId}.name`)}</div>
+      <Header />
+      <div title={t(`${countryId}.name`)}>
+        {t(`${countryId}.name`)}
+      </div>
       <Map />
     </>
   );

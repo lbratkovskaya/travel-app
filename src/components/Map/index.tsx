@@ -6,10 +6,10 @@ import {
 import Leaflet from 'leaflet';
 import FullScreenIcon from '@material-ui/icons/FullscreenRounded';
 import rootConnector, { rootProps } from '../../store/rootConnector';
-import './Map.scss';
 import { URLParamTypes } from '../../types';
 import mapURLs from './mapURLs.json';
 import borders from './borders.json';
+import './Map.scss';
 
 const borderStyle = () => ({
   weight: 2,

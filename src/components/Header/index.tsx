@@ -1,5 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   fade,
   makeStyles,
@@ -9,19 +10,29 @@ import {
   Typography,
   MenuItem,
   Menu,
-  InputBase,
   Avatar,
 } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import MoreIcon from '@material-ui/icons/MoreVert';
-import { useSelector } from 'react-redux';
 import rootConnector, { rootProps } from '../../store/rootConnector';
 import handleLangChange from '../../controller/handlers';
+import { IAppState } from '../../store/types';
 import SignInForm from '../RegForms/SignInForm';
 import SignUpForm from '../RegForms/SignUpForm';
-import { IAppState } from '../../store/types';
+import Search from './Search';
 
 const useStyles = makeStyles((theme) => ({
+  appBar: {
+    background: 'none',
+    boxShadow: 'none',
+  },
+  titleLogo: {
+    display: 'flex',
+    marginRight: 'auto',
+    marginLeft: '2vh',
+    alignItems: 'center',
+    justifyContent: 'start',
+  },
   grow: {
     flexGrow: 1,
     width: '100%',
@@ -42,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   menuButton: {
-    marginRight: theme.spacing(2),
+    marginRight: '16px',
   },
   title: {
     flexGrow: 1,
@@ -115,7 +126,9 @@ const useStyles = makeStyles((theme) => ({
 
 const Header: React.FC<rootProps> = (props: rootProps) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const { t } = useTranslation();
+
   const language = useSelector((state: IAppState) => state.lang);
   const isLoggedIn = useSelector((state: IAppState) => state.loggedIn);
   const userName = useSelector((state: IAppState) => state.userName);
@@ -169,14 +182,45 @@ const Header: React.FC<rootProps> = (props: rootProps) => {
     handleMobileMenuClose();
   };
 
-  const authId = 'menu-auth';
+  const [anchorLogOut, setAnchorLogOut] = React.useState<Element>();
+  const isLogOutMenuOpen = Boolean(anchorLogOut);
+  const handleLogOutMenuOpen = (event: React.SyntheticEvent) => {
+    setAnchorLogOut(event.currentTarget);
+  };
+  const handleLogOutMenuClose = () => {
+    setAnchorLogOut(undefined);
+    handleMobileMenuClose();
+  };
+
+  const handleAuthUserMenuOpen = !isLoggedIn ? handleAuthMenuOpen : handleLogOutMenuOpen;
+  const authId = !isLoggedIn ? 'menu-auth' : 'menu-logOut';
   const langId = 'menu-lang';
+  const mobileMenuId = 'menu-mobile';
+
+  const logOutMenu = (
+    <Menu
+      anchorEl={anchorLogOut}
+      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      id="menu-logOut"
+      keepMounted
+      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+      open={isLogOutMenuOpen}
+      onClose={handleLogOutMenuClose}
+      onClick={() => {
+        dispatch({ type: 'LOGGED_IN', payload: { loggedIn: false } });
+      }}
+    >
+      <MenuItem onClick={handleLogOutMenuClose}>
+        {t('log_out')}
+      </MenuItem>
+    </Menu>
+  );
 
   const authMenu = (
     <Menu
       anchorEl={anchorAuth}
       anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-      id={authId}
+      id="menu-auth"
       keepMounted
       transformOrigin={{ vertical: 'top', horizontal: 'right' }}
       open={isAuthMenuOpen}
@@ -238,8 +282,6 @@ const Header: React.FC<rootProps> = (props: rootProps) => {
     </Menu>
   );
 
-  const mobileMenuId = 'menu-mobile';
-
   const mobileMenu = (
     <Menu
       anchorEl={mobileMoreAnchorEl}
@@ -250,21 +292,17 @@ const Header: React.FC<rootProps> = (props: rootProps) => {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
+      { window.location.pathname === '/'
+      && (
       <MenuItem>
         <div className={`${classes.search_mobile}`}>
           <div className={classes.searchIcon}>
             <SearchIcon />
           </div>
-          <InputBase
-            placeholder="Search…"
-            classes={{
-              root: classes.inputRoot,
-              input: classes.inputInput,
-            }}
-            inputProps={{ 'aria-label': 'search' }}
-          />
+          <Search />
         </div>
       </MenuItem>
+      )}
       <MenuItem onClick={handleLangMenuOpen}>
         <IconButton
           aria-label="Choose lang"
@@ -276,7 +314,7 @@ const Header: React.FC<rootProps> = (props: rootProps) => {
         </IconButton>
         <p>{t('language')}</p>
       </MenuItem>
-      <MenuItem onClick={handleAuthMenuOpen}>
+      <MenuItem onClick={handleAuthUserMenuOpen}>
         <IconButton
           aria-label="account of current user"
           aria-controls={authId}
@@ -284,7 +322,6 @@ const Header: React.FC<rootProps> = (props: rootProps) => {
           color="inherit"
         >
           {avatarElement}
-          {/* <Avatar className={classes.circle} src={avatarSrc} /> */}
         </IconButton>
         <p>{isLoggedIn ? t('log_out') : t('auth')}</p>
       </MenuItem>
@@ -303,27 +340,23 @@ const Header: React.FC<rootProps> = (props: rootProps) => {
         handleClose={handleCloseSignUpForm}
         handleSnowSignInForm={handleShowSignInForm}
       />
-      <AppBar position="static">
+      <AppBar className={classes.appBar} position="static">
         <Toolbar>
+          <a href="/">
+            <Avatar src="./assets/logo.svg" />
+          </a>
           <Typography
+            className={classes.titleLogo}
             variant="h6"
           >
             Travel app
           </Typography>
-          <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
             <div className={classes.search}>
               <div className={classes.searchIcon}>
                 <SearchIcon />
               </div>
-              <InputBase
-                placeholder="Search…"
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput,
-                }}
-                inputProps={{ 'aria-label': 'search' }}
-              />
+              <Search />
             </div>
             <IconButton
               edge="end"
@@ -340,11 +373,10 @@ const Header: React.FC<rootProps> = (props: rootProps) => {
               aria-label="account of current user"
               aria-controls={authId}
               aria-haspopup="true"
-              onClick={handleAuthMenuOpen}
+              onClick={handleAuthUserMenuOpen}
               color="inherit"
             >
               {avatarElement}
-              {/* kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk */}
             </IconButton>
           </div>
           <div className={classes.sectionMobile}>
@@ -363,6 +395,7 @@ const Header: React.FC<rootProps> = (props: rootProps) => {
       {mobileMenu}
       {authMenu}
       {langMenu}
+      {logOutMenu}
     </div>
   );
 };

@@ -13,7 +13,6 @@ import Map from '../Map';
 
 const CountryPage: React.FC<rootProps> = () => {
   const { t } = useTranslation();
-
   const { countryId } = useParams<URLParamTypes>();
 
   // TODO

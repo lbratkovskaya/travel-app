@@ -177,11 +177,10 @@ const Header: React.FC = () => {
       transformOrigin={{ vertical: 'top', horizontal: 'right' }}
       open={isLogOutMenuOpen}
       onClose={handleLogOutMenuClose}
-      onClick={() => {
-        dispatch({ type: 'LOGGED_IN', payload: { loggedIn: false } });
-      }}
     >
-      <MenuItem onClick={handleLogOutMenuClose}>
+      <MenuItem onClick={ () =>
+        dispatch({ type: 'LOGGED_IN', payload: { loggedIn: false } })
+      }>
         {t('log_out')}
       </MenuItem>
     </Menu>

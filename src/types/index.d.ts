@@ -1,7 +1,7 @@
 export interface Country {
   id: string,
   pictureURL: string,
-  capitalLatLng?: [number, number] | undefined,
+  capitalLatLng?: [number, number],
   nameEN: string,
   nameRU: string,
   nameDE: string,

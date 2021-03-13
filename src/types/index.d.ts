@@ -13,6 +13,7 @@ export interface Country {
   infoDE: string,
   currency: string,
   videoURL: string
+  capitalTimeZone: string,
 }
 
 export interface URLParamTypes {

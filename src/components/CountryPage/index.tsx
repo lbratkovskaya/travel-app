@@ -11,6 +11,7 @@ import rootConnector, {
 import { URLParamTypes } from '../../types';
 import Map from '../Map';
 import Header from '../Header';
+import TimeWidget from '../TimeWidget/TimeWidget';
 import WeatherWidget from '../WeatherWidget';
 
 const CountryPage: React.FC<rootProps> = () => {
@@ -28,6 +29,7 @@ const CountryPage: React.FC<rootProps> = () => {
       <Map />
       <div title={t(`${countryId}.name`)}>{t(`${countryId}.name`)}</div>
       <WeatherWidget />
+      <TimeWidget />
     </>
   );
 };

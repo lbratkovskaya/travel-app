@@ -1,0 +1,20 @@
+.time-widget {
+  position: absolute;
+  top: 250px;
+  right: 10px;
+  max-width: 200px;
+  background-color: #d8ebf9;
+  color: #7c7c7c;
+  border-radius: 8px;
+  padding: 16px;
+  z-index: 100;
+  box-shadow: 3px 4px 8px #d2d2d2;
+
+  .time-icon {
+    color: #3ddbc1;
+  }
+  .time-state {
+    display: flex;
+    flex-direction: column;
+  }
+}

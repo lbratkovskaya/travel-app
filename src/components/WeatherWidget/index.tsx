@@ -6,12 +6,11 @@ import rootConnector,
 } from '../../store/rootConnector';
 import { Country, URLParamTypes } from '../../types';
 import { WeatherData } from './types';
+import API_URL_NO_PARAM from './constants';
 import './index.scss';
 import './owf-font.scss';
 
-const API_KEY = '2bd82ee7444fb5848885689e5988a2ca';
-
-const ImagesGrid: React.FC<rootProps> = (props: rootProps) => {
+const WeatherWidget: React.FC<rootProps> = (props: rootProps) => {
   const { countryId } = useParams<URLParamTypes>();
   const [weatherData, setWeatherData] = useState({});
   const { lang, countries } = props;
@@ -22,7 +21,7 @@ const ImagesGrid: React.FC<rootProps> = (props: rootProps) => {
 
   useEffect(() => {
     if (latlng) {
-      const API_URL = `http://api.openweathermap.org/data/2.5/weather?lat=${latlng[0]}&lon=${latlng[1]}&units=metric&appid=${API_KEY}&lang=${lang}`;
+      const API_URL = `${API_URL_NO_PARAM}&lang=${lang}&lat=${latlng[0]}&lon=${latlng[1]}`;
 
       fetch(API_URL)
         .then((res) => res.json())
@@ -56,4 +55,4 @@ const ImagesGrid: React.FC<rootProps> = (props: rootProps) => {
   );
 };
 
-export default rootConnector(ImagesGrid);
+export default rootConnector(WeatherWidget);

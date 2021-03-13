@@ -41,5 +41,12 @@
   "sign_in_eror": "wrong name or password",
   "sign_up_error": "name is already taken",
   "sign_in_form_switcher": "Already have an account? Sign in",
-  "sign_up_form_switcher": "Do not have an account? Sign Up"
+  "sign_up_form_switcher": "Do not have an account? Sign Up",
+  "english": "English",
+  "russian": "Russian",
+  "german": "German",
+  "language": "Language",
+  "auth": "Auth",
+  "log_out": "Log out",
+  "search": "...Search"
 }

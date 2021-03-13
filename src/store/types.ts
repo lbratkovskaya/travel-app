@@ -2,7 +2,8 @@ import { Country } from '../types';
 
 export interface IAppState {
   lang: 'en' | 'ru' | 'de' | undefined,
-  countries: Country[],
+  countries: Country[] | undefined,
+  countriesList: Country[] | undefined,
   loggedIn: boolean | undefined,
   registred: boolean | undefined,
   userName: string | undefined,

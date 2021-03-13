@@ -1,13 +1,8 @@
-import React from 'react';
 import { Dispatch } from 'redux';
-import { rootProps } from '../store/rootConnector';
-import i18n from '../i18next';
 import backendUrl from '../consts';
 
-const handleLangChange = (props: rootProps, event: React.SyntheticEvent) => {
-  const lng = event.currentTarget.id;
-  props.setLang(lng);
-  i18n.changeLanguage(lng);
+const handleLangChange = (lang: string) => (dispatch: Dispatch) => {
+  dispatch({ type: 'SET_LANG', payload: { lang } });
 };
 
 export default handleLangChange;
@@ -65,5 +60,17 @@ export const signUpUser = (name: string, email: string, password: string,
         dispatch({ type: 'HIDE_LOADER', payload: { isLoading: false } });
       });
     }
+  });
+};
+
+export const fetchCountries = () => (dispatch: Dispatch) => {
+  dispatch({ type: 'SHOW_LOADER', payload: { isLoading: true } });
+  fetch(`${backendUrl}/countries`).then((response) => {
+    if (response.status === 200) {
+      response.json().then((result) => {
+        dispatch({ type: 'SET_COUNTRIES', payload: { countries: result } });
+      });
+    }
+    dispatch({ type: 'HIDE_LOADER', payload: { isLoading: false } });
   });
 };

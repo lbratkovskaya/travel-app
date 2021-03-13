@@ -41,5 +41,12 @@
   "sign_in_eror": "falscher Name oder Passwort",
   "sign_up_error": "Name ist bereits vergeben",
   "sign_in_form_switcher": "Sie haben bereits ein Konto? Einloggen",
-  "sign_up_form_switcher": "Haben sie kein Konto? Anmeldung"
+  "sign_up_form_switcher": "Haben sie kein Konto? Anmeldung",
+  "english": "Englisch",
+  "russian": "Russisch",
+  "german": "Deutsche",
+  "language": "Sprache",
+  "auth": "Genehmigung",
+  "log_out": "Ausloggen",
+  "search": "...Suche"
 }

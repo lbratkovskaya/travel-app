@@ -275,7 +275,7 @@ const SignUpForm: React.FC<ISignUpProps> = (props: ISignUpProps) => {
                   color="primary"
                   className={classes.submit}
                 >
-                  {t('sign_in')}
+                  {t('sign_up')}
                 </Button>
               )}
             <Grid container justify="flex-end">

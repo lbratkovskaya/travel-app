@@ -8,6 +8,8 @@
     "@material-ui/icons": "^4.11.2",
     "i18next": "^19.9.1",
     "leaflet": "^1.7.1",
+    "material-ui": "^0.20.2",
+    "material-ui-search-bar": "^1.0.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-i18next": "^11.8.8",

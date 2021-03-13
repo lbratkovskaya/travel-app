@@ -34,7 +34,7 @@ function CountryBorder(props: IBorder) {
 const Map: React.FC<rootProps> = (props: rootProps) => {
   const { countries, lang } = props;
   const { countryId } = useParams<URLParamTypes>();
-  const { capitalLatLng } = countries.find((el) => el.id === countryId)!;
+  const { capitalLatLng } = countries?.find((el) => el.id === countryId)!;
 
   const handleFullScreen = () => {
     console.log('full screen on');
@@ -58,11 +58,12 @@ const Map: React.FC<rootProps> = (props: rootProps) => {
       <TileLayer
         url={mapURLs[lang!]}
       />
+      {capitalLatLng &&
       <Marker position={capitalLatLng}>
         <Popup>
           Capital name will be here
         </Popup>
-      </Marker>
+      </Marker>}
     </MapContainer>
   );
 };

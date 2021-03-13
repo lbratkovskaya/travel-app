@@ -11,6 +11,7 @@ import rootConnector, {
 import { URLParamTypes } from '../../types';
 import Map from '../Map';
 import Header from '../Header';
+import WeatherWidget from '../WeatherWidget';
 
 const CountryPage: React.FC<rootProps> = () => {
   const { t } = useTranslation();
@@ -25,6 +26,8 @@ const CountryPage: React.FC<rootProps> = () => {
         {t(`${countryId}.name`)}
       </div>
       <Map />
+      <div title={t(`${countryId}.name`)}>{t(`${countryId}.name`)}</div>
+      <WeatherWidget />
     </>
   );
 };

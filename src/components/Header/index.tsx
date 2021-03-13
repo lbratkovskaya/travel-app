@@ -178,9 +178,7 @@ const Header: React.FC = () => {
       open={isLogOutMenuOpen}
       onClose={handleLogOutMenuClose}
     >
-      <MenuItem onClick={ () =>
-        dispatch({ type: 'LOGGED_IN', payload: { loggedIn: false } })
-      }>
+      <MenuItem onClick={() => dispatch({ type: 'LOGGED_IN', payload: { loggedIn: false } })}>
         {t('log_out')}
       </MenuItem>
     </Menu>

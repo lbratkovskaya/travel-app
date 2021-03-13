@@ -37,7 +37,6 @@ const Map: React.FC<rootProps> = (props: rootProps) => {
   const { capitalLatLng } = countries?.find((el) => el.id === countryId)!;
 
   const handleFullScreen = () => {
-    console.log('full screen on');
   };
 
   return (
@@ -58,12 +57,14 @@ const Map: React.FC<rootProps> = (props: rootProps) => {
       <TileLayer
         url={mapURLs[lang!]}
       />
-      {capitalLatLng &&
+      {capitalLatLng
+      && (
       <Marker position={capitalLatLng}>
         <Popup>
           Capital name will be here
         </Popup>
-      </Marker>}
+      </Marker>
+      )}
     </MapContainer>
   );
 };

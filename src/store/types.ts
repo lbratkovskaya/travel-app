@@ -1,4 +1,4 @@
-import { Country } from '../types';
+import { Country, Review, Sight } from '../types';
 
 export interface IAppState {
   lang: 'en' | 'ru' | 'de' | undefined,
@@ -9,7 +9,9 @@ export interface IAppState {
   userName: string | undefined,
   userImage: string | undefined,
   failedAttempt: boolean | undefined,
-  isLoading: boolean | undefined;
+  isLoading: boolean | undefined,
+  sights: Sight[] | undefined,
+  reviews: Review[] | undefined,
 }
 
 export interface RootReducerAction {
@@ -22,6 +24,8 @@ export interface RootReducerAction {
     userName?: string,
     userImage?: string,
     failedAttempt?: boolean,
-    isLoading?: boolean;
+    isLoading?: boolean,
+    sights?: Sight[],
+    reviews?: Review[],
   }
 }

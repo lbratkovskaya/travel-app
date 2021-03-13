@@ -13,7 +13,7 @@ import { IAppState, RootReducerAction } from './types';
 //   capitalLatLng: [-6.173056, 35.741944],
 // },
 // {
-//   id: 'sp',
+//   id: 'es',
 //   name: 'Spain',
 //   pictureURL: 'https://i-fakt.ru/wp-content/uploads/2019/12/fakty-barselona.jpg',
 //   capitalLatLng: [40.416667, -3.716667],

@@ -10,8 +10,9 @@ import rootConnector, {
 } from '../../store/rootConnector';
 import { URLParamTypes } from '../../types';
 import Map from '../Map';
+import CurrencyWidget from '../CurrencyWidget';
 import Header from '../Header';
-import TimeWidget from '../TimeWidget/TimeWidget';
+import TimeWidget from '../TimeWidget';
 import WeatherWidget from '../WeatherWidget';
 
 const CountryPage: React.FC<rootProps> = () => {
@@ -30,6 +31,7 @@ const CountryPage: React.FC<rootProps> = () => {
       <div title={t(`${countryId}.name`)}>{t(`${countryId}.name`)}</div>
       <WeatherWidget />
       <TimeWidget />
+      <CurrencyWidget />
     </>
   );
 };

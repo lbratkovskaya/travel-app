@@ -10,7 +10,7 @@ const TimeWidget: React.FC<rootProps> = (props: rootProps) => {
   const [localTime, setLocalTime] = useState<Date>(new Date());
   const { lang, countries } = props;
 
-  const currentCountry: Country | undefined = countries
+  const currentCountry: Country | undefined = countries && countries
     .find((country: Country) => country.id === countryId);
   const capitalTimeZone: string | undefined = currentCountry?.capitalTimeZone;
 
@@ -33,10 +33,10 @@ const TimeWidget: React.FC<rootProps> = (props: rootProps) => {
 
   return (
     <div className="time-widget">
-      <div>
+      <div className="time-widget-icon">
         <AccessTimeOutlined />
       </div>
-      <div className="time-state">
+      <div className="time-widget-data">
         <span>{`${localTime?.toLocaleDateString(lang, timeZone)}`}</span>
         <span>{`${localTime?.toLocaleTimeString(lang, timeOptions)}`}</span>
       </div>

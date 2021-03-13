@@ -1,8 +1,8 @@
-.time-widget {
+.currency-widget {
   position: absolute;
-  top: 250px;
+  top: 395px;
   right: 10px;
-  max-width: 200px;
+  max-width: 240px;
   background-color: #d8ebf9;
   color: #7c7c7c;
   border-radius: 8px;
@@ -10,11 +10,15 @@
   z-index: 1000;
   box-shadow: 3px 4px 8px #d2d2d2;
 
-  .time-widget-icon {
+  .currency-widget-icon {
     color: #3ddbc1;
   }
-  .time-widget-data {
+  .currency-widget-data {
     display: flex;
     flex-direction: column;
+
+    .curr-key {
+      font-size: 1rem;
+  }
   }
 }

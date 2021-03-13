@@ -1,5 +1,8 @@
-// const API_KEY = 'e3a16d49-26ed-4f96-b61e-facaef80237a';
+// const API_URL_NO_PARAM = 'https://rs-travel-app.herokuapp.com/currencies?';
+const API_URL_NO_PARAM = 'http://localhost:8000/currencies?';
 
-const API_URL = 'https://api.exchangeratesapi.io/latest?symbols=USD,RUB&base=EUR';
-
-export default API_URL;
+const ROUND_RATE = 10000;
+export {
+  API_URL_NO_PARAM,
+  ROUND_RATE,
+};

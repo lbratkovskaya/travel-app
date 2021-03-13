@@ -7,13 +7,13 @@
   color: #7c7c7c;
   border-radius: 8px;
   padding: 16px;
-  z-index: 100;
+  z-index: 1000;
   box-shadow: 3px 4px 8px #d2d2d2;
 
-  .weather-icon {
+  .weather-widget-icon {
     color: #3ddbc1;
   }
-  .weather-state {
+  .weather-widget-state {
     display: flex;
     flex-direction: column;
   }

@@ -2,6 +2,7 @@ import { CircularProgress } from '@material-ui/core';
 import { AttachMoneyOutlined } from '@material-ui/icons';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import rootConnector,
 {
   rootProps,
@@ -23,6 +24,8 @@ const CurrencyWidget: React.FC<rootProps> = (props: rootProps) => {
   const [currencyData, setCurrencyData] = useState<{ [key: string]: number } | null>({});
   const [isLoading, setLoading] = useState<boolean>(true);
   const { countries } = props;
+
+  const { t } = useTranslation();
 
   const currentCountry: Country | undefined = countries && countries
     .find((country: Country) => country.id === countryId);
@@ -65,6 +68,8 @@ const CurrencyWidget: React.FC<rootProps> = (props: rootProps) => {
       </div>
     ));
 
+  const countryName: string = t(`${currentCountry?.id}.name`);
+  const errorMessage: string = t('currency_fetch_error', { countryName });
   return (
     <div className="currency-widget">
       {isLoading ? <CircularProgress /> : null}
@@ -81,7 +86,7 @@ const CurrencyWidget: React.FC<rootProps> = (props: rootProps) => {
         )
         : (
           <div className="widget-error">
-            {`Could not get currencies for ${currency}`}
+            {errorMessage}
           </div>
         )}
     </div>

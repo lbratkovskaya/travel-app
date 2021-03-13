@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import rootConnector,
 {
   rootProps,
@@ -15,6 +16,8 @@ const WeatherWidget: React.FC<rootProps> = (props: rootProps) => {
   const [weatherData, setWeatherData] = useState<WeatherData>({} as WeatherData);
   const [errorMsg, setErrorMsg] = useState<string>('');
   const { lang, countries } = props;
+
+  const { t } = useTranslation();
 
   const currentCountry: Country | undefined = countries && countries
     .find((country: Country) => country.id === countryId);
@@ -42,7 +45,7 @@ const WeatherWidget: React.FC<rootProps> = (props: rootProps) => {
         })
         .catch((error) => setErrorMsg(error.toLocaleString(lang)));
     }
-  }, [currentCountry]);
+  }, [currentCountry, lang]);
 
   return (
     <div className="weather-widget">
@@ -58,14 +61,14 @@ const WeatherWidget: React.FC<rootProps> = (props: rootProps) => {
             </div>
             <div className="weather-widget-state">
               <span>{`${weatherData.description}, `}</span>
-              <span>{`wind ${weatherData.windSpeed} m/s, `}</span>
-              <span>{`hum. ${weatherData.humidity}%`}</span>
+              <span>{`${t('wind')} ${weatherData.windSpeed} ${t('m_s')}, `}</span>
+              <span>{`${t('r_h')} ${weatherData.humidity}%`}</span>
             </div>
           </>
         )
         : (
           <div className="widget-error">
-            {`Something went wrong on weather fetch:${errorMsg}`}
+            {`${t('weather_fetch_error')}${errorMsg}`}
           </div>
         )}
     </div>

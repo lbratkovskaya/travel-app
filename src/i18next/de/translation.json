@@ -48,5 +48,10 @@
   "language": "Sprache",
   "auth": "Genehmigung",
   "log_out": "Ausloggen",
-  "search": "...Suche"
+  "search": "...Suche",
+  "wind":"Wind",
+  "m_s":"m/s",
+  "r_h":"RH",
+  "weather_fetch_error":"Wetterdaten konnten nicht abgerufen werden:",
+  "currency_fetch_error":"Währungen für {{countryName}} konnten nicht erhalten werden"
 }

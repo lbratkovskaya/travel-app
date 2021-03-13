@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom';
 import { Button } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
+import ReactPlayer from 'react-player';
 import rootConnector, {
   rootProps,
 } from '../../store/rootConnector';
@@ -33,8 +34,6 @@ const CountryPage: React.FC<rootProps> = () => {
     dispatch(fetchSights(countryId));
   }, []);
 
-  // TODO
-
   return (
     <>
       <Header />
@@ -46,7 +45,7 @@ const CountryPage: React.FC<rootProps> = () => {
       >
         SET RATE/STAR_ICON
       </Button>
-      {/* <span>{`Sight rate is: ${currentRate}`}</span> */}
+        {/* <span>{`Sight rate is: ${currentRate}`}</span> */}
       <Button onClick={() => {
         if (isLoggedIn && userName) {
           dispatch(setReviewWithRate(userName, 'nnndfsdfasdgasdfad', 82, 'wonderful!'));
@@ -61,6 +60,7 @@ const CountryPage: React.FC<rootProps> = () => {
       >
         GET REVIEWS
       </Button>
+      <ReactPlayer playing={true} width={'100%'} height={'100%'} url="./assets/video/autoplay.mp4" />
       <div title={t(`${countryId}.name`)}>
         {t(`${countryId}.name`)}
       </div>

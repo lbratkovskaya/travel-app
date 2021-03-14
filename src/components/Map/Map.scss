@@ -5,18 +5,7 @@
 }
 
 .fullscreen-icon {
-  position: absolute;
-  z-index: 900;
-  top: 0.5rem;
-  right: 0.5rem;
-  cursor: pointer;
-  transition: opacity 0.2s, transform 0.2s;
-
-  &:hover {
-    transform: scale(1.25);
-  }
-
-  &:active {
-    opacity: 0.6;
-  }
+  background-image: url(../../assets/fullscreen-icon.svg);
+  background-size: contain;
+  background-repeat: no-repeat;
 }

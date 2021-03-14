@@ -4,9 +4,10 @@ import {
   MapContainer, Marker, Popup, TileLayer, useMap,
 } from 'react-leaflet';
 import Leaflet from 'leaflet';
+import 'leaflet.fullscreen';
+import screenfull from 'screenfull';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
-import FullScreenIcon from '@material-ui/icons/FullscreenRounded';
 import rootConnector, { rootProps } from '../../store/rootConnector';
 import { Country, URLParamTypes } from '../../types';
 import mapURLs from './mapURLs.json';
@@ -28,6 +29,7 @@ const DefaultIcon = Leaflet.icon({
 });
 
 Leaflet.Marker.prototype.options.icon = DefaultIcon;
+window.screenfull = screenfull;
 
 interface IBorder {
   id: string;
@@ -60,11 +62,13 @@ const Map: React.FC<rootProps> = (props: rootProps) => {
     default: capital = currentCountry.capitalEN;
   }
 
-  const handleFullScreen = () => {
-  };
-
   return (
     <MapContainer
+      fullscreenControl
+      fullscreenControlOptions={{
+        position: 'topleft',
+        forceSeparateButton: true,
+      }}
       key={lang}
       className="MapContainer"
       center={capitalLatLng}
@@ -73,10 +77,6 @@ const Map: React.FC<rootProps> = (props: rootProps) => {
       maxBounds={[[-90, -220], [90, 220]]}
       minZoom={1}
     >
-      <FullScreenIcon
-        className="fullscreen-icon"
-        onClick={handleFullScreen}
-      />
       <CountryBorder id={countryId} />
       <TileLayer
         url={mapURLs[lang!]}

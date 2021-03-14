@@ -9,6 +9,7 @@
     "clsx": "^1.1.1",
     "i18next": "^19.9.1",
     "leaflet": "^1.7.1",
+    "leaflet.fullscreen": "^2.0.0",
     "material-ui": "^0.20.2",
     "material-ui-search-bar": "^1.0.0",
     "react": "^17.0.1",
@@ -20,10 +21,12 @@
     "react-router-dom": "^5.2.0",
     "react-slick": "^0.28.1",
     "redux": "^4.0.5",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "screenfull": "^5.1.0"
   },
   "devDependencies": {
     "@types/leaflet": "^1.7.0",
+    "@types/leaflet.fullscreen": "^1.6.0",
     "@types/material-ui": "^0.21.8",
     "@types/react": "^17.0.2",
     "@types/react-dom": "^17.0.1",

@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
   },
   titleLogo: {
-    display: 'flex',
+    display: 'inline-flex',
     marginRight: 'auto',
     marginLeft: '0.5rem',
     alignItems: 'center',
@@ -34,6 +34,13 @@ const useStyles = makeStyles((theme) => ({
     color: 'black',
     fontSize: '1.5rem',
     textTransform: 'uppercase',
+    textDecoration: 'none',
+    '& h6': {
+      letterSpacing: '4px',
+    },
+    '&:hover': {
+      opacity: '0.75',
+    },
   },
   grow: {
     width: '100%',
@@ -311,15 +318,14 @@ const Header: React.FC = () => {
       />
       <AppBar className={classes.appBar} position="static">
         <Toolbar>
-          <a href="/">
+          <a href="/" className={classes.titleLogo}>
             <Avatar src="/assets/favicon.svg" />
+            <Typography
+              variant="h6"
+            >
+              &nbsp;Travel app
+            </Typography>
           </a>
-          <Typography
-            className={classes.titleLogo}
-            variant="h6"
-          >
-            Travel app
-          </Typography>
           <div className={classes.sectionDesktop}>
             {window.location.pathname === '/' && <Search />}
             <IconButton

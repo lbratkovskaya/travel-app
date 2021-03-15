@@ -21,6 +21,7 @@ import { fetchSights } from '../../controller/handlers';
 import SightCard from '../SightCard';
 import CountryCard from '../CountryCard';
 import Footer from '../Footer';
+import './CountryPage.scss';
 
 const CountryPage: React.FC<rootProps> = () => {
   const { t } = useTranslation();
@@ -96,7 +97,8 @@ const CountryPage: React.FC<rootProps> = () => {
   return (
     <>
       <Header />
-      { country
+      <div className="country-page-content">
+        { country
       && (
       <CountryCard
         title={countryName}
@@ -105,43 +107,52 @@ const CountryPage: React.FC<rootProps> = () => {
         capital={countruCapital}
       />
       ) }
-      {videoUrl
-        && <ReactPlayer playing={false} width="100%" height="100%" controls url={videoUrl} />}
-      <div title={t(`${countryId}.name`)}>
-        {t(`${countryId}.name`)}
-      </div>
-      <Map />
-      <div title={t(`${countryId}.name`)}>{t(`${countryId}.name`)}</div>
-      <WeatherWidget />
-      <TimeWidget />
-      <CurrencyWidget />
-      <Slider
-        className="slider"
-        slidesToShow={1}
-        slidesToScroll={1}
-        speed={500}
-        dots
-        swipeToSlide
-        accessibility
-        centerMode
-        autoplay
-        autoplaySpeed={3000}
-        pauseOnHover
-        pauseOnDotsHover
-        variableWidth
-        focusOnSelect
-        adaptiveHeight
-      >
-        {sights?.map((element: Sight) => renderSlide(element))}
-      </Slider>
-      <SightCard
-        title={sightTitle}
-        pictureUrl={sight.pictureURL}
-        info={sightInfo}
+        {videoUrl
+        && (
+        <ReactPlayer
+          playing={false}
+          width="600px"
+          height="400px"
+          controls
+          url={videoUrl}
+        />
+        )}
+        <div title={t(`${countryId}.name`)}>
+          {t(`${countryId}.name`)}
+        </div>
+        <Map />
+        <div title={t(`${countryId}.name`)}>{t(`${countryId}.name`)}</div>
+        <WeatherWidget />
+        <TimeWidget />
+        <CurrencyWidget />
+        <Slider
+          className="slider"
+          slidesToShow={1}
+          slidesToScroll={1}
+          speed={500}
+          dots
+          swipeToSlide
+          accessibility
+          centerMode
+          autoplay
+          autoplaySpeed={3000}
+          pauseOnHover
+          pauseOnDotsHover
+          variableWidth
+          focusOnSelect
+          adaptiveHeight
+        >
+          {sights?.map((element: Sight) => renderSlide(element))}
+        </Slider>
+        <SightCard
+          title={sightTitle}
+          pictureUrl={sight.pictureURL}
+          info={sightInfo}
         /* eslint no-underscore-dangle: ["error", { "allow": ["_id"] }] */
-        sightId={sight._id}
-        rate={sight.rate.toFixed(1)}
-      />
+          sightId={sight._id}
+          rate={sight.rate.toFixed(1)}
+        />
+      </div>
       <Footer />
     </>
   );

@@ -63,6 +63,7 @@ const CountryPage: React.FC<rootProps> = () => {
 
   let countryInfo = null;
   let countryName = null;
+  let countruCapital = null;
   let sightInfo = null;
   let sightTitle = null;
 
@@ -70,18 +71,21 @@ const CountryPage: React.FC<rootProps> = () => {
     case 'en':
       countryInfo = country?.infoEN;
       countryName = country?.nameEN;
+      countruCapital = country?.capitalEN;
       sightInfo = sight?.infoEN;
       sightTitle = sight?.titleEN;
       break;
     case 'ru':
       countryInfo = country?.infoRU;
       countryName = country?.nameRU;
+      countruCapital = country?.capitalRU;
       sightInfo = sight?.infoRU;
       sightTitle = sight?.titleRU;
       break;
     case 'de':
       countryInfo = country?.infoDE;
       countryName = country?.nameDE;
+      countruCapital = country?.capitalDE;
       sightInfo = sight?.infoDE;
       sightTitle = sight?.titleDE;
       break;
@@ -97,6 +101,7 @@ const CountryPage: React.FC<rootProps> = () => {
         title={countryName}
         pictureUrl={country.pictureURL}
         info={countryInfo}
+        capital={countruCapital}
       />
       ) }
       {videoUrl

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Card,
@@ -29,10 +30,12 @@ interface ICountryCardProps{
   title: string | null | undefined,
   pictureUrl: string,
   info: string | null | undefined,
+  capital: string | null | undefined,
 }
 
 const CountryCard: React.FC<ICountryCardProps> = (props: ICountryCardProps) => {
   const classes = useStyles();
+  const { t } = useTranslation();
 
   return (
     <Card className={classes.root}>
@@ -45,6 +48,7 @@ const CountryCard: React.FC<ICountryCardProps> = (props: ICountryCardProps) => {
       />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
+          {`${t('capital')}: ${props.capital}. \n${props.info}`}
           {props.info}
         </Typography>
       </CardContent>

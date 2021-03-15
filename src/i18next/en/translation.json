@@ -54,5 +54,6 @@
   "r_h":"RH",
   "weather_fetch_error":"Could not fetch weather data:",
   "currency_fetch_error":"Could not get currencies for {{countryName}}",
-  "more_info":"Learn_more"
+  "more_info":"Learn_more",
+  "capital":"Capital"
 }

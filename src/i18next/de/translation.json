@@ -54,5 +54,6 @@
   "r_h":"RH",
   "weather_fetch_error":"Wetterdaten konnten nicht abgerufen werden:",
   "currency_fetch_error":"Währungen für {{countryName}} konnten nicht erhalten werden",
-  "more_info":"Mehr_erfahren"
+  "more_info":"Mehr_erfahren",
+  "capital":"Hauptstadt"
 }

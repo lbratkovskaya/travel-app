@@ -22,7 +22,7 @@ import SightCard from '../SightCard';
 import CountryCard from '../CountryCard';
 import Footer from '../Footer';
 import './CountryPage.scss';
-import DraggableWrapper from '../DraggableWrapper/DraggableWrapper';
+import DraggableWrapper from '../DraggableWrapper';
 
 const CountryPage: React.FC<rootProps> = () => {
   const { t } = useTranslation();

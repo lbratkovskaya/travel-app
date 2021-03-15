@@ -20,6 +20,7 @@ import { IAppState } from '../../store/types';
 const useStyles = makeStyles(() => ({
   root: {
     maxWidth: 345,
+    minHeight: 300,
   },
   media: {
     height: 0,

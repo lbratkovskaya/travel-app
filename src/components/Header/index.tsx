@@ -23,16 +23,27 @@ const useStyles = makeStyles((theme) => ({
   appBar: {
     background: 'none',
     boxShadow: 'none',
+    display: 'flex',
   },
   titleLogo: {
-    display: 'flex',
+    display: 'inline-flex',
     marginRight: 'auto',
-    marginLeft: '2vh',
+    marginLeft: '0.5rem',
     alignItems: 'center',
     justifyContent: 'start',
+    color: 'black',
+    fontSize: '1.5rem',
+    textTransform: 'uppercase',
+    textDecoration: 'none',
+    transition: 'opacity 0.15s',
+    '& h6': {
+      letterSpacing: '4px',
+    },
+    '&:hover': {
+      opacity: '0.75',
+    },
   },
   grow: {
-    flexGrow: 1,
     width: '100%',
   },
   sectionDesktop: {
@@ -43,6 +54,7 @@ const useStyles = makeStyles((theme) => ({
   },
   sectionMobile: {
     display: 'flex',
+    color: 'black',
     [theme.breakpoints.up('sm')]: {
       display: 'none',
     },
@@ -307,15 +319,14 @@ const Header: React.FC = () => {
       />
       <AppBar className={classes.appBar} position="static">
         <Toolbar>
-          <a href="/">
-            <Avatar src="/assets/logo.svg" />
+          <a href="/" className={classes.titleLogo}>
+            <Avatar src="/assets/favicon.svg" />
+            <Typography
+              variant="h6"
+            >
+              &nbsp;Travel app
+            </Typography>
           </a>
-          <Typography
-            className={classes.titleLogo}
-            variant="h6"
-          >
-            Travel app
-          </Typography>
           <div className={classes.sectionDesktop}>
             {window.location.pathname === '/' && <Search />}
             <IconButton

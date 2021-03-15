@@ -5,6 +5,8 @@ import rootConnector, { rootProps } from '../../store/rootConnector';
 import { fetchCountries } from '../../controller/handlers';
 import MainSlider from '../MainSlider';
 import Header from '../Header';
+import Footer from '../Footer';
+import './MainPage.scss';
 
 const MainPage: FC<rootProps> = () => {
   const dispatch = useDispatch();
@@ -14,7 +16,10 @@ const MainPage: FC<rootProps> = () => {
   return (
     <>
       <Header />
-      <MainSlider />
+      <div className="main-content">
+        <MainSlider />
+      </div>
+      <Footer />
     </>
   );
 };

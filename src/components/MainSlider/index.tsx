@@ -47,7 +47,6 @@ const MainSlider: React.FC<rootProps> = (props: rootProps) => {
     <Slider
       className="slider"
       slidesToShow={1}
-      slidesToScroll={1}
       speed={500}
       dots
       swipeToSlide
@@ -60,6 +59,7 @@ const MainSlider: React.FC<rootProps> = (props: rootProps) => {
       variableWidth
       focusOnSelect
       adaptiveHeight
+      arrows={false}
     >
       {countries?.map((country: Country) => renderSlide(country))}
     </Slider>

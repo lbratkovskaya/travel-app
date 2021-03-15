@@ -53,5 +53,6 @@
   "m_s":"м/с",
   "r_h":"RH",
   "weather_fetch_error":"Не удалось получить данные о погоде:",
-  "currency_fetch_error":"Не удалось получить данные курсов валют для: {{countryName}}"
+  "currency_fetch_error":"Не удалось получить данные курсов валют для: {{countryName}}",
+  "more_info":"Узнать больше"
 }

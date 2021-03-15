@@ -58,12 +58,14 @@ const Map: React.FC<rootProps> = (props: rootProps) => {
       <TileLayer
         url={mapURLs[lang!]}
       />
-      {capitalLatLng &&
+      {capitalLatLng
+      && (
       <Marker position={capitalLatLng}>
         <Popup>
           Capital name will be here
         </Popup>
-      </Marker>}
+      </Marker>
+      )}
     </MapContainer>
   );
 };

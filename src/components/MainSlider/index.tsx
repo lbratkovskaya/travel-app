@@ -12,23 +12,36 @@ const MainSlider: React.FC<rootProps> = (props: rootProps) => {
   const { countries } = props;
   const { t } = useTranslation();
 
-  const renderSlide = (country: Country) => (
-    <div key={country.pictureURL}>
-      <div className="slider-content">
-        <div
-          className="slide-photo"
-          style={{ backgroundImage: `url(${country.pictureURL})` }}
-        />
-        <Link to={`/country/${country.id}`}>
+  const renderSlide = (country: Country) => {
+    let capital;
+
+    switch (props.lang) {
+      case 'ru':
+        capital = country.capitalRU;
+        break;
+      case 'de':
+        capital = country.capitalDE;
+        break;
+      default: capital = country.capitalEN;
+    }
+
+    return (
+      <div key={country.pictureURL}>
+        <div className="slider-content">
           <div
-            className="slide-title"
-          >
-            {t(`${country.id}.name`)}
-          </div>
-        </Link>
+            className="slide-photo"
+            style={{ backgroundImage: `url(${country.pictureURL})` }}
+          />
+          <Link to={`/country/${country.id}`}>
+            <div className="slide-title">
+              {t(`${country.id}.name`)}
+              {`, ${capital}`}
+            </div>
+          </Link>
+        </div>
       </div>
-    </div>
-  );
+    );
+  };
 
   return (
     <Slider

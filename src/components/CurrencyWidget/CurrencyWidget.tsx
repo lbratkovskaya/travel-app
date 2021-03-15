@@ -72,17 +72,15 @@ const CurrencyWidget: React.FC<rootProps> = (props: rootProps) => {
   const errorMessage: string = t('currency_fetch_error', { countryName });
   return (
     <div className="currency-widget">
+      <div className="currency-widget-icon">
+        <AttachMoneyOutlined />
+      </div>
       {isLoading ? <CircularProgress /> : null}
       {currencyData
         ? (
-          <>
-            <div className="currency-widget-icon">
-              <AttachMoneyOutlined />
-            </div>
-            <div className="currency-widget-data">
-              {getCurrencies()}
-            </div>
-          </>
+          <div className="currency-widget-data">
+            {getCurrencies()}
+          </div>
         )
         : (
           <div className="widget-error">

@@ -47,10 +47,16 @@ const Map: React.FC<rootProps> = (props: rootProps) => {
   const { countries, lang } = props;
   const { countryId } = useParams<URLParamTypes>();
   const currentCountry: Country = countries?.find((el) => el.id === countryId)!;
-  const { capitalLatLng } = currentCountry;
   const capital = getCapitalTranslated(currentCountry, lang);
+  const capitalLatLng = countries?.find((el) => el.id === countryId)?.capitalLatLng;
+
+  const handleFullScreen = () => {
+  };
 
   return (
+    <>
+      {capitalLatLng
+    && (
     <MapContainer
       fullscreenControl
       fullscreenControlOptions={{
@@ -69,15 +75,14 @@ const Map: React.FC<rootProps> = (props: rootProps) => {
       <TileLayer
         url={mapURLs[lang!]}
       />
-      {capitalLatLng
-      && (
       <Marker position={capitalLatLng}>
         <Popup>
           {capital}
         </Popup>
       </Marker>
-      )}
     </MapContainer>
+    )}
+    </>
   );
 };
 

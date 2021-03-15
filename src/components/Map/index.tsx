@@ -10,10 +10,12 @@ import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import rootConnector, { rootProps } from '../../store/rootConnector';
 import { Country, URLParamTypes } from '../../types';
+import { IBorder } from './IBorder';
 import mapURLs from './mapURLs.json';
 import borders from './borders.json';
 import 'leaflet/dist/leaflet.css';
 import './Map.scss';
+import getCapitalTranslated from '../../controller/utils';
 
 const borderStyle = () => ({
   weight: 2,
@@ -31,10 +33,6 @@ const DefaultIcon = Leaflet.icon({
 Leaflet.Marker.prototype.options.icon = DefaultIcon;
 window.screenfull = screenfull;
 
-interface IBorder {
-  id: string;
-}
-
 function CountryBorder(props: IBorder) {
   const map = useMap();
   const countryBorder = borders.features.filter((feature) => feature.id === props.id);
@@ -50,17 +48,7 @@ const Map: React.FC<rootProps> = (props: rootProps) => {
   const { countryId } = useParams<URLParamTypes>();
   const currentCountry: Country = countries?.find((el) => el.id === countryId)!;
   const { capitalLatLng } = currentCountry;
-  let capital = null;
-
-  switch (lang) {
-    case 'de':
-      capital = currentCountry.capitalDE;
-      break;
-    case 'ru':
-      capital = currentCountry.capitalRU;
-      break;
-    default: capital = currentCountry.capitalEN;
-  }
+  const capital = getCapitalTranslated(currentCountry, lang);
 
   return (
     <MapContainer

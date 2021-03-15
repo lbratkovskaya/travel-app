@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { CircularProgress } from '@material-ui/core';
 import rootConnector,
 {
   rootProps,
@@ -13,8 +14,10 @@ import './owf-font.scss';
 
 const WeatherWidget: React.FC<rootProps> = (props: rootProps) => {
   const { countryId } = useParams<URLParamTypes>();
-  const [weatherData, setWeatherData] = useState<WeatherData>({} as WeatherData);
+  const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
   const [errorMsg, setErrorMsg] = useState<string>('');
+  const [isLoading, setLoading] = useState<boolean>(true);
+
   const { lang, countries } = props;
 
   const { t } = useTranslation();
@@ -42,14 +45,18 @@ const WeatherWidget: React.FC<rootProps> = (props: rootProps) => {
             description: data.weather[0].description,
           };
           setWeatherData(wData);
+          setLoading(false);
         })
-        .catch((error) => setErrorMsg(error.toLocaleString(lang)));
+        .catch((error) => {
+          setErrorMsg(error.toLocaleString(lang));
+          setLoading(false);
+        });
     }
   }, [currentCountry, lang]);
 
   return (
     <div className="weather-widget">
-
+      {isLoading ? <CircularProgress /> : null}
       {weatherData
         ? (
           <>
@@ -66,10 +73,12 @@ const WeatherWidget: React.FC<rootProps> = (props: rootProps) => {
             </div>
           </>
         )
-        : (
-          <div className="widget-error">
-            {`${t('weather_fetch_error')}${errorMsg}`}
-          </div>
+        : (!isLoading
+          && (
+            <div className="widget-error">
+              {`${t('weather_fetch_error')}${errorMsg}`}
+            </div>
+          )
         )}
     </div>
   );

@@ -22,6 +22,7 @@ import SightCard from '../SightCard';
 import CountryCard from '../CountryCard';
 import Footer from '../Footer';
 import './CountryPage.scss';
+import DraggableWrapper from '../DraggableWrapper';
 
 const CountryPage: React.FC<rootProps> = () => {
   const { t } = useTranslation();
@@ -98,34 +99,39 @@ const CountryPage: React.FC<rootProps> = () => {
     <>
       <Header />
       <div className="country-page-content">
-        { country
-      && (
-      <CountryCard
-        title={countryName}
-        pictureUrl={country.pictureURL}
-        info={countryInfo}
-        capital={countryCapital}
-      />
-      ) }
-
+        {country
+          && (
+            <CountryCard
+              title={countryName}
+              pictureUrl={country.pictureURL}
+              info={countryInfo}
+              capital={countryCapital}
+            />
+          )}
         {videoUrl
-        && (
-        <ReactPlayer
-          playing={false}
-          width="600px"
-          height="400px"
-          controls
-          url={videoUrl}
-        />
-        )}
+          && (
+            <ReactPlayer
+              playing={false}
+              width="600px"
+              height="400px"
+              controls
+              url={videoUrl}
+            />
+          )}
         <div title={t(`${countryId}.name`)}>
           {t(`${countryId}.name`)}
         </div>
         <Map />
         <div title={t(`${countryId}.name`)}>{t(`${countryId}.name`)}</div>
-        <WeatherWidget />
-        <TimeWidget />
-        <CurrencyWidget />
+        <DraggableWrapper top={50} right={10}>
+          <WeatherWidget />
+        </DraggableWrapper>
+        <DraggableWrapper top={250} right={10}>
+          <TimeWidget />
+        </DraggableWrapper>
+        <DraggableWrapper top={395} right={10}>
+          <CurrencyWidget />
+        </DraggableWrapper>
         <Slider
           className="slider"
           slidesToShow={1}
@@ -145,14 +151,16 @@ const CountryPage: React.FC<rootProps> = () => {
         >
           {sights?.map((element: Sight) => renderSlide(element))}
         </Slider>
-        {sight && (<SightCard
-          title={sightTitle}
-          pictureUrl={sight.pictureURL}
-          info={sightInfo}
-        /* eslint no-underscore-dangle: ["error", { "allow": ["_id"] }] */
-          sightId={sight._id}
-          rate={sight.rate.toFixed(1)}
-        />)}
+        {sight && (
+          <SightCard
+            title={sightTitle}
+            pictureUrl={sight.pictureURL}
+            info={sightInfo}
+            /* eslint no-underscore-dangle: ["error", { "allow": ["_id"] }] */
+            sightId={sight._id}
+            rate={sight.rate.toFixed(1)}
+          />
+        )}
       </div>
       <Footer />
     </>

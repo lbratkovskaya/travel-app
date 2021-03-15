@@ -35,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '1.5rem',
     textTransform: 'uppercase',
     textDecoration: 'none',
+    transition: 'opacity 0.15s',
     '& h6': {
       letterSpacing: '4px',
     },

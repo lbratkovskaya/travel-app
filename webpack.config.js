@@ -24,8 +24,15 @@ module.exports = (env, options) => {
     module: {
       rules: [
         {
-          test: /\.(woff|woff2|eot|ttf|svg)$/,
+          test: /\.(woff|woff2|eot|ttf|svg|png)$/,
           use: ['url-loader?limit=100000'],
+        },
+        {
+          test: /\.css$/,
+          use: [
+            MiniCssExtractPlugin.loader,
+            'css-loader',
+          ],
         },
         {
           test: /\.scss$/,
@@ -44,21 +51,6 @@ module.exports = (env, options) => {
           test: /\.js$/,
           enforce: 'pre',
           use: ['source-map-loader'],
-        },
-        {
-          test: /\.svg$/,
-          use: 'url-loader',
-        },
-        {
-          test: /\.png$/,
-          use: [
-            {
-              loader: 'url-loader',
-              options: {
-                mimetype: 'image/png',
-              },
-            },
-          ],
         },
       ],
     },

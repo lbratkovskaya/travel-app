@@ -4,12 +4,18 @@ import {
   MapContainer, Marker, Popup, TileLayer, useMap,
 } from 'react-leaflet';
 import Leaflet from 'leaflet';
-import FullScreenIcon from '@material-ui/icons/FullscreenRounded';
+import 'leaflet.fullscreen';
+import screenfull from 'screenfull';
+import icon from 'leaflet/dist/images/marker-icon.png';
+import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import rootConnector, { rootProps } from '../../store/rootConnector';
-import { URLParamTypes } from '../../types';
+import { Country, URLParamTypes } from '../../types';
+import { IBorder } from './IBorder';
 import mapURLs from './mapURLs.json';
 import borders from './borders.json';
+import 'leaflet/dist/leaflet.css';
 import './Map.scss';
+import getCapitalTranslated from '../../controller/utils';
 
 const borderStyle = () => ({
   weight: 2,
@@ -18,15 +24,21 @@ const borderStyle = () => ({
   opacity: 0.6,
 });
 
-interface IBorder {
-  id: string;
-}
+const DefaultIcon = Leaflet.icon({
+  iconUrl: icon,
+  shadowUrl: iconShadow,
+  iconAnchor: [12, 41],
+});
+
+Leaflet.Marker.prototype.options.icon = DefaultIcon;
+window.screenfull = screenfull;
 
 function CountryBorder(props: IBorder) {
   const map = useMap();
   const countryBorder = borders.features.filter((feature) => feature.id === props.id);
 
   Leaflet.geoJSON(countryBorder as any, { style: borderStyle }).addTo(map);
+  setTimeout(() => map.invalidateSize(), 0);
 
   return null;
 }
@@ -34,13 +46,17 @@ function CountryBorder(props: IBorder) {
 const Map: React.FC<rootProps> = (props: rootProps) => {
   const { countries, lang } = props;
   const { countryId } = useParams<URLParamTypes>();
-  const { capitalLatLng } = countries?.find((el) => el.id === countryId)!;
-
-  const handleFullScreen = () => {
-  };
+  const currentCountry: Country = countries?.find((el) => el.id === countryId)!;
+  const { capitalLatLng } = currentCountry;
+  const capital = getCapitalTranslated(currentCountry, lang);
 
   return (
     <MapContainer
+      fullscreenControl
+      fullscreenControlOptions={{
+        position: 'topleft',
+        forceSeparateButton: true,
+      }}
       key={lang}
       className="MapContainer"
       center={capitalLatLng}
@@ -49,10 +65,6 @@ const Map: React.FC<rootProps> = (props: rootProps) => {
       maxBounds={[[-90, -220], [90, 220]]}
       minZoom={1}
     >
-      <FullScreenIcon
-        className="fullscreen-icon"
-        onClick={handleFullScreen}
-      />
       <CountryBorder id={countryId} />
       <TileLayer
         url={mapURLs[lang!]}
@@ -61,7 +73,7 @@ const Map: React.FC<rootProps> = (props: rootProps) => {
       && (
       <Marker position={capitalLatLng}>
         <Popup>
-          Capital name will be here
+          {capital}
         </Popup>
       </Marker>
       )}

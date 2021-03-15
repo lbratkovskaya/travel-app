@@ -20,6 +20,7 @@ import WeatherWidget from '../WeatherWidget';
 import { fetchSights } from '../../controller/handlers';
 import SightCard from '../SightCard';
 import CountryCard from '../CountryCard';
+import Footer from '../Footer';
 
 const CountryPage: React.FC<rootProps> = () => {
   const { t } = useTranslation();
@@ -141,6 +142,7 @@ const CountryPage: React.FC<rootProps> = () => {
         sightId={sight._id}
         rate={sight.rate.toFixed(1)}
       />
+      <Footer />
     </>
   );
 };

@@ -19,3 +19,23 @@ export interface Country {
 export interface URLParamTypes {
   countryId: string,
 }
+
+export interface Sight {
+  _id: string,
+  countryId: string,
+  rate: number,
+  titleEN: string,
+  titleRU: string,
+  titleDE: string,
+  infoEN: string,
+  infoRU: string,
+  infoDE: string,
+  pictureURL: string,
+}
+
+export interface Review {
+  user: string,
+  rate: number,
+  sightId: string,
+  review?: string,
+}

@@ -74,3 +74,83 @@ export const fetchCountries = () => (dispatch: Dispatch) => {
     dispatch({ type: 'HIDE_LOADER', payload: { isLoading: false } });
   });
 };
+
+export const fetchSights = (countryCode: string) => (dispatch: Dispatch) => {
+  dispatch({ type: 'SHOW_LOADER', payload: { isLoading: true } });
+  fetch(`${backendUrl}/sights?countryId=${countryCode}`).then((response) => {
+    if (response.status === 200) {
+      response.json().then((result) => {
+        dispatch({ type: 'SET_SIGHTS', payload: { sights: result } });
+      });
+    }
+    dispatch({ type: 'HIDE_LOADER', payload: { isLoading: false } });
+  });
+};
+
+export const fetchReviews = (sightId: string) => (dispatch: Dispatch) => {
+  dispatch({ type: 'SHOW_LOADER', payload: { isLoading: true } });
+  fetch(`${backendUrl}/reviews?sightId=${sightId}`).then((response) => {
+    if (response.status === 200) {
+      response.json().then((result) => {
+        dispatch({ type: 'SET_REVIEWS', payload: { reviews: result } });
+      });
+    }
+    dispatch({ type: 'HIDE_LOADER', payload: { isLoading: false } });
+  });
+};
+
+export const setRate = (userName: string,
+  sightId: string,
+  rate: number) => (dispatch: Dispatch) => {
+  dispatch({ type: 'SHOW_LOADER', payload: { isLoading: true } });
+  fetch(`${backendUrl}/reviews/rate`, {
+    method: 'POST',
+    cache: 'no-cache',
+    body: JSON.stringify({
+      user: userName,
+      sightId,
+      rate,
+    }),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    redirect: 'follow',
+    referrerPolicy: 'no-referrer',
+  }).then((response) => {
+    if (response.status !== 200) {
+      response.json().then(() => {
+        // TODO add new dispatch show_modal
+      });
+    }
+    dispatch({ type: 'HIDE_LOADER', payload: { isLoading: false } });
+  });
+};
+
+export const setReviewWithRate = (userName: string,
+  sightId: string,
+  rate: number,
+  review: string) => (dispatch: Dispatch) => {
+  dispatch({ type: 'SHOW_LOADER', payload: { isLoading: true } });
+  fetch(`${backendUrl}/reviews/review`, {
+    method: 'POST',
+    cache: 'no-cache',
+    body: JSON.stringify({
+      user: userName,
+      sightId,
+      rate,
+      review,
+    }),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    redirect: 'follow',
+    referrerPolicy: 'no-referrer',
+  }).then((response) => {
+    if (response.status !== 200) {
+      response.json().then(() => {
+        // TODO add new dispatch show_modal
+      });
+    }
+    dispatch({ type: 'HIDE_LOADER', payload: { isLoading: false } });
+  });
+};

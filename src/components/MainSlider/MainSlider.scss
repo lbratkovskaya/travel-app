@@ -1,9 +1,15 @@
 @import url('https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css');
 @import url('https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css');
 
+@mixin screen_max($value) {
+  @media (max-width: $value) {
+    @content;
+  }
+}
+
 .slider {
   width: 100%;
-  min-width: 230px;
+  min-width: 320px;
   overflow: hidden;
 }
 
@@ -54,12 +60,21 @@ div.slide-title {
   height: 4rem;
   width: 100%;
   bottom: 0;
+  font-size: 1.5rem;
   background: rgba(0, 0, 0, 0.55);
   color: white;
-  transition: background 0.3s ease-out;
+  transition: background 0.3s ease-out, font 0.3s;
 
   &:hover {
     background: rgba(0, 0, 0, 0.75);
+  }
+
+  @include screen_max(1024px) {
+    font-size: 1.25rem;
+  }
+
+  @include screen_max(768px) {
+    font-size: 1rem;
   }
 }
 

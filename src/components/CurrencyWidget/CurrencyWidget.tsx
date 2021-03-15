@@ -1,23 +1,19 @@
-import { CircularProgress } from '@material-ui/core';
-import { AttachMoneyOutlined } from '@material-ui/icons';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { CircularProgress } from '@material-ui/core';
+import { AttachMoneyOutlined } from '@material-ui/icons';
 import rootConnector,
 {
   rootProps,
 } from '../../store/rootConnector';
 import { Country, URLParamTypes } from '../../types';
+import { CurrencyData } from './types';
 import {
   API_URL_NO_PARAM,
   ROUND_RATE,
 } from './constants';
 import './CurrencyWidget.scss';
-
-type CurrencyData = {
-  rates:
-  { [key: string]: { rate: number } },
-};
 
 const CurrencyWidget: React.FC<rootProps> = (props: rootProps) => {
   const { countryId } = useParams<URLParamTypes>();

@@ -28,6 +28,9 @@ const useStyles = makeStyles(() => ({
       boxShadow: 'none',
     },
   },
+  input: {
+    backgroundColor: 'white',
+  },
 }));
 
 const Search: React.FC = () => {
@@ -69,6 +72,7 @@ const Search: React.FC = () => {
 
   return (
     <TextField
+      className={classes.input}
       autoFocus
       placeholder={t('search')}
       type="search"

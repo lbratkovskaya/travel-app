@@ -23,16 +23,19 @@ const useStyles = makeStyles((theme) => ({
   appBar: {
     background: 'none',
     boxShadow: 'none',
+    display: 'flex',
   },
   titleLogo: {
     display: 'flex',
     marginRight: 'auto',
-    marginLeft: '2vh',
+    marginLeft: '0.5rem',
     alignItems: 'center',
     justifyContent: 'start',
+    color: 'black',
+    fontSize: '1.5rem',
+    textTransform: 'uppercase',
   },
   grow: {
-    flexGrow: 1,
     width: '100%',
   },
   sectionDesktop: {
@@ -43,6 +46,7 @@ const useStyles = makeStyles((theme) => ({
   },
   sectionMobile: {
     display: 'flex',
+    color: 'black',
     [theme.breakpoints.up('sm')]: {
       display: 'none',
     },
@@ -60,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
   search: {
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
-    backgroundColor: fade(theme.palette.common.white, 0.15),
+    backgroundColor: 'fade(theme.palette.common.white, 0.15)',
     '&:hover': {
       backgroundColor: fade(theme.palette.common.white, 0.25),
     },
@@ -308,7 +312,7 @@ const Header: React.FC = () => {
       <AppBar className={classes.appBar} position="static">
         <Toolbar>
           <a href="/">
-            <Avatar src="/assets/logo.svg" />
+            <Avatar src="/assets/favicon.svg" />
           </a>
           <Typography
             className={classes.titleLogo}

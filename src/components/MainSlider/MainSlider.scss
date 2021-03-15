@@ -8,9 +8,9 @@
 }
 
 .slider {
+  margin-top: 1rem;
   width: 100%;
   min-width: 320px;
-  overflow: hidden;
 }
 
 .slick-slide {
@@ -90,6 +90,10 @@ div.slide-title {
     color: black;
     opacity: 0.45;
   }
+}
+
+.slick-next {
+  right: 0;
 }
 
 .slick-dots {

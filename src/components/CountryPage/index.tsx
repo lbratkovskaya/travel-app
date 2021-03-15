@@ -65,7 +65,7 @@ const CountryPage: React.FC<rootProps> = () => {
 
   let countryInfo = null;
   let countryName = null;
-  let countruCapital = null;
+  let countryCapital = null;
   let sightInfo = null;
   let sightTitle = null;
 
@@ -73,21 +73,21 @@ const CountryPage: React.FC<rootProps> = () => {
     case 'en':
       countryInfo = country?.infoEN;
       countryName = country?.nameEN;
-      countruCapital = country?.capitalEN;
+      countryCapital = country?.capitalEN;
       sightInfo = sight?.infoEN;
       sightTitle = sight?.titleEN;
       break;
     case 'ru':
       countryInfo = country?.infoRU;
       countryName = country?.nameRU;
-      countruCapital = country?.capitalRU;
+      countryCapital = country?.capitalRU;
       sightInfo = sight?.infoRU;
       sightTitle = sight?.titleRU;
       break;
     case 'de':
       countryInfo = country?.infoDE;
       countryName = country?.nameDE;
-      countruCapital = country?.capitalDE;
+      countryCapital = country?.capitalDE;
       sightInfo = sight?.infoDE;
       sightTitle = sight?.titleDE;
       break;
@@ -104,9 +104,10 @@ const CountryPage: React.FC<rootProps> = () => {
         title={countryName}
         pictureUrl={country.pictureURL}
         info={countryInfo}
-        capital={countruCapital}
+        capital={countryCapital}
       />
       ) }
+
         {videoUrl
         && (
         <ReactPlayer
@@ -144,14 +145,14 @@ const CountryPage: React.FC<rootProps> = () => {
         >
           {sights?.map((element: Sight) => renderSlide(element))}
         </Slider>
-        <SightCard
+        {sight && (<SightCard
           title={sightTitle}
           pictureUrl={sight.pictureURL}
           info={sightInfo}
         /* eslint no-underscore-dangle: ["error", { "allow": ["_id"] }] */
           sightId={sight._id}
           rate={sight.rate.toFixed(1)}
-        />
+        />)}
       </div>
       <Footer />
     </>

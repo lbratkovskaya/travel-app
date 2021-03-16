@@ -15,7 +15,7 @@ import mapURLs from './mapURLs.json';
 import borders from './borders.json';
 import 'leaflet/dist/leaflet.css';
 import './Map.scss';
-import getCapitalTranslated from '../../controller/utils';
+import { getCapitalTranslated } from '../../controller/utils';
 
 const borderStyle = () => ({
   weight: 2,
@@ -49,9 +49,6 @@ const Map: React.FC<rootProps> = (props: rootProps) => {
   const currentCountry: Country = countries?.find((el) => el.id === countryId)!;
   const capital = getCapitalTranslated(currentCountry, lang);
   const capitalLatLng = countries?.find((el) => el.id === countryId)?.capitalLatLng;
-
-  const handleFullScreen = () => {
-  };
 
   return (
     <>

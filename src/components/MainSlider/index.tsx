@@ -28,11 +28,11 @@ const MainSlider: React.FC<rootProps> = (props: rootProps) => {
     return (
       <div key={country.pictureURL}>
         <div className="slider-content">
-          <div
-            className="slide-photo"
-            style={{ backgroundImage: `url(${country.pictureURL})` }}
-          />
           <Link to={`/country/${country.id}`}>
+            <div
+              className="slide-photo"
+              style={{ backgroundImage: `url(${country.pictureURL})` }}
+            />
             <div className="slide-title">
               {t(`${country.id}.name`)}
               {`, ${capital}`}
@@ -57,9 +57,7 @@ const MainSlider: React.FC<rootProps> = (props: rootProps) => {
       pauseOnHover
       pauseOnDotsHover
       variableWidth
-      focusOnSelect
       adaptiveHeight
-      arrows={false}
     >
       {countries?.map((country: Country) => renderSlide(country))}
     </Slider>

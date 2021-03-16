@@ -44,7 +44,7 @@ const CountryPage: React.FC<rootProps> = () => {
   const videoUrl = country?.videoURL;
   let sights = useSelector((state: IAppState) => state.sights);
   sights = sights || [];
-  const [sight, selectSight] = useState<Sight>(sights[0]);
+  let [sight, selectSight] = useState<Sight>(sights[0]);
 
   useEffect(() => {
     dispatch(fetchSights(countryId));

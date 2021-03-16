@@ -18,6 +18,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Star from '@material-ui/icons/Star';
 import { fetchReviews } from '../../controller/handlers';
 import { IAppState } from '../../store/types';
+import ReviewModal from '../ReviewModal'
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -55,13 +56,19 @@ const SightCard: React.FC<ISightCardProps> = (props: ISightCardProps) => {
   };
   const reviews = useSelector((state: IAppState) => state.reviews);
   // const isLoading = useSelector((state: IAppState) => state.isLoading);//I will need it
-  // const isLoggedIn = useSelector((state: IAppState) => state.loggedIn);
+  const isLoggedIn = useSelector((state: IAppState) => state.loggedIn);
+
+  const [showReviewModal, setShowReviewModal] = React.useState(false);
+  const handleCloseReviewModal = () => setShowReviewModal(false);
+  const handleShowReviewModal = () => setShowReviewModal(true);
 
   useEffect(() => {
     setExpanded(false);
   }, [props.sightId]);
 
   return (
+    <>
+    <ReviewModal isOpen={showReviewModal} isLoggedIn={isLoggedIn} handleClose={handleCloseReviewModal}/>
     <Card className={classes.root}>
       <CardHeader
         title={props.title}
@@ -76,7 +83,7 @@ const SightCard: React.FC<ISightCardProps> = (props: ISightCardProps) => {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
+        <IconButton aria-label="add to favorites" onClick={handleShowReviewModal}>
           <Star />
           <span>
             {props.rate}
@@ -104,13 +111,13 @@ const SightCard: React.FC<ISightCardProps> = (props: ISightCardProps) => {
             <CardHeader
               title={t('first_review')}
             />
-            <Button>
+            <Button onClick={handleShowReviewModal}>
               {t('give_feedback')}
             </Button>
           </Card>
           )}
           {reviews && reviews.length > 0 && (
-          <Button>
+          <Button onClick={handleShowReviewModal}>
             {t('give_feedback')}
           </Button>
           )}
@@ -135,6 +142,7 @@ const SightCard: React.FC<ISightCardProps> = (props: ISightCardProps) => {
         </CardContent>
       </Collapse>
     </Card>
+    </>
   );
 };
 

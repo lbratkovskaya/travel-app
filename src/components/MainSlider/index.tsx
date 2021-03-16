@@ -6,8 +6,8 @@ import {
 import Slider from 'react-slick';
 import rootConnector, { rootProps } from '../../store/rootConnector';
 import { Country } from '../../types';
-import './MainSlider.scss';
 import { getCapitalTranslated } from '../../controller/utils';
+import './MainSlider.scss';
 
 const MainSlider: React.FC<rootProps> = (props: rootProps) => {
   const { countries } = props;

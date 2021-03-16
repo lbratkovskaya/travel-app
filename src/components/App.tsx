@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { getI18n } from 'react-i18next';
 import {
-  BrowserRouter,
+  HashRouter,
   Route,
   Switch,
 } from 'react-router-dom';
@@ -17,7 +17,7 @@ const App: React.FC<rootProps> = (props: rootProps) => {
 
   return (
     <div className="App">
-      <BrowserRouter>
+      <HashRouter>
         <Switch>
           <Route path="/country/:countryId">
             <CountryPage />
@@ -26,7 +26,7 @@ const App: React.FC<rootProps> = (props: rootProps) => {
             <MainPage />
           </Route>
         </Switch>
-      </BrowserRouter>
+      </HashRouter>
     </div>
   );
 };

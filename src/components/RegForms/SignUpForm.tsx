@@ -146,7 +146,6 @@ const SignUpForm: React.FC<ISignUpProps> = (props: ISignUpProps) => {
       aria-describedby="simple-modal-description"
     >
       <Container className={classes.container} component="main" maxWidth="xs">
-        <CssBaseline />
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
             <input

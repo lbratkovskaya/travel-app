@@ -57,5 +57,9 @@
   "more_info":"Learn more",
   "capital":"Capital",
   "first_review":"Your review may be the first",
-  "give_feedback":"Give feedback"
+  "give_feedback":"Give feedback",
+  "login_first":"Sign in first, please",
+  "rate":"rate",
+  "review":"review"
+
 }

@@ -54,7 +54,8 @@ div.slider-content {
 }
 
 div.slide-photo {
-  background-size: contain;
+  background: center no-repeat;
+  background-size: cover;
   filter: brightness(1) grayscale(0.2);
   transition: filter 0.3s;
   cursor: pointer;

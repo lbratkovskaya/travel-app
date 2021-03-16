@@ -57,9 +57,13 @@
   "more_info":"Learn more",
   "capital":"Capital",
   "first_review":"Your review may be the first",
-  "give_feedback":"Give feedback",
+  "write_feedback":"Write",
+  "send_feedback":"Send",
   "login_first":"Sign in first, please",
   "rate":"rate",
-  "review":"review"
+  "review":"review",
+  "give_your_feedback":"Give your feedback",
+  "give_your_rate":"Give your rate",
+  "review_empty":"Review can't be empty"
 
 }

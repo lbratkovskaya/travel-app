@@ -17,13 +17,7 @@ import {
   sendRate,
   sendReviewWithRate,
 } from '../../controller/handlers';
-
-interface IReviewModalProps {
-  isOpen: boolean,
-  handleClose: () => void,
-  isReview: boolean,
-  sightId: string,
-}
+import { IReviewModalProps } from './IReviewModalProps';
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -123,7 +117,6 @@ const ReviewModal: React.FC<IReviewModalProps> = (props: IReviewModalProps) => {
           handleClose();
         }}
         onSubmit={(event) => {
-        // event.preventDefault();
           if (!isRevewSent || (props.isReview && !review.length)) {
             event.preventDefault();
           }
@@ -160,24 +153,6 @@ const ReviewModal: React.FC<IReviewModalProps> = (props: IReviewModalProps) => {
               label="rate"
               onChange={(event) => { setRate(+event.currentTarget.value); }}
             />
-            {/* <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="rate"
-              label={t('rate')}
-              name="rate"
-              autoComplete={t('rate')}
-              error={userNameEmpty || isFailedAttempt}
-              helperText={(userNameEmpty && t('name_empty')) || (isFailedAttempt && '')}
-              onChange={(event) => {
-                setUserName(event.currentTarget.value);
-              }}
-              onFocus={() => {
-                setUserNameEmpty(false);
-                dispatch({ type: 'FAILED_ATTEMPT', payload: { failedAttempt: false } });
-              }}
-            /> */}
             {props.isReview
             && (
             <TextField
@@ -211,22 +186,7 @@ const ReviewModal: React.FC<IReviewModalProps> = (props: IReviewModalProps) => {
                   {t('send_feedback')}
                 </Button>
               )}
-            {/* <Grid container justify="flex-end">
-              <Grid item>
-                <button
-                  className={classes.button}
-                  type="button"
-                  onClick={() => {
-                    props.handleClose();
-                    //props.handleShowSignUpForm();
-                  }}
-                >
-                  {t('sign_up_form_switcher')}
-                </button>
-              </Grid>
-            </Grid> */}
           </form>
-          {/* </div> */}
         </Container>
       </Modal>
     );

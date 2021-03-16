@@ -115,6 +115,7 @@ const SignInForm: React.FC<ISignInProps> = (props: ISignInProps) => {
       }}
     >
       <Container className={classes.container} component="main" maxWidth="xs">
+        <CssBaseline />
         <div className={classes.paper}>
           <Typography component="h1" variant="h5">
             {t('sign_in')}

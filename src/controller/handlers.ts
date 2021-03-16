@@ -81,6 +81,7 @@ export const fetchSights = (countryCode: string) => (dispatch: Dispatch) => {
     if (response.status === 200) {
       response.json().then((result) => {
         dispatch({ type: 'SET_SIGHTS', payload: { sights: result } });
+        dispatch({ type: 'CHOOSE_SIGHT', payload: { currentSight: result[0] } });
       });
     }
     dispatch({ type: 'HIDE_LOADER', payload: { isLoading: false } });
@@ -99,10 +100,11 @@ export const fetchReviews = (sightId: string) => (dispatch: Dispatch) => {
   });
 };
 
-export const setRate = (userName: string,
+export const sendRate = (userName: string,
   sightId: string,
   rate: number) => (dispatch: Dispatch) => {
   dispatch({ type: 'SHOW_LOADER', payload: { isLoading: true } });
+  dispatch({ type: 'REVIEW_SENT', payload: { isReviewSent: false } });
   fetch(`${backendUrl}/reviews/rate`, {
     method: 'POST',
     cache: 'no-cache',
@@ -117,20 +119,19 @@ export const setRate = (userName: string,
     redirect: 'follow',
     referrerPolicy: 'no-referrer',
   }).then((response) => {
-    if (response.status !== 200) {
-      response.json().then(() => {
-        // TODO add new dispatch show_modal
-      });
+    if (response.status === 200) {
+      dispatch({ type: 'REVIEW_SENT', payload: { isReviewSent: true } });
     }
     dispatch({ type: 'HIDE_LOADER', payload: { isLoading: false } });
   });
 };
 
-export const setReviewWithRate = (userName: string,
+export const sendReviewWithRate = (userName: string,
   sightId: string,
   rate: number,
   review: string) => (dispatch: Dispatch) => {
   dispatch({ type: 'SHOW_LOADER', payload: { isLoading: true } });
+  dispatch({ type: 'REVIEW_SENT', payload: { isReviewSent: false } });
   fetch(`${backendUrl}/reviews/review`, {
     method: 'POST',
     cache: 'no-cache',
@@ -146,10 +147,8 @@ export const setReviewWithRate = (userName: string,
     redirect: 'follow',
     referrerPolicy: 'no-referrer',
   }).then((response) => {
-    if (response.status !== 200) {
-      response.json().then(() => {
-        // TODO add new dispatch show_modal
-      });
+    if (response.status === 200) {
+      dispatch({ type: 'REVIEW_SENT', payload: { isReviewSent: true } });
     }
     dispatch({ type: 'HIDE_LOADER', payload: { isLoading: false } });
   });

@@ -52,10 +52,8 @@ const SightCard: React.FC<ISightCardProps> = (props: ISightCardProps) => {
     setExpanded(!expanded);
   };
   const reviews = useSelector((state: IAppState) => state.reviews);
-  // const isLoading = useSelector((state: IAppState) => state.isLoading);//I will need it
-  const isLoggedIn = useSelector((state: IAppState) => state.loggedIn);
-
   const [showReviewModal, setShowReviewModal] = React.useState(false);
+  const [isReview, setReview] = React.useState(false);
   const handleCloseReviewModal = () => setShowReviewModal(false);
   const handleShowReviewModal = () => setShowReviewModal(true);
 
@@ -66,8 +64,9 @@ const SightCard: React.FC<ISightCardProps> = (props: ISightCardProps) => {
   return (
     <>
       <ReviewModal
+        sightId={props.sightId}
+        isReview={isReview}
         isOpen={showReviewModal}
-        isLoggedIn={isLoggedIn}
         handleClose={handleCloseReviewModal}
       />
       <Card className={classes.root}>
@@ -87,7 +86,13 @@ const SightCard: React.FC<ISightCardProps> = (props: ISightCardProps) => {
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
-          <IconButton aria-label="add to favorites" onClick={handleShowReviewModal}>
+          <IconButton
+            aria-label="add to favorites"
+            onClick={() => {
+              handleShowReviewModal();
+              setReview(false);
+            }}
+          >
             <Star />
             <span>
               {props.rate}
@@ -97,7 +102,10 @@ const SightCard: React.FC<ISightCardProps> = (props: ISightCardProps) => {
             className={clsx(classes.expand, {
               [classes.expandOpen]: expanded,
             })}
-            onClick={handleExpandClick}
+            onClick={() => {
+              handleExpandClick();
+              dispatch(fetchReviews(props.sightId));
+            }}
             aria-expanded={expanded}
             aria-label="show more"
           >
@@ -112,14 +120,22 @@ const SightCard: React.FC<ISightCardProps> = (props: ISightCardProps) => {
             <CardHeader
               title={t('first_review')}
             />
-            <Button onClick={handleShowReviewModal}>
-              {t('give_feedback')}
+            <Button onClick={() => {
+              handleShowReviewModal();
+              setReview(true);
+            }}
+            >
+              {t('write_feedback')}
             </Button>
           </Card>
           )}
             {reviews && reviews.length > 0 && (
-            <Button onClick={handleShowReviewModal}>
-              {t('give_feedback')}
+            <Button onClick={() => {
+              handleShowReviewModal();
+              setReview(true);
+            }}
+            >
+              {t('write_feedback')}
             </Button>
             )}
             {reviews && reviews.map((review) => (

@@ -6,6 +6,7 @@ import {
 import Slider from 'react-slick';
 import rootConnector, { rootProps } from '../../store/rootConnector';
 import { Country } from '../../types';
+import { getCapitalTranslated } from '../../controller/utils';
 import './MainSlider.scss';
 
 const MainSlider: React.FC<rootProps> = (props: rootProps) => {
@@ -13,26 +14,16 @@ const MainSlider: React.FC<rootProps> = (props: rootProps) => {
   const { t } = useTranslation();
 
   const renderSlide = (country: Country) => {
-    let capital;
-
-    switch (props.lang) {
-      case 'ru':
-        capital = country.capitalRU;
-        break;
-      case 'de':
-        capital = country.capitalDE;
-        break;
-      default: capital = country.capitalEN;
-    }
+    const capital = getCapitalTranslated(country, props.lang);
 
     return (
       <div key={country.pictureURL}>
         <div className="slider-content">
-          <div
-            className="slide-photo"
-            style={{ backgroundImage: `url(${country.pictureURL})` }}
-          />
           <Link to={`/country/${country.id}`}>
+            <div
+              className="slide-photo"
+              style={{ backgroundImage: `url(${country.pictureURL})` }}
+            />
             <div className="slide-title">
               {t(`${country.id}.name`)}
               {`, ${capital}`}
@@ -57,9 +48,8 @@ const MainSlider: React.FC<rootProps> = (props: rootProps) => {
       pauseOnHover
       pauseOnDotsHover
       variableWidth
-      focusOnSelect
       adaptiveHeight
-      arrows={false}
+      focusOnSelect
     >
       {countries?.map((country: Country) => renderSlide(country))}
     </Slider>

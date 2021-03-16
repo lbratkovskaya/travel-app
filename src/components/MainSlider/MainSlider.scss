@@ -8,7 +8,8 @@
 }
 
 .slider {
-  margin-top: 1.5rem;
+  position: relative;
+  margin: 1.5rem 0;
   width: 100%;
   min-width: 320px;
 }
@@ -22,12 +23,18 @@
   max-height: 600px;
   box-sizing: border-box;
 
+  transition: opacity 0.2s;
+
   &:focus {
     outline: none;
   }
 
   &:hover div.slide-photo {
     filter: brightness(1.15) grayscale(0);
+  }
+
+  &:active {
+    opacity: 0.6;
   }
 
   div {
@@ -41,15 +48,17 @@ div.slider-content {
   position: relative;
   width: 96%;
   height: 96%;
+  transform: translateY(2%);
   border-radius: 0.5rem;
   overflow: hidden;
 }
 
 div.slide-photo {
-  background-size: contain;
+  background: center no-repeat;
+  background-size: cover;
   filter: brightness(1) grayscale(0.2);
   transition: filter 0.3s;
-  cursor: move;
+  cursor: pointer;
 }
 
 div.slide-title {
@@ -63,32 +72,47 @@ div.slide-title {
   font-size: 1.5rem;
   background: rgba(0, 0, 0, 0.55);
   color: white;
-  transition: background 0.3s ease-out, font 0.3s;
-
-  &:hover {
-    background: rgba(0, 0, 0, 0.75);
-  }
+  transition: background 0.3s ease-out, font 0.3s, height 0.3s;
 
   @include screen_max(1024px) {
+    height: 3rem;
     font-size: 1.25rem;
   }
 
   @include screen_max(768px) {
+    height: 2rem;
     font-size: 1rem;
   }
 }
 
 .slick-arrow {
-  color: black;
+  max-width: 9.375rem;
+  width: 10vw;
+  min-width: 2.25rem;
+  height: 96%;
+  z-index: 1;
+  transition: opacity 0.2s;
 
   &:hover {
-    color: black;
-    opacity: 0.75;
+    opacity: 1;
   }
 
   &:active {
-    color: black;
-    opacity: 0.45;
+    opacity: 0.75;
+  }
+
+  &::before {
+    font-size: 3rem;
+    opacity: 0.55;
+    transition: opacity 0.2s, font 0.2s;
+
+    @include screen_max(1024px) {
+      font-size: 2.25rem;
+    }
+
+    @include screen_max(768px) {
+      font-size: 1.5rem;
+    }
   }
 }
 
@@ -96,7 +120,6 @@ div.slide-title {
   right: 0;
 }
 
-.slick-dots {
-  position: relative;
-  bottom: 0;
+.slick-prev {
+  left: 0;
 }

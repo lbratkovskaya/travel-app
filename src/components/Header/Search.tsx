@@ -4,7 +4,7 @@ import { makeStyles, TextField, InputAdornment } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import SearchIcon from '@material-ui/icons/Search';
 import { IAppState } from '../../store/types';
-import { Country } from '../../types';
+import { findCountry } from '../../controller/utils';
 
 const useStyles = makeStyles(() => ({
   button: {
@@ -40,36 +40,6 @@ const Search: React.FC = () => {
   const lang = useSelector((state: IAppState) => state.lang);
   const { t } = useTranslation();
 
-  const findCountry = (searchQuery: string) => {
-    if (countries) {
-      return countries.filter((country: Country) => {
-        switch (lang) {
-          case 'de':
-            if (country.nameDE.toLowerCase().includes(searchQuery.toLowerCase())
-                || country.capitalDE.toLowerCase().includes(searchQuery.toLowerCase())) {
-              return true;
-            }
-            break;
-          case 'ru':
-            if (country.nameRU.toLowerCase().includes(searchQuery.toLowerCase())
-                || country.capitalRU.toLowerCase().includes(searchQuery.toLowerCase())) {
-              return true;
-            }
-            break;
-          case 'en':
-            if (country.nameEN.toLowerCase().includes(searchQuery.toLowerCase())
-                || country.capitalEN.toLowerCase().includes(searchQuery.toLowerCase())) {
-              return true;
-            }
-            break;
-          default:
-        }
-        return false;
-      });
-    }
-    return [];
-  };
-
   return (
     <TextField
       className={classes.input}
@@ -91,7 +61,7 @@ const Search: React.FC = () => {
         dispatch(
           {
             type: 'FILTER_COUNTRIES',
-            payload: { countries: findCountry(event.currentTarget.value) },
+            payload: { countries: findCountry(event.currentTarget.value, countries, lang) },
           },
         );
       }}

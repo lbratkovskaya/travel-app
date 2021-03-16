@@ -23,6 +23,13 @@ import CountryCard from '../CountryCard';
 import Footer from '../Footer';
 import './CountryPage.scss';
 import DraggableWrapper from '../DraggableWrapper';
+import {
+  getCapitalTranslated,
+  getCountryInfoTranslation,
+  getCountryNameTranslation,
+  getSightInfoTranslation,
+  getSightTitleTranslation,
+} from '../../controller/utils';
 
 const CountryPage: React.FC<rootProps> = () => {
   const { t } = useTranslation();
@@ -64,37 +71,6 @@ const CountryPage: React.FC<rootProps> = () => {
     </div>
   );
 
-  let countryInfo = null;
-  let countryName = null;
-  let countryCapital = null;
-  let sightInfo = null;
-  let sightTitle = null;
-
-  switch (language) {
-    case 'en':
-      countryInfo = country?.infoEN;
-      countryName = country?.nameEN;
-      countryCapital = country?.capitalEN;
-      sightInfo = sight?.infoEN;
-      sightTitle = sight?.titleEN;
-      break;
-    case 'ru':
-      countryInfo = country?.infoRU;
-      countryName = country?.nameRU;
-      countryCapital = country?.capitalRU;
-      sightInfo = sight?.infoRU;
-      sightTitle = sight?.titleRU;
-      break;
-    case 'de':
-      countryInfo = country?.infoDE;
-      countryName = country?.nameDE;
-      countryCapital = country?.capitalDE;
-      sightInfo = sight?.infoDE;
-      sightTitle = sight?.titleDE;
-      break;
-    default:
-  }
-
   return (
     <>
       <Header />
@@ -102,10 +78,10 @@ const CountryPage: React.FC<rootProps> = () => {
         {country
           && (
             <CountryCard
-              title={countryName}
+              title={getCountryNameTranslation(country, language)}
               pictureUrl={country.pictureURL}
-              info={countryInfo}
-              capital={countryCapital}
+              info={getCountryInfoTranslation(country, language)}
+              capital={getCapitalTranslated(country, language)}
             />
           )}
         {videoUrl
@@ -153,9 +129,9 @@ const CountryPage: React.FC<rootProps> = () => {
         </Slider>
         {sight && (
           <SightCard
-            title={sightTitle}
+            title={getSightTitleTranslation(sight, language)}
             pictureUrl={sight.pictureURL}
-            info={sightInfo}
+            info={getSightInfoTranslation(sight, language)}
             /* eslint no-underscore-dangle: ["error", { "allow": ["_id"] }] */
             sightId={sight._id}
             rate={sight.rate.toFixed(1)}

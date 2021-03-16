@@ -19,6 +19,7 @@ import Star from '@material-ui/icons/Star';
 import { fetchReviews } from '../../controller/handlers';
 import { IAppState } from '../../store/types';
 import ReviewModal from '../ReviewModal';
+import { ISightCardProps } from './ISightCardProps';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -41,14 +42,6 @@ const useStyles = makeStyles(() => ({
     transform: 'rotate(180deg)',
   },
 }));
-
-interface ISightCardProps {
-  sightId: string,
-  title: string | null,
-  pictureUrl: string | null,
-  info: string | null,
-  rate: string,
-}
 
 const SightCard: React.FC<ISightCardProps> = (props: ISightCardProps) => {
   const classes = useStyles();

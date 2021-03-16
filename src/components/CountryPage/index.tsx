@@ -77,7 +77,6 @@ const CountryPage: React.FC<rootProps> = () => {
           {language === 'ru' && sightElement.titleRU}
           {language === 'de' && sightElement.titleDE}
         </div>
-
       </div>
     </div>
   );

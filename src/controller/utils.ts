@@ -8,19 +8,19 @@ export const findCountry = (searchQuery: string,
       switch (lang) {
         case 'de':
           if (country.nameDE.toLowerCase().includes(searchQuery.toLowerCase())
-              || country.capitalDE.toLowerCase().includes(searchQuery.toLowerCase())) {
+            || country.capitalDE.toLowerCase().includes(searchQuery.toLowerCase())) {
             return true;
           }
           break;
         case 'ru':
           if (country.nameRU.toLowerCase().includes(searchQuery.toLowerCase())
-              || country.capitalRU.toLowerCase().includes(searchQuery.toLowerCase())) {
+            || country.capitalRU.toLowerCase().includes(searchQuery.toLowerCase())) {
             return true;
           }
           break;
         case 'en':
           if (country.nameEN.toLowerCase().includes(searchQuery.toLowerCase())
-              || country.capitalEN.toLowerCase().includes(searchQuery.toLowerCase())) {
+            || country.capitalEN.toLowerCase().includes(searchQuery.toLowerCase())) {
             return true;
           }
           break;
@@ -108,6 +108,9 @@ export const getCapitalTranslated = (country: Country, lang?: 'en' | 'ru' | 'de'
       break;
     case 'ru':
       capitalTranslated = country.capitalRU;
+      break;
+    case 'en':
+      capitalTranslated = country.capitalEN;
       break;
     default: throw new Error('Unexpected language');
   }

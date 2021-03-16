@@ -24,7 +24,7 @@ export const findCountry = (searchQuery: string,
             return true;
           }
           break;
-        default:
+        default: throw new Error('Unexpected language');
       }
       return false;
     });
@@ -44,7 +44,7 @@ export const getCountryInfoTranslation = (country: Country, lang?: 'en' | 'ru' |
     case 'en':
       countryInfo = country.infoEN;
       break;
-    default:
+    default: throw new Error('Unexpected language');
   }
   return countryInfo;
 };
@@ -61,7 +61,7 @@ export const getCountryNameTranslation = (country: Country, lang?: 'en' | 'ru' |
     case 'en':
       countryName = country.nameEN;
       break;
-    default:
+    default: throw new Error('Unexpected language');
   }
   return countryName;
 };
@@ -78,7 +78,7 @@ export const getSightInfoTranslation = (sight: Sight, lang?: 'en' | 'ru' | 'de')
     case 'en':
       sightInfo = sight.infoEN;
       break;
-    default:
+    default: throw new Error('Unexpected language');
   }
   return sightInfo;
 };
@@ -95,7 +95,7 @@ export const getSightTitleTranslation = (sight: Sight, lang?: 'en' | 'ru' | 'de'
     case 'en':
       sightTitle = sight.titleEN;
       break;
-    default:
+    default: throw new Error('Unexpected language');
   }
   return sightTitle;
 };
@@ -109,7 +109,7 @@ export const getCapitalTranslated = (country: Country, lang?: 'en' | 'ru' | 'de'
     case 'ru':
       capitalTranslated = country.capitalRU;
       break;
-    default: capitalTranslated = country.capitalEN;
+    default: throw new Error('Unexpected language');
   }
   return capitalTranslated;
 };

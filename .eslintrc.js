@@ -5,10 +5,13 @@ module.exports = {
   env: {
     browser: true,
     es2021: true,
+    'jest/globals': true,
+    jest: true,
   },
   extends: [
     'plugin:react/recommended',
     'airbnb',
+    'plugin:jest/recommended',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -21,6 +24,7 @@ module.exports = {
   plugins: [
     'react',
     '@typescript-eslint',
+    'jest',
   ],
   rules: {
     'import/extensions': 'off',

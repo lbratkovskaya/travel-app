@@ -2,3 +2,47 @@
   width: 100%;
   display: block;
 }
+
+.sights-slider {
+  .slider-content {
+    width: 98%;
+    height: 98%;
+  }
+
+  .slide-photo {
+    filter: brightness(1) grayscale(0.9);
+  }
+
+
+  .slick-active .slide-photo {
+    filter: brightness(1) grayscale(0);
+  }
+
+  .slick-slide {
+    width: 30vw;
+    max-width: 600px;
+    height: calc(30vw * 2 / 3);
+    max-height: 400px;
+    overflow: visible;
+
+    &:hover .slide-photo {
+      filter: brightness(1) grayscale(0);
+    }
+  }
+
+  .slick-arrow {
+    max-width: 6rem;
+  }
+}
+
+button.more-info-btn {
+  padding: 0;
+  background: transparent;
+  position: absolute;
+  outline: none;
+  border: none;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  cursor: pointer;
+}

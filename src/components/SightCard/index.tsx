@@ -18,12 +18,16 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Star from '@material-ui/icons/Star';
 import { fetchReviews } from '../../controller/handlers';
 import { IAppState } from '../../store/types';
-import ReviewModal from '../ReviewModal'
+import ReviewModal from '../ReviewModal';
 
 const useStyles = makeStyles(() => ({
   root: {
-    maxWidth: 345,
+    margin: '3rem auto 0',
+    maxWidth: 800,
     minHeight: 300,
+  },
+  header: {
+    textAlign: 'center',
   },
   media: {
     height: 0,
@@ -41,7 +45,7 @@ const useStyles = makeStyles(() => ({
 interface ISightCardProps {
   sightId: string,
   title: string | null,
-  pictureUrl: string,
+  pictureUrl: string | null,
   info: string | null,
   rate: string,
 }
@@ -68,44 +72,51 @@ const SightCard: React.FC<ISightCardProps> = (props: ISightCardProps) => {
 
   return (
     <>
-    <ReviewModal isOpen={showReviewModal} isLoggedIn={isLoggedIn} handleClose={handleCloseReviewModal}/>
-    <Card className={classes.root}>
-      <CardHeader
-        title={props.title}
+      <ReviewModal
+        isOpen={showReviewModal}
+        isLoggedIn={isLoggedIn}
+        handleClose={handleCloseReviewModal}
       />
-      <CardMedia
-        className={classes.media}
-        image={props.pictureUrl}
-      />
-      <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p">
-          {props.info}
-        </Typography>
-      </CardContent>
-      <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites" onClick={handleShowReviewModal}>
-          <Star />
-          <span>
-            {props.rate}
-          </span>
-        </IconButton>
-        <IconButton
-          className={clsx(classes.expand, {
-            [classes.expandOpen]: expanded,
-          })}
-          onClick={() => {
-            handleExpandClick();
-            dispatch(fetchReviews(props.sightId));
-          }}
-          aria-expanded={expanded}
-          aria-label="show more"
-        >
-          <ExpandMoreIcon />
-        </IconButton>
-      </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
+      <Card className={classes.root}>
+        <CardHeader
+          className={classes.header}
+          title={props.title}
+        />
+        {props.pictureUrl && (
+        <CardMedia
+          className={classes.media}
+          image={props.pictureUrl}
+        />
+        )}
         <CardContent>
-          {reviews && !reviews.length
+          <Typography variant="body2" color="textSecondary" component="p">
+            {props.info}
+          </Typography>
+        </CardContent>
+        <CardActions disableSpacing>
+          <IconButton aria-label="add to favorites" onClick={handleShowReviewModal}>
+            <Star />
+            <span>
+              {props.rate}
+            </span>
+          </IconButton>
+          <IconButton
+            className={clsx(classes.expand, {
+              [classes.expandOpen]: expanded,
+            })}
+            onClick={() => {
+              handleExpandClick();
+              dispatch(fetchReviews(props.sightId));
+            }}
+            aria-expanded={expanded}
+            aria-label="show more"
+          >
+            <ExpandMoreIcon />
+          </IconButton>
+        </CardActions>
+        <Collapse in={expanded} timeout="auto" unmountOnExit>
+          <CardContent>
+            {reviews && !reviews.length
           && (
           <Card>
             <CardHeader
@@ -116,32 +127,32 @@ const SightCard: React.FC<ISightCardProps> = (props: ISightCardProps) => {
             </Button>
           </Card>
           )}
-          {reviews && reviews.length > 0 && (
-          <Button onClick={handleShowReviewModal}>
-            {t('give_feedback')}
-          </Button>
-          )}
-          {reviews && reviews.map((review) => (
-            <Card key={review.user + review.sightId}>
-              <CardContent>
-                <div>
-                  <span>
-                    <Star />
-                    {review.rate.toFixed(1)}
-                  </span>
-                  <span>
-                    {review.user}
-                  </span>
-                </div>
-                <Typography variant="body2" color="textSecondary" component="p">
-                  {review.review}
-                </Typography>
-              </CardContent>
-            </Card>
-          ))}
-        </CardContent>
-      </Collapse>
-    </Card>
+            {reviews && reviews.length > 0 && (
+            <Button onClick={handleShowReviewModal}>
+              {t('give_feedback')}
+            </Button>
+            )}
+            {reviews && reviews.map((review) => (
+              <Card key={review.user + review.sightId}>
+                <CardContent>
+                  <div>
+                    <span>
+                      <Star />
+                      {review.rate.toFixed(1)}
+                    </span>
+                    <span>
+                      {review.user}
+                    </span>
+                  </div>
+                  <Typography variant="body2" color="textSecondary" component="p">
+                    {review.review}
+                  </Typography>
+                </CardContent>
+              </Card>
+            ))}
+          </CardContent>
+        </Collapse>
+      </Card>
     </>
   );
 };

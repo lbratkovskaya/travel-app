@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import {
-  useTranslation,
-} from 'react-i18next';
-import {
-  useParams,
-} from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import ReactPlayer from 'react-player';
 import Slider from 'react-slick';
@@ -20,7 +16,6 @@ import { fetchSights } from '../../controller/handlers';
 import SightCard from '../SightCard';
 import CountryCard from '../CountryCard';
 import Footer from '../Footer';
-import './CountryPage.scss';
 import DraggableWrapper from '../DraggableWrapper';
 import {
   getCapitalTranslated,
@@ -29,6 +24,7 @@ import {
   getSightInfoTranslation,
   getSightTitleTranslation,
 } from '../../controller/utils';
+import './CountryPage.scss';
 
 const CountryPage: React.FC<rootProps> = () => {
   const { t } = useTranslation();
@@ -63,6 +59,13 @@ const CountryPage: React.FC<rootProps> = () => {
       }}
     >
       <div className="slider-content">
+        <button
+          type="button"
+          className="more-info-btn"
+          onClick={() => { selectSight(sightElement); }}
+        >
+          {' '}
+        </button>
         <div
           className="slide-photo"
           style={{ backgroundImage: `url(${sightElement.pictureURL})` }}
@@ -74,9 +77,14 @@ const CountryPage: React.FC<rootProps> = () => {
           {language === 'ru' && sightElement.titleRU}
           {language === 'de' && sightElement.titleDE}
         </div>
+
       </div>
     </div>
   );
+
+  const handleSlideChange = (currentSlide: number, nextSlide: number) => {
+    selectSight(sights![nextSlide]);
+  };
 
   return (
     <>
@@ -116,7 +124,7 @@ const CountryPage: React.FC<rootProps> = () => {
           <CurrencyWidget />
         </DraggableWrapper>
         <Slider
-          className="slider"
+          className="sights-slider"
           slidesToShow={1}
           slidesToScroll={1}
           speed={500}
@@ -124,20 +132,17 @@ const CountryPage: React.FC<rootProps> = () => {
           swipeToSlide
           accessibility
           centerMode
-          autoplay
-          autoplaySpeed={3000}
-          pauseOnHover
-          pauseOnDotsHover
           variableWidth
           focusOnSelect
           adaptiveHeight
+          beforeChange={handleSlideChange}
         >
           {sights?.map((element: Sight) => renderSlide(element))}
         </Slider>
         {sight && (
           <SightCard
             title={getSightTitleTranslation(sight, language)}
-            pictureUrl={sight.pictureURL}
+            pictureUrl={null}
             info={getSightInfoTranslation(sight, language)}
             /* eslint no-underscore-dangle: ["error", { "allow": ["_id"] }] */
             sightId={sight._id}

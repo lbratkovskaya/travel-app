@@ -8,7 +8,6 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import ReactPlayer from 'react-player';
 import Slider from 'react-slick';
-import { Button } from '@material-ui/core';
 import rootConnector, { rootProps } from '../../store/rootConnector';
 import { Country, Sight, URLParamTypes } from '../../types';
 import { IAppState } from '../../store/types';
@@ -44,18 +43,26 @@ const CountryPage: React.FC<rootProps> = () => {
   const videoUrl = country?.videoURL;
   let sights = useSelector((state: IAppState) => state.sights);
   sights = sights || [];
-  let [sight, selectSight] = useState<Sight>(sights[0]);
+  const [sight, selectSight] = useState<Sight>(sights[0]);
 
   useEffect(() => {
     dispatch(fetchSights(countryId));
   }, []);
 
+  useEffect(() => {
+    if (sights) { selectSight(sights[0]); }
+  }, [sights]);
+
   const renderSlide = (sightElement: Sight) => (
-    <div key={sightElement.pictureURL}>
+    /* eslint-disable jsx-a11y/click-events-have-key-events,
+      jsx-a11y/no-static-element-interactions */
+    <div
+      key={sightElement.pictureURL}
+      onClick={() => {
+        selectSight(sightElement);
+      }}
+    >
       <div className="slider-content">
-        <Button onClick={() => { selectSight(sightElement); }}>
-          {t('more_info')}
-        </Button>
         <div
           className="slide-photo"
           style={{ backgroundImage: `url(${sightElement.pictureURL})` }}

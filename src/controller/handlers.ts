@@ -1,6 +1,5 @@
 import { Dispatch } from 'redux';
 import backendUrl from '../consts';
-import { Country } from '../types';
 
 const handleLangChange = (lang: string) => (dispatch: Dispatch) => {
   dispatch({ type: 'SET_LANG', payload: { lang } });

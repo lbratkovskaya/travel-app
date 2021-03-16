@@ -67,7 +67,7 @@ const SightCard: React.FC<ISightCardProps> = (props: ISightCardProps) => {
   const handleShowReviewModal = () => setShowReviewModal(true);
 
   useEffect(() => {
-    setExpanded(false);
+    dispatch(fetchReviews(props.sightId));
   }, [props.sightId]);
 
   return (
@@ -104,10 +104,7 @@ const SightCard: React.FC<ISightCardProps> = (props: ISightCardProps) => {
             className={clsx(classes.expand, {
               [classes.expandOpen]: expanded,
             })}
-            onClick={() => {
-              handleExpandClick();
-              dispatch(fetchReviews(props.sightId));
-            }}
+            onClick={handleExpandClick}
             aria-expanded={expanded}
             aria-label="show more"
           >

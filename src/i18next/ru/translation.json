@@ -55,5 +55,7 @@
   "weather_fetch_error":"Не удалось получить данные о погоде:",
   "currency_fetch_error":"Не удалось получить данные курсов валют для: {{countryName}}",
   "more_info":"Узнать больше",
-  "capital":"Столица"
+  "capital":"Столица",
+  "first_review":"Ваш отзыв может стать первым",
+  "give_feedback":"Оставить отзыв"
 }

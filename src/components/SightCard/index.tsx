@@ -1,7 +1,8 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
+import { makeStyles } from '@material-ui/core/styles';
 import {
   Card,
   CardHeader,
@@ -11,11 +12,13 @@ import {
   Collapse,
   IconButton,
   Typography,
+  Button,
 } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Star from '@material-ui/icons/Star';
 import { fetchReviews } from '../../controller/handlers';
 import { IAppState } from '../../store/types';
+import ReviewModal from '../ReviewModal'
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -35,7 +38,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-interface ISightCardProps{
+interface ISightCardProps {
   sightId: string,
   title: string | null,
   pictureUrl: string,
@@ -46,15 +49,26 @@ interface ISightCardProps{
 const SightCard: React.FC<ISightCardProps> = (props: ISightCardProps) => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const [expanded, setExpanded] = React.useState(false);
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
   const reviews = useSelector((state: IAppState) => state.reviews);
   // const isLoading = useSelector((state: IAppState) => state.isLoading);//I will need it
-  // const isLoggedIn = useSelector((state: IAppState) => state.loggedIn);
+  const isLoggedIn = useSelector((state: IAppState) => state.loggedIn);
+
+  const [showReviewModal, setShowReviewModal] = React.useState(false);
+  const handleCloseReviewModal = () => setShowReviewModal(false);
+  const handleShowReviewModal = () => setShowReviewModal(true);
+
+  useEffect(() => {
+    setExpanded(false);
+  }, [props.sightId]);
 
   return (
+    <>
+    <ReviewModal isOpen={showReviewModal} isLoggedIn={isLoggedIn} handleClose={handleCloseReviewModal}/>
     <Card className={classes.root}>
       <CardHeader
         title={props.title}
@@ -69,7 +83,7 @@ const SightCard: React.FC<ISightCardProps> = (props: ISightCardProps) => {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
+        <IconButton aria-label="add to favorites" onClick={handleShowReviewModal}>
           <Star />
           <span>
             {props.rate}
@@ -91,29 +105,44 @@ const SightCard: React.FC<ISightCardProps> = (props: ISightCardProps) => {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
+          {reviews && !reviews.length
+          && (
+          <Card>
+            <CardHeader
+              title={t('first_review')}
+            />
+            <Button onClick={handleShowReviewModal}>
+              {t('give_feedback')}
+            </Button>
+          </Card>
+          )}
+          {reviews && reviews.length > 0 && (
+          <Button onClick={handleShowReviewModal}>
+            {t('give_feedback')}
+          </Button>
+          )}
           {reviews && reviews.map((review) => (
-            <>
-              <Typography paragraph>
-                userName:
-                {' '}
-                {review.user}
-                , userRate:
-                {' '}
-                {review.rate}
-              </Typography>
-              <Typography paragraph>
-                user review:
-                {' '}
-                {review.review}
-              </Typography>
-              <Typography paragraph>
-                _______________________________
-              </Typography>
-            </>
+            <Card key={review.user + review.sightId}>
+              <CardContent>
+                <div>
+                  <span>
+                    <Star />
+                    {review.rate.toFixed(1)}
+                  </span>
+                  <span>
+                    {review.user}
+                  </span>
+                </div>
+                <Typography variant="body2" color="textSecondary" component="p">
+                  {review.review}
+                </Typography>
+              </CardContent>
+            </Card>
           ))}
         </CardContent>
       </Collapse>
     </Card>
+    </>
   );
 };
 

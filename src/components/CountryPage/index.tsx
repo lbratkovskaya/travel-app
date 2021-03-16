@@ -61,7 +61,7 @@ const CountryPage: React.FC<rootProps> = () => {
       <div className="slider-content">
         <button
           type="button"
-          className="more-info-btn"
+          className="slide-btn"
           onClick={() => { selectSight(sightElement); }}
         >
           {' '}

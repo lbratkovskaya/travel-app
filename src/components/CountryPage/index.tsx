@@ -2,12 +2,12 @@ import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import ReactPlayer from 'react-player';
 import Slider from 'react-slick';
+import { Typography } from '@material-ui/core';
 import rootConnector, { rootProps } from '../../store/rootConnector';
 import { Country, Sight, URLParamTypes } from '../../types';
 import { IAppState } from '../../store/types';
-import Map from '../Map';
+// import Map from '../Map';
 import CurrencyWidget from '../CurrencyWidget';
 import Header from '../Header';
 import TimeWidget from '../TimeWidget';
@@ -34,7 +34,6 @@ const CountryPage: React.FC<rootProps> = () => {
   const language = useSelector((state: IAppState) => state.lang);
   const country = countries?.find((element: Country) => element.id === countryId);
   const currentSight = useSelector((state: IAppState) => state.currentSight);
-  const videoUrl = country?.videoURL;
   let sights = useSelector((state: IAppState) => state.sights);
   sights = sights || [];
 
@@ -75,23 +74,17 @@ const CountryPage: React.FC<rootProps> = () => {
               pictureUrl={country.pictureURL}
               info={getCountryInfoTranslation(country, language)}
               capital={getCapitalTranslated(country, language)}
+              videoURL={country.videoURL}
             />
           )}
-        {videoUrl
-          && (
-            <ReactPlayer
-              playing={false}
-              width="600px"
-              height="400px"
-              controls
-              url={videoUrl}
-            />
-          )}
-        <div title={t(`${countryId}.name`)}>
-          {t(`${countryId}.name`)}
-        </div>
-        <Map />
-        <div title={t(`${countryId}.name`)}>{t(`${countryId}.name`)}</div>
+        <Typography
+          variant="h4"
+          color="textPrimary"
+          align="center"
+          gutterBottom
+        >
+          {t('explore')}
+        </Typography>
         <DraggableWrapper top={50} right={10}>
           <WeatherWidget />
         </DraggableWrapper>

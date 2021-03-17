@@ -87,17 +87,27 @@ const ReviewModal: React.FC<IReviewModalProps> = (props: IReviewModalProps) => {
     props.handleClose();
   };
 
-  const handleReviewSubmit = () => {
-    if (!review.length) {
-      setReviewEmpty(true);
+  const handleSubmit = () => {
+    if (props.isReview) {
+      if (!review.length) {
+        setReviewEmpty(true);
+      } else if (userName && rate) {
+        dispatch(sendReviewWithRate(userName, props.sightId, rate, review));
+      }
     } else if (userName && rate) {
-      dispatch(sendReviewWithRate(userName, props.sightId, rate, review));
+      dispatch(sendRate(userName, props.sightId, rate));
     }
   };
 
-  const handleRateSubmit = () => {
-    if (userName && rate) {
-      dispatch(sendRate(userName, props.sightId, rate));
+  const handleIsNotLoggedInClose = (event: React.SyntheticEvent) => {
+    if (!isLoggedIn) {
+      event.preventDefault();
+    }
+  };
+
+  const handleModalCloseAfterReview = (event: React.SyntheticEvent) => {
+    if (!isRevewSent || (props.isReview && !review.length)) {
+      event.preventDefault();
     }
   };
 
@@ -113,14 +123,8 @@ const ReviewModal: React.FC<IReviewModalProps> = (props: IReviewModalProps) => {
         open={props.isOpen}
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
-        onClose={() => {
-          handleClose();
-        }}
-        onSubmit={(event) => {
-          if (!isRevewSent || (props.isReview && !review.length)) {
-            event.preventDefault();
-          }
-        }}
+        onClose={handleClose}
+        onSubmit={handleModalCloseAfterReview}
       >
         <Container className={classes.container} component="main" maxWidth="xs">
           {/* <div className={classes.paper}> */}
@@ -132,14 +136,7 @@ const ReviewModal: React.FC<IReviewModalProps> = (props: IReviewModalProps) => {
           <form
             className={classes.form}
             noValidate
-            onSubmit={() => {
-              if (props.isReview) {
-                handleReviewSubmit();
-              } else {
-                handleRateSubmit();
-              }
-              dispatch({ type: 'SET_RATE', payload: { currentRate: +rate } });
-            }}
+            onSubmit={handleSubmit}
           >
             <TextField
               required
@@ -196,14 +193,8 @@ const ReviewModal: React.FC<IReviewModalProps> = (props: IReviewModalProps) => {
       open={props.isOpen}
       aria-labelledby="simple-modal-title"
       aria-describedby="simple-modal-description"
-      onClose={() => {
-        handleClose();
-      }}
-      onSubmit={(event) => {
-        if (!isLoggedIn) {
-          event.preventDefault();
-        }
-      }}
+      onClose={handleClose}
+      onSubmit={handleIsNotLoggedInClose}
     >
       <Container className={classes.container} component="main" maxWidth="xs">
         <div className={classes.paper}>

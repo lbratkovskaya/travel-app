@@ -126,8 +126,7 @@ const CountryPage: React.FC<rootProps> = () => {
         {currentSight && currentSight._id !== '' && (
           <SightCard
             title={getSightTitleTranslation(currentSight, language)}
-            pictureUrl={currentSight.pictureURL}
-            //pictureUrl={null}
+            pictureUrl={null}
             info={getSightInfoTranslation(currentSight, language)}
             /* eslint no-underscore-dangle: ["error", { "allow": ["_id"] }] */
             sightId={currentSight._id}

@@ -16,6 +16,8 @@ const DraggableWrapper: React.FC<PropsWithChildren<DraggableWrapperProps>> = (
     };
   }
 
+  const blank = document.createElement('div');
+
   const dragObject: DragElement = {} as DragElement;
 
   const dragStartListener = (event: DragEvent | TouchEvent) => {
@@ -45,24 +47,19 @@ const DraggableWrapper: React.FC<PropsWithChildren<DraggableWrapperProps>> = (
   };
 
   const dropListener = (event: DragEvent | TouchEvent) => {
-    if (event.cancelable) {
-      event.preventDefault();
-    }
     if (!(event.target instanceof HTMLElement)) return;
 
-    if (!dragObject.elem.isEqualNode(event.target?.closest('.draggable') as HTMLElement)) {
-      return;
-    }
+    if (!dragObject.elem) return;
 
     const newX = (event instanceof DragEvent)
       ? (event as DragEvent).pageX : (event as TouchEvent).changedTouches[0].pageX;
     const newY = (event instanceof DragEvent)
       ? (event as DragEvent).pageY : (event as TouchEvent).changedTouches[0].pageY;
 
-    if (!dragObject) return;
-
     dragObject.elem.style.left = `${newX - dragObject.mouseOffsetLeft}px`;
     dragObject.elem.style.top = `${newY - dragObject.mouseOffsetTop}px`;
+
+    dragObject.elem = blank;
   };
 
   useEffect(() => {

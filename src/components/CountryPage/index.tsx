@@ -7,7 +7,6 @@ import { Typography } from '@material-ui/core';
 import rootConnector, { rootProps } from '../../store/rootConnector';
 import { Country, Sight, URLParamTypes } from '../../types';
 import { IAppState } from '../../store/types';
-// import Map from '../Map';
 import Header from '../Header';
 import { fetchSights } from '../../controller/handlers';
 import SightCard from '../SightCard';

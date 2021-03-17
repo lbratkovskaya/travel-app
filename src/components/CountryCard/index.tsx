@@ -23,6 +23,7 @@ const useStyles = makeStyles(() => ({
   root: {
     maxWidth: 900,
     margin: '2rem auto',
+    overflow: 'visible',
   },
   media: {
     position: 'relative',

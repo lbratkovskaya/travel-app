@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -44,9 +44,30 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
+const getWidth = () => window.innerWidth
+  || document.documentElement.clientWidth
+  || document.body.clientWidth;
+
+function useCurrentWidth() {
+  const [width, setWidth] = useState(getWidth());
+
+  useEffect(() => {
+    const resizeListener = () => {
+      setWidth(getWidth());
+    };
+    window.addEventListener('resize', resizeListener);
+    return () => window.removeEventListener('resize', resizeListener);
+  }, []);
+
+  return width;
+}
+
 const CountryCard: React.FC<ICountryCardProps> = (props: ICountryCardProps) => {
   const classes = useStyles();
   const { t } = useTranslation();
+  let width = useCurrentWidth();
+
+  width = (width > 400) ? 400 : width;
 
   const renderAccordion = (tag: string, content: JSX.Element) => (
     <Accordion square>
@@ -67,13 +88,13 @@ const CountryCard: React.FC<ICountryCardProps> = (props: ICountryCardProps) => {
     <Card className={classes.root}>
       <CardHeader title={props.title} />
       <CardMedia className={classes.media} image={props.pictureUrl}>
-        <DraggableWrapper top={10} right={10}>
+        <DraggableWrapper top={width / 4} left={8}>
           <WeatherWidget />
         </DraggableWrapper>
-        <DraggableWrapper top={10} left={10}>
+        <DraggableWrapper top={8} left={8}>
           <TimeWidget />
         </DraggableWrapper>
-        <DraggableWrapper top={130} right={10}>
+        <DraggableWrapper top={8} right={8}>
           <CurrencyWidget />
         </DraggableWrapper>
       </CardMedia>

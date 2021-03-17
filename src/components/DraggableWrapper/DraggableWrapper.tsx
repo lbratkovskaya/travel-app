@@ -31,6 +31,10 @@ const DraggableWrapper: React.FC<PropsWithChildren<DraggableWrapperProps>> = (
 
     if (!elem) return;
 
+    if (event instanceof TouchEvent) {
+      event.preventDefault();
+    }
+
     const dt = (event instanceof DragEvent) && event.dataTransfer;
     if (dt) {
       dt.effectAllowed = 'move';
@@ -64,7 +68,7 @@ const DraggableWrapper: React.FC<PropsWithChildren<DraggableWrapperProps>> = (
 
   useEffect(() => {
     document.addEventListener('dragstart', dragStartListener);
-    document.addEventListener('touchstart', dragStartListener);
+    document.addEventListener('touchstart', dragStartListener, { passive: false });
     document.addEventListener('dragenter', (event) => event.preventDefault());
     document.addEventListener('dragover', (event) => event.preventDefault());
     document.addEventListener('drop', dropListener);

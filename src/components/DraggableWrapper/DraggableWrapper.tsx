@@ -50,7 +50,8 @@ const DraggableWrapper: React.FC<PropsWithChildren<DraggableWrapperProps>> = (
     }
     if (!(event.target instanceof HTMLElement)) return;
 
-    if (!dragObject.elem.isEqualNode(event.target?.closest('.draggable') as HTMLElement)) {
+    if ((event instanceof TouchEvent)
+      && !dragObject.elem.isEqualNode(event.target?.closest('.draggable') as HTMLElement)) {
       return;
     }
 

@@ -57,5 +57,12 @@
   "more_info":"Узнать больше",
   "capital":"Столица",
   "first_review":"Ваш отзыв может стать первым",
-  "give_feedback":"Оставить отзыв"
+  "write_feedback":"Написать",
+  "send_feedback":"Отправить",
+  "login_first":"Пожалуйста, авторизуйтесь",
+  "rate":"оценка",
+  "review":"отзыв",
+  "give_your_feedback":"Оставьте ваш отзыв",
+  "give_your_rate":"Оставьте вашу оценку",
+  "review_empty":"Отзыв не может быть пустым"
 }

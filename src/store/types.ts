@@ -12,6 +12,8 @@ export interface IAppState {
   isLoading: boolean | undefined,
   sights: Sight[] | undefined,
   reviews: Review[] | undefined,
+  isReviewSent: boolean | undefined,
+  currentSight?: Sight,
 }
 
 export interface RootReducerAction {
@@ -27,5 +29,7 @@ export interface RootReducerAction {
     isLoading?: boolean,
     sights?: Sight[],
     reviews?: Review[],
+    isReviewSent?: boolean,
+    currentSight?: Sight,
   }
 }

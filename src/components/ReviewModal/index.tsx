@@ -3,23 +3,21 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import {
   Button,
-  CssBaseline,
   TextField,
-  Grid,
   Typography,
   Container,
   Modal,
   makeStyles,
   CircularProgress,
+  CssBaseline,
 } from '@material-ui/core';
 import { IAppState } from '../../store/types';
-import { signInUser } from '../../controller/handlers';
-
-interface IReviewModalProps {
-  isOpen: boolean,
-  isLoggedIn: boolean | undefined,
-  handleClose: () => void,
-}
+import {
+  fetchReviews,
+  sendRate,
+  sendReviewWithRate,
+} from '../../controller/handlers';
+import { IReviewModalProps } from './IReviewModalProps';
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -69,56 +67,71 @@ const ReviewModal: React.FC<IReviewModalProps> = (props: IReviewModalProps) => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const [userName, setUserName] = React.useState('');
-  const [password, setPassword] = React.useState('');
-  const [userNameEmpty, setUserNameEmpty] = React.useState(false);
-  const [passwordEmpty, setPasswordEmpty] = React.useState(false);
   const isLoggedIn = useSelector((state: IAppState) => state.loggedIn);
-  const isFailedAttempt = useSelector((state: IAppState) => state.failedAttempt);
   const isLoading = useSelector((state: IAppState) => state.isLoading);
+  const userName = useSelector((state: IAppState) => state.userName);
+  const isRevewSent = useSelector((state: IAppState) => state.isReviewSent);
+
   const { t } = useTranslation();
 
+  const [rate, setRate] = React.useState(5);
+  const [review, setReview] = React.useState('');
+  const [reviewEmpty, setReviewEmpty] = React.useState(false);
+
   const handleClose = () => {
-    setPasswordEmpty(false);
-    dispatch({ type: 'FAILED_ATTEMPT', payload: { failedAttempt: false } });
+    setRate(5);
+    setReview('');
+    setReviewEmpty(false);
+    dispatch({ type: 'REVIEW_SENT', payload: { isReviewSent: false } });
+    dispatch(fetchReviews(props.sightId));
     props.handleClose();
   };
 
   const handleSubmit = () => {
-    if (!userName.length) {
-      setUserNameEmpty(true);
-    } else if (!password.length) {
-      setPasswordEmpty(true);
-    } else {
-      dispatch(signInUser(userName, password));
+    if (props.isReview) {
+      if (!review.length) {
+        setReviewEmpty(true);
+      } else if (userName && rate) {
+        dispatch(sendReviewWithRate(userName, props.sightId, rate, review));
+      }
+    } else if (userName && rate) {
+      dispatch(sendRate(userName, props.sightId, rate));
+    }
+  };
+
+  const handleIsNotLoggedInClose = (event: React.SyntheticEvent) => {
+    if (!isLoggedIn) {
+      event.preventDefault();
+    }
+  };
+
+  const handleModalCloseAfterReview = (event: React.SyntheticEvent) => {
+    if (!isRevewSent || (props.isReview && !review.length)) {
+      event.preventDefault();
     }
   };
 
   React.useEffect(() => {
-    if (isLoggedIn) {
+    if (isRevewSent) {
       handleClose();
     }
-  }, [isLoggedIn]);
+  }, [isRevewSent]);
 
-  return (
-    <Modal
-      open={props.isOpen}
-      aria-labelledby="simple-modal-title"
-      aria-describedby="simple-modal-description"
-      onClose={() => {
-        handleClose();
-      }}
-      onSubmit={(event) => {
-        if (!isLoggedIn) {
-          event.preventDefault();
-        }
-      }}
-    >
-      <Container className={classes.container} component="main" maxWidth="xs">
-        <CssBaseline />
-        <div className={classes.paper}>
+  if (isLoggedIn) {
+    return (
+      <Modal
+        open={props.isOpen}
+        aria-labelledby="simple-modal-title"
+        aria-describedby="simple-modal-description"
+        onClose={handleClose}
+        onSubmit={handleModalCloseAfterReview}
+      >
+        <Container className={classes.container} component="main" maxWidth="xs">
+          {/* <div className={classes.paper}> */}
+          <CssBaseline />
           <Typography component="h1" variant="h5">
-            {t('sign_in')}
+            {props.isReview && t('give_your_feedback')}
+            {!props.isReview && t('give_your_rate')}
           </Typography>
           <form
             className={classes.form}
@@ -126,45 +139,38 @@ const ReviewModal: React.FC<IReviewModalProps> = (props: IReviewModalProps) => {
             onSubmit={handleSubmit}
           >
             <TextField
-              variant="outlined"
-              margin="normal"
               required
-              fullWidth
-              id="name"
-              label={t('name')}
-              name="name"
-              autoComplete={t('name')}
-              error={userNameEmpty || isFailedAttempt}
-              helperText={(userNameEmpty && t('name_empty')) || (isFailedAttempt && '')}
-              onChange={(event) => {
-                setUserName(event.currentTarget.value);
+              type="number"
+              defaultValue="5"
+              InputProps={{
+                inputProps: {
+                  max: 5, min: 0,
+                },
               }}
-              onFocus={() => {
-                setUserNameEmpty(false);
-                dispatch({ type: 'FAILED_ATTEMPT', payload: { failedAttempt: false } });
-              }}
+              label="rate"
+              onChange={(event) => { setRate(+event.currentTarget.value); }}
             />
+            {props.isReview
+            && (
             <TextField
-              variant="outlined"
               margin="normal"
               required
               fullWidth
-              name="password"
-              label={t('password')}
-              type="password"
-              id="password"
-              autoComplete={t('password')}
-              error={passwordEmpty || isFailedAttempt}
-              helperText={(passwordEmpty && t('password_empty'))
-                          || (isFailedAttempt && t('sign_in_eror'))}
+              name="review"
+              label={t('review')}
+              type="review"
+              id="review"
+              autoComplete={t('review')}
+              error={reviewEmpty}
+              helperText={(reviewEmpty && t('review_empty'))}
               onChange={(event) => {
-                setPassword(event.currentTarget.value);
+                setReview(event.currentTarget.value);
               }}
               onFocus={() => {
-                setPasswordEmpty(false);
-                dispatch({ type: 'FAILED_ATTEMPT', payload: { failedAttempt: false } });
+                setReviewEmpty(false);
               }}
             />
+            )}
             {isLoading ? <CircularProgress className={classes.spinner} />
               : (
                 <Button
@@ -174,24 +180,27 @@ const ReviewModal: React.FC<IReviewModalProps> = (props: IReviewModalProps) => {
                   color="primary"
                   className={classes.submit}
                 >
-                  {t('sign_in')}
+                  {t('send_feedback')}
                 </Button>
               )}
-            <Grid container justify="flex-end">
-              <Grid item>
-                <button
-                  className={classes.button}
-                  type="button"
-                  onClick={() => {
-                    props.handleClose();
-                    //props.handleShowSignUpForm();
-                  }}
-                >
-                  {t('sign_up_form_switcher')}
-                </button>
-              </Grid>
-            </Grid>
           </form>
+        </Container>
+      </Modal>
+    );
+  }
+  return (
+    <Modal
+      open={props.isOpen}
+      aria-labelledby="simple-modal-title"
+      aria-describedby="simple-modal-description"
+      onClose={handleClose}
+      onSubmit={handleIsNotLoggedInClose}
+    >
+      <Container className={classes.container} component="main" maxWidth="xs">
+        <div className={classes.paper}>
+          <Typography>
+            {t('login_first')}
+          </Typography>
         </div>
       </Container>
     </Modal>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -30,42 +30,21 @@ const CountryPage: React.FC<rootProps> = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const { countryId } = useParams<URLParamTypes>();
-  // const userName = useSelector((state: IAppState) => state.userName); // I will need it
-  // const isLoggedIn = useSelector((state: IAppState) => state.loggedIn); // I will need it
-  // const currentRate = useSelector((state: IAppState) => state.sights[0]); // I will need it
   const countries = useSelector((state: IAppState) => state.countriesList);
   const language = useSelector((state: IAppState) => state.lang);
   const country = countries?.find((element: Country) => element.id === countryId);
+  const currentSight = useSelector((state: IAppState) => state.currentSight);
   const videoUrl = country?.videoURL;
   let sights = useSelector((state: IAppState) => state.sights);
   sights = sights || [];
-  const [sight, selectSight] = useState<Sight>(sights[0]);
 
   useEffect(() => {
     dispatch(fetchSights(countryId));
   }, []);
 
-  useEffect(() => {
-    if (sights) { selectSight(sights[0]); }
-  }, [sights]);
-
   const renderSlide = (sightElement: Sight) => (
-    /* eslint-disable jsx-a11y/click-events-have-key-events,
-      jsx-a11y/no-static-element-interactions */
-    <div
-      key={sightElement.pictureURL}
-      onClick={() => {
-        selectSight(sightElement);
-      }}
-    >
+    <div key={sightElement.pictureURL}>
       <div className="slider-content">
-        <button
-          type="button"
-          className="slide-btn"
-          onClick={() => { selectSight(sightElement); }}
-        >
-          {' '}
-        </button>
         <div
           className="slide-photo"
           style={{ backgroundImage: `url(${sightElement.pictureURL})` }}
@@ -82,7 +61,7 @@ const CountryPage: React.FC<rootProps> = () => {
   );
 
   const handleSlideChange = (currentSlide: number, nextSlide: number) => {
-    selectSight(sights![nextSlide]);
+    dispatch({ type: 'CHOOSE_SIGHT', payload: { currentSight: sights![nextSlide] } });
   };
 
   return (
@@ -138,14 +117,14 @@ const CountryPage: React.FC<rootProps> = () => {
         >
           {sights?.map((element: Sight) => renderSlide(element))}
         </Slider>
-        {sight && (
+        {currentSight && currentSight._id !== '' && (
           <SightCard
-            title={getSightTitleTranslation(sight, language)}
+            title={getSightTitleTranslation(currentSight, language)}
             pictureUrl={null}
-            info={getSightInfoTranslation(sight, language)}
+            info={getSightInfoTranslation(currentSight, language)}
             /* eslint no-underscore-dangle: ["error", { "allow": ["_id"] }] */
-            sightId={sight._id}
-            rate={sight.rate.toFixed(1)}
+            sightId={currentSight._id}
+            rate={currentSight.rate.toFixed(1)}
           />
         )}
       </div>

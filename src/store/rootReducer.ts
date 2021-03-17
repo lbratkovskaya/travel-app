@@ -12,6 +12,7 @@ let initialState: IAppState = {
   countriesList: [],
   sights: [],
   reviews: [],
+  isReviewSent: false,
 };
 
 const savedAppState = localStorage.getItem('appState');
@@ -58,8 +59,14 @@ const rootReducer = (state: IAppState = initialState, action: RootReducerAction)
     case 'SET_SIGHTS':
       newState = { ...state, sights: action.payload.sights };
       break;
+    case 'CHOOSE_SIGHT':
+      newState = { ...state, currentSight: action.payload.currentSight };
+      break;
     case 'SHOW_LOADER':
       newState = { ...state, isLoading: action.payload.isLoading };
+      break;
+    case 'REVIEW_SENT':
+      newState = { ...state, isReviewSent: action.payload.isReviewSent };
       break;
     case 'HIDE_LOADER':
       newState = { ...state, isLoading: action.payload.isLoading };

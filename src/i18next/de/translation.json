@@ -57,5 +57,12 @@
   "more_info":"Mehr erfahren",
   "capital":"Hauptstadt",
   "first_review":"Ihre Bewertung kann die erste sein",
-  "give_feedback":"Feedback geben"
+  "write_feedback":"Schreiben",
+  "send_feedback":"Senden",
+  "login_first":"Bitte zuerst anmelden",
+  "rate":"Bewertung",
+  "review":"Rezension",
+  "give_your_feedback":"Geben Sie Ihr Feedback",
+  "give_your_rate":"Geben Sie Ihr Rate",
+  "review_empty":"Bewertung kann nicht leer sein"
 }

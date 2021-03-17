@@ -107,6 +107,7 @@ const SignUpForm: React.FC<ISignUpProps> = (props: ISignUpProps) => {
     setConfirmPassword('');
     dispatch({ type: 'FAILED_ATTEMPT', payload: { failedAttempt: false } });
     props.handleClose();
+    dispatch({ type: 'REGISTRED', payload: { registred: false } });
   };
 
   const handleSubmit = () => {

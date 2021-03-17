@@ -50,14 +50,22 @@ const SightCard: React.FC<ISightCardProps> = (props: ISightCardProps) => {
   const [expanded, setExpanded] = React.useState(false);
   const handleExpandClick = () => {
     setExpanded(!expanded);
+    dispatch(fetchReviews(props.sightId));
   };
   const reviews = useSelector((state: IAppState) => state.reviews);
-  // const isLoading = useSelector((state: IAppState) => state.isLoading);//I will need it
-  const isLoggedIn = useSelector((state: IAppState) => state.loggedIn);
-
   const [showReviewModal, setShowReviewModal] = React.useState(false);
+  const [isReview, setReview] = React.useState(false);
   const handleCloseReviewModal = () => setShowReviewModal(false);
-  const handleShowReviewModal = () => setShowReviewModal(true);
+  const handleShowModal = () => setShowReviewModal(true);
+
+  const handleShowRateModal = () => {
+    handleShowModal();
+    setReview(false);
+  };
+  const handleShowReviewModal = () => {
+    handleShowModal();
+    setReview(true);
+  };
 
   useEffect(() => {
     dispatch(fetchReviews(props.sightId));
@@ -66,8 +74,9 @@ const SightCard: React.FC<ISightCardProps> = (props: ISightCardProps) => {
   return (
     <>
       <ReviewModal
+        sightId={props.sightId}
+        isReview={isReview}
         isOpen={showReviewModal}
-        isLoggedIn={isLoggedIn}
         handleClose={handleCloseReviewModal}
       />
       <Card className={classes.root}>
@@ -87,7 +96,10 @@ const SightCard: React.FC<ISightCardProps> = (props: ISightCardProps) => {
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
-          <IconButton aria-label="add to favorites" onClick={handleShowReviewModal}>
+          <IconButton
+            aria-label="add to favorites"
+            onClick={handleShowRateModal}
+          >
             <Star />
             <span>
               {props.rate}
@@ -113,13 +125,13 @@ const SightCard: React.FC<ISightCardProps> = (props: ISightCardProps) => {
               title={t('first_review')}
             />
             <Button onClick={handleShowReviewModal}>
-              {t('give_feedback')}
+              {t('write_feedback')}
             </Button>
           </Card>
           )}
             {reviews && reviews.length > 0 && (
             <Button onClick={handleShowReviewModal}>
-              {t('give_feedback')}
+              {t('write_feedback')}
             </Button>
             )}
             {reviews && reviews.map((review) => (

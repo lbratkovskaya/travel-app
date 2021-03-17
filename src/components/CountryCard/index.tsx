@@ -13,6 +13,10 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Map from '../Map';
 import Video from './Video';
 import { ICountryCardProps } from './ICountryCardProps';
+import DraggableWrapper from '../DraggableWrapper';
+import CurrencyWidget from '../CurrencyWidget';
+import TimeWidget from '../TimeWidget';
+import WeatherWidget from '../WeatherWidget';
 import { Accordion, AccordionDetails, AccordionSummary } from './Accordion';
 
 const useStyles = makeStyles(() => ({
@@ -21,6 +25,7 @@ const useStyles = makeStyles(() => ({
     margin: '2rem auto',
   },
   media: {
+    position: 'relative',
     height: 0,
     paddingTop: '56.25%', // 16:9
   },
@@ -61,7 +66,17 @@ const CountryCard: React.FC<ICountryCardProps> = (props: ICountryCardProps) => {
   return (
     <Card className={classes.root}>
       <CardHeader title={props.title} />
-      <CardMedia className={classes.media} image={props.pictureUrl} />
+      <CardMedia className={classes.media} image={props.pictureUrl}>
+        <DraggableWrapper top={10} right={10}>
+          <WeatherWidget />
+        </DraggableWrapper>
+        <DraggableWrapper top={10} left={10}>
+          <TimeWidget />
+        </DraggableWrapper>
+        <DraggableWrapper top={130} right={10}>
+          <CurrencyWidget />
+        </DraggableWrapper>
+      </CardMedia>
       <CardContent>
         <Typography variant="h6" color="textSecondary">
           {`${t('capital')}: ${props.capital}.`}

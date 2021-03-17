@@ -1,0 +1,13 @@
+$icon-color: #ee6161;
+
+@mixin widget {
+  max-width: 200px;
+  background-color: rgba(255, 255, 255, 0.75);
+  color: black;
+  border-radius: 8px;
+  padding: 8px;
+  z-index: 1000;
+  box-shadow: 3px 4px 8px #d2d2d2;
+  font-size: 1rem;
+  text-align: center;
+}

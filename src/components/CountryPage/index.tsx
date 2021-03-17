@@ -43,14 +43,7 @@ const CountryPage: React.FC<rootProps> = () => {
   }, []);
 
   const renderSlide = (sightElement: Sight) => (
-    /* eslint-disable jsx-a11y/click-events-have-key-events,
-      jsx-a11y/no-static-element-interactions */
-    <div
-      key={sightElement.pictureURL}
-      onClick={() => {
-        dispatch({ type: 'CHOOSE_SIGHT', payload: { currentSight: sightElement } });
-      }}
-    >
+    <div key={sightElement.pictureURL}>
       <div className="slider-content">
         <div
           className="slide-photo"
@@ -67,9 +60,9 @@ const CountryPage: React.FC<rootProps> = () => {
     </div>
   );
 
-  // const handleSlideChange = (currentSlide: number, nextSlide: number) => {
-  //   selectSight(sights![nextSlide]);
-  // };
+  const handleSlideChange = (currentSlide: number, nextSlide: number) => {
+    dispatch({ type: 'CHOOSE_SIGHT', payload: { currentSight: sights![nextSlide] } });
+  };
 
   return (
     <>
@@ -120,6 +113,7 @@ const CountryPage: React.FC<rootProps> = () => {
           variableWidth
           focusOnSelect
           adaptiveHeight
+          beforeChange={handleSlideChange}
         >
           {sights?.map((element: Sight) => renderSlide(element))}
         </Slider>

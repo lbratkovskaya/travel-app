@@ -7,16 +7,11 @@ import { Typography } from '@material-ui/core';
 import rootConnector, { rootProps } from '../../store/rootConnector';
 import { Country, Sight, URLParamTypes } from '../../types';
 import { IAppState } from '../../store/types';
-// import Map from '../Map';
-import CurrencyWidget from '../CurrencyWidget';
 import Header from '../Header';
-import TimeWidget from '../TimeWidget';
-import WeatherWidget from '../WeatherWidget';
 import { fetchSights } from '../../controller/handlers';
 import SightCard from '../SightCard';
 import CountryCard from '../CountryCard';
 import Footer from '../Footer';
-import DraggableWrapper from '../DraggableWrapper';
 import {
   getCapitalTranslated,
   getCountryInfoTranslation,
@@ -85,15 +80,6 @@ const CountryPage: React.FC<rootProps> = () => {
         >
           {t('explore')}
         </Typography>
-        <DraggableWrapper top={50} right={10}>
-          <WeatherWidget />
-        </DraggableWrapper>
-        <DraggableWrapper top={250} right={10}>
-          <TimeWidget />
-        </DraggableWrapper>
-        <DraggableWrapper top={395} right={10}>
-          <CurrencyWidget />
-        </DraggableWrapper>
         <Slider
           className="sights-slider"
           slidesToShow={1}

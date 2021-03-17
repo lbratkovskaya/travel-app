@@ -1,15 +1,12 @@
+@import '../widgets.scss';
+
 .weather-widget {
-  max-width: 200px;
-  background-color: #d8ebf9;
-  color: #7c7c7c;
-  border-radius: 8px;
-  padding: 16px;
-  z-index: 1000;
-  box-shadow: 3px 4px 8px #d2d2d2;
+  @include widget;
 
   .weather-widget-icon {
-    color: #3ddbc1;
+    color: $icon-color;
   }
+
   .weather-widget-state {
     display: flex;
     flex-direction: column;

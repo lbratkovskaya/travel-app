@@ -19,7 +19,7 @@ $icon-color: #ee6161;
   text-align: center;
   transition: font 0.3s;
 
-  @include screen_max(768px) {
+  @include screen_max(600px) {
     padding: 4px;
     font-size: 0.85rem;
   }

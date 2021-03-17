@@ -13,11 +13,13 @@ import {
   Avatar,
 } from '@material-ui/core';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import { useParams } from 'react-router-dom';
 import handleLangChange from '../../controller/handlers';
 import { IAppState } from '../../store/types';
 import SignInForm from '../RegForms/SignInForm';
 import SignUpForm from '../RegForms/SignUpForm';
 import Search from './Search';
+import { URLParamTypes } from '../../types';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -108,6 +110,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Header: React.FC = () => {
+  const { countryId } = useParams<URLParamTypes>();
+
   const classes = useStyles();
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -276,8 +280,7 @@ const Header: React.FC = () => {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      {window.location.pathname === '/'
-      && (
+      {!countryId && (
       <MenuItem>
         <div className={`${classes.search_mobile}`}>
           <Search />
@@ -332,7 +335,7 @@ const Header: React.FC = () => {
             </Typography>
           </a>
           <div className={classes.sectionDesktop}>
-            {window.location.pathname === '/' && <Search />}
+            {!countryId && <Search />}
             <IconButton
               edge="end"
               aria-label="Choose language"

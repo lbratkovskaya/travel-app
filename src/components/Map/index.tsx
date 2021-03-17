@@ -38,7 +38,7 @@ function CountryBorder(props: IBorder) {
   const countryBorder = borders.features.filter((feature) => feature.id === props.id);
 
   Leaflet.geoJSON(countryBorder as any, { style: borderStyle }).addTo(map);
-  setTimeout(() => map.invalidateSize(), 0);
+  setTimeout(() => map.invalidateSize(), 250);
 
   return null;
 }

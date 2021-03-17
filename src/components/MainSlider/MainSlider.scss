@@ -1,0 +1,128 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css');
+
+@mixin screen_max($value) {
+  @media (max-width: $value) {
+    @content;
+  }
+}
+
+.slider {
+  position: relative;
+  margin: 1.5rem 0;
+  width: 100%;
+  min-width: 320px;
+}
+
+.slick-slide {
+  width: 50vw;
+  min-width: 240px;
+  max-width: 900px;
+  height: calc(50vw * 2 / 3);
+  min-height: 160px;
+  max-height: 600px;
+  box-sizing: border-box;
+
+  transition: opacity 0.2s, filter 0.2s;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:hover div.slide-photo {
+    filter: brightness(1.15) grayscale(0);
+  }
+
+  &:active {
+    opacity: 0.6;
+  }
+
+  div {
+    width: 100%;
+    height: 100%;
+    margin: auto;
+  }
+}
+
+div.slider-content {
+  position: relative;
+  width: 96%;
+  height: 96%;
+  transform: translateY(2%);
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+div.slide-photo {
+  background: center no-repeat;
+  background-size: cover;
+  filter: brightness(1) grayscale(0.2);
+  transition: filter 0.3s;
+  cursor: pointer;
+}
+
+div.slide-title {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 4rem;
+  width: 100%;
+  bottom: 0;
+  font-size: 1.5rem;
+  background: rgba(0, 0, 0, 0.55);
+  color: white;
+  transition: background 0.3s ease-out, font 0.3s, height 0.3s;
+
+  @include screen_max(1024px) {
+    height: 3rem;
+    font-size: 1.25rem;
+  }
+
+  @include screen_max(768px) {
+    height: 2rem;
+    font-size: 1rem;
+  }
+}
+
+.slick-arrow {
+  max-width: 9.375rem;
+  width: 10vw;
+  min-width: 2.25rem;
+  height: 100%;
+  z-index: 1;
+  transition: opacity 0.2s;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  &:active {
+    opacity: 0.75;
+  }
+
+  &::before {
+    font-size: 3rem;
+    opacity: 0.55;
+    color: #f2f2f2;
+    filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.7));
+    transition: opacity 0.2s, font 0.2s;
+
+    @include screen_max(1024px) {
+      font-size: 2.25rem;
+    }
+
+    @include screen_max(768px) {
+      font-size: 1.5rem;
+    }
+  }
+}
+
+.slick-next {
+  right: 0;
+}
+
+.slick-prev {
+  left: 0;
+}

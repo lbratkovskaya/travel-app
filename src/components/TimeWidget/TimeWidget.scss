@@ -1,0 +1,14 @@
+@import '../widgets.scss';
+
+.time-widget {
+  @include widget;
+
+  .time-widget-icon {
+    color: $icon-color;
+  }
+
+  .time-widget-data {
+    display: flex;
+    flex-direction: column;
+  }
+}

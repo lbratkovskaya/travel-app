@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CurrencyWidget functional component testing CurrencyWidget must have a correct snapshot 1`] = `
+"<ContextProvider value={{...}}>
+  <Connect(CurrencyWidget) />
+</ContextProvider>"
+`;

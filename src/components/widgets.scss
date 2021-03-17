@@ -1,0 +1,32 @@
+$icon-color: #ee6161;
+
+@mixin screen_max($value) {
+  @media (max-width: $value) {
+    @content;
+  }
+}
+
+@mixin widget {
+  width: fit-content;
+  background-color: rgba(235, 235, 235, 0.7);
+  backdrop-filter: blur(1.5px);
+  color: black;
+  border-radius: 8px;
+  padding: 8px;
+  z-index: 1000;
+  box-sizing: border-box;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  font-size: 1rem;
+  text-align: center;
+  transition: font 0.3s;
+
+  div,
+  span {
+    white-space: nowrap;
+  }
+
+  @include screen_max(600px) {
+    padding: 4px;
+    font-size: 0.85rem;
+  }
+}

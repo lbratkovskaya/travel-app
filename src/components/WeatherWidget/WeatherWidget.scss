@@ -1,0 +1,14 @@
+@import '../widgets.scss';
+
+.weather-widget {
+  @include widget;
+
+  .weather-widget-icon {
+    color: $icon-color;
+  }
+
+  .weather-widget-state {
+    display: flex;
+    flex-direction: column;
+  }
+}

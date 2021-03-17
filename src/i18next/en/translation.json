@@ -1,0 +1,72 @@
+{
+  "br": {
+    "name": "Brazil"
+  },
+  "tz": {
+    "name": "Tanzania"
+  },
+  "es": {
+    "name": "Spain"
+  },
+  "ca": {
+    "name": "Canada"
+  },
+  "in": {
+    "name": "India"
+  },
+  "ir": {
+    "name": "Ireland"
+  },
+  "ae": {
+    "name": "United Arab Emirates"
+  },
+  "nz": {
+    "name": "New Zealand"
+  },
+  "jp": {
+    "name": "Japan"
+  },
+  "name": "name",
+  "password": "password",
+  "email": "email",
+  "sign_in": "Sign in",
+  "sign_up": "Sign up",
+  "name_empty": "enter name",
+  "password_empty": "enter password",
+  "password_invalid": "password length should be more than 5 symbols",
+  "empty_email": "enter email",
+  "email_invalid": "email is invalid",
+  "confirm_password": "confirm password",
+  "passwords_error": "does not match",
+  "sign_in_eror": "wrong name or password",
+  "sign_up_error": "name is already taken",
+  "sign_in_form_switcher": "Already have an account? Sign in",
+  "sign_up_form_switcher": "Do not have an account? Sign Up",
+  "english": "English",
+  "russian": "Russian",
+  "german": "German",
+  "language": "Language",
+  "auth": "Auth",
+  "log_out": "Log out",
+  "search": "...Search",
+  "wind": "wind",
+  "m_s": "m/s",
+  "r_h": "RH",
+  "weather_fetch_error": "Could not fetch weather data:",
+  "currency_fetch_error": "Could not get currencies for {{countryName}}",
+  "more_info": "Learn more",
+  "capital": "Capital",
+  "first_review": "Your review may be the first",
+  "write_feedback": "Write review",
+  "send_feedback": "Send",
+  "login_first": "Sign in first, please",
+  "rate": "rate",
+  "review": "review",
+  "give_your_feedback": "Give your feedback",
+  "give_your_rate": "Give your rate",
+  "review_empty": "Review can't be empty",
+  "map": "Map",
+  "video": "Video",
+  "explore": "What to see:"
+
+}

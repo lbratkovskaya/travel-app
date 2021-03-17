@@ -1,0 +1,18 @@
+@import '../widgets.scss';
+
+.currency-widget {
+  @include widget;
+
+  .currency-widget-icon {
+    color: $icon-color;
+  }
+
+  .currency-widget-data {
+    display: flex;
+    flex-direction: column;
+
+    .curr-key {
+      font-size: 1rem;
+    }
+  }
+}

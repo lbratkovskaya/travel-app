@@ -1,0 +1,71 @@
+{
+  "br": {
+    "name": "Brasilien"
+  },
+  "tz": {
+    "name": "Tanzania"
+  },
+  "es": {
+    "name": "Spanien"
+  },
+  "ca": {
+    "name": "Kanada"
+  },
+  "in": {
+    "name": "Indien"
+  },
+  "ir": {
+    "name": "Irland"
+  },
+  "ae": {
+    "name": "Vereinigte Arabische Emirate"
+  },
+  "nz": {
+    "name": "Neuseeland"
+  },
+  "jp": {
+    "name": "Japan"
+  },
+  "name": "Name",
+  "password": "Passwort",
+  "email": "Email",
+  "sign_in": "Einloggen",
+  "sign_up": "Anmelden",
+  "name_empty": "Name eingeben",
+  "password_empty": "Passwort eingeben",
+  "password_invalid": "Die Passwortlänge sollte mehr als 6 Symbole betragen",
+  "empty_email": "Email eingeben",
+  "email_invalid": "Email ist ungültig",
+  "confirm_password": "Kennwort bestätigen",
+  "passwords_error": "stimmt nicht überein",
+  "sign_in_eror": "falscher Name oder Passwort",
+  "sign_up_error": "Name ist bereits vergeben",
+  "sign_in_form_switcher": "Sie haben bereits ein Konto? Einloggen",
+  "sign_up_form_switcher": "Haben sie kein Konto? Anmeldung",
+  "english": "Englisch",
+  "russian": "Russisch",
+  "german": "Deutsche",
+  "language": "Sprache",
+  "auth": "Genehmigung",
+  "log_out": "Ausloggen",
+  "search": "...Suche",
+  "wind": "Wind",
+  "m_s": "m/s",
+  "r_h": "RH",
+  "weather_fetch_error": "Wetterdaten konnten nicht abgerufen werden:",
+  "currency_fetch_error": "Währungen für {{countryName}} konnten nicht erhalten werden",
+  "more_info": "Mehr erfahren",
+  "capital": "Hauptstadt",
+  "first_review": "Ihre Bewertung kann die erste sein",
+  "write_feedback": "Feedback geben",
+  "send_feedback": "Senden",
+  "login_first": "Bitte zuerst anmelden",
+  "rate": "Bewertung",
+  "review": "Rezension",
+  "give_your_feedback": "Geben Sie Ihr Feedback",
+  "give_your_rate": "Geben Sie Ihr Rate",
+  "review_empty": "Bewertung kann nicht leer sein",
+  "map": "Karte",
+  "video": "Video",
+  "explore": "Was zu sehen:"
+}

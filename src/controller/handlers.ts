@@ -88,6 +88,18 @@ export const fetchSights = (countryCode: string) => (dispatch: Dispatch) => {
   });
 };
 
+export const fetchSight = (sightId: string) => (dispatch: Dispatch) => {
+  dispatch({ type: 'SHOW_LOADER', payload: { isLoading: true } });
+  fetch(`${backendUrl}/sights?sightId=${sightId}`).then((response) => {
+    if (response.status === 200) {
+      response.json().then((result) => {
+        dispatch({ type: 'CHOOSE_SIGHT', payload: { currentSight: result[0] } });
+      });
+    }
+    dispatch({ type: 'HIDE_LOADER', payload: { isLoading: false } });
+  });
+};
+
 export const fetchReviews = (sightId: string) => (dispatch: Dispatch) => {
   dispatch({ type: 'SHOW_LOADER', payload: { isLoading: true } });
   fetch(`${backendUrl}/reviews?sightId=${sightId}`).then((response) => {

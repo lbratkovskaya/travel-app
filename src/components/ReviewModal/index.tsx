@@ -14,6 +14,7 @@ import {
 import { IAppState } from '../../store/types';
 import {
   fetchReviews,
+  fetchSight,
   sendRate,
   sendReviewWithRate,
 } from '../../controller/handlers';
@@ -84,6 +85,7 @@ const ReviewModal: React.FC<IReviewModalProps> = (props: IReviewModalProps) => {
     setReviewEmpty(false);
     dispatch({ type: 'REVIEW_SENT', payload: { isReviewSent: false } });
     dispatch(fetchReviews(props.sightId));
+    dispatch(fetchSight(props.sightId));
     props.handleClose();
   };
 

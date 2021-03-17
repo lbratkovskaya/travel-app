@@ -41,6 +41,26 @@ const useStyles = makeStyles(() => ({
   expandOpen: {
     transform: 'rotate(180deg)',
   },
+  button: {
+    margin: '1% 42%',
+    background: 'rgba(0, 0, 0, 0.24)',
+  },
+  card: {
+    display: 'flex',
+    justifyContent: 'center',
+    width: '90%',
+    margin: '3% 5%',
+    border: '1px solid rgba(0, 0, 0, 0.04)',
+  },
+  cardEmpty: {
+    marginTop: '20px',
+  },
+  cardRate: {
+    height: '20px',
+  },
+  cardContent: {
+    width: '90%',
+  },
 }));
 
 const SightCard: React.FC<ISightCardProps> = (props: ISightCardProps) => {
@@ -121,33 +141,41 @@ const SightCard: React.FC<ISightCardProps> = (props: ISightCardProps) => {
             {reviews && !reviews.length
           && (
           <Card>
-            <CardHeader
-              title={t('first_review')}
-            />
-            <Button onClick={handleShowReviewModal}>
-              {t('write_feedback')}
-            </Button>
+            <CardContent>
+              <Button className={classes.button} onClick={handleShowReviewModal}>
+                {t('write_feedback')}
+              </Button>
+              <Typography
+                className={classes.cardEmpty}
+                variant="body2"
+                component="p"
+                color="textSecondary"
+                align="center"
+              >
+                {t('first_review')}
+              </Typography>
+            </CardContent>
           </Card>
           )}
             {reviews && reviews.length > 0 && (
-            <Button onClick={handleShowReviewModal}>
+            <Button className={classes.button} onClick={handleShowReviewModal}>
               {t('write_feedback')}
             </Button>
             )}
             {reviews && reviews.map((review) => (
-              <Card key={review.user + review.sightId}>
-                <CardContent>
-                  <div>
-                    <span>
-                      <Star />
-                      {review.rate.toFixed(1)}
-                    </span>
-                    <span>
-                      {review.user}
-                    </span>
-                  </div>
-                  <Typography variant="body2" color="textSecondary" component="p">
+              <Card className={classes.card} key={review.user + review.sightId}>
+                <CardContent className={classes.cardContent}>
+                  <Typography variant="body1" component="p" align="center">
                     {review.review}
+                  </Typography>
+                  <Typography
+                    className={classes.cardRate}
+                    variant="body2"
+                    color="textSecondary"
+                    component="p"
+                    align="right"
+                  >
+                    {`★ ${review.rate.toFixed(1)}   ${review.user}`}
                   </Typography>
                 </CardContent>
               </Card>

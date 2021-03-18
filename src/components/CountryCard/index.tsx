@@ -18,7 +18,7 @@ import CurrencyWidget from '../CurrencyWidget';
 import TimeWidget from '../TimeWidget';
 import WeatherWidget from '../WeatherWidget';
 import { Accordion, AccordionDetails, AccordionSummary } from './Accordion';
-import { useCurrentWidth } from '../../controller/utils';
+import { useWindowWidth } from '../../controller/utils';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -49,7 +49,7 @@ const useStyles = makeStyles(() => ({
 const CountryCard: React.FC<ICountryCardProps> = (props: ICountryCardProps) => {
   const classes = useStyles();
   const { t } = useTranslation();
-  let width = useCurrentWidth();
+  let width = useWindowWidth();
 
   width = (width > 400) ? 400 : width;
 

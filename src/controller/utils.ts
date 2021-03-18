@@ -118,16 +118,16 @@ export const getCapitalTranslated = (country: Country, lang?: 'en' | 'ru' | 'de'
   return capitalTranslated;
 };
 
-const getWidth = () => window.innerWidth
+const getWindowWidth = () => window.innerWidth
   || document.documentElement.clientWidth
   || document.body.clientWidth;
 
-export const useCurrentWidth = () => {
-  const [width, setWidth] = useState(getWidth());
+export const useWindowWidth = () => {
+  const [width, setWidth] = useState(getWindowWidth());
 
   useEffect(() => {
     const resizeListener = () => {
-      setWidth(getWidth());
+      setWidth(getWindowWidth());
     };
     window.addEventListener('resize', resizeListener);
     return () => window.removeEventListener('resize', resizeListener);

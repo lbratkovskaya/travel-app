@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { Country, Sight } from '../types';
 
 export const findCountry = (searchQuery: string,
@@ -115,4 +116,22 @@ export const getCapitalTranslated = (country: Country, lang?: 'en' | 'ru' | 'de'
     default: throw new Error('Unexpected language');
   }
   return capitalTranslated;
+};
+
+const getWindowWidth = () => window.innerWidth
+  || document.documentElement.clientWidth
+  || document.body.clientWidth;
+
+export const useWindowWidth = () => {
+  const [width, setWidth] = useState(getWindowWidth());
+
+  useEffect(() => {
+    const resizeListener = () => {
+      setWidth(getWindowWidth());
+    };
+    window.addEventListener('resize', resizeListener);
+    return () => window.removeEventListener('resize', resizeListener);
+  }, []);
+
+  return width;
 };

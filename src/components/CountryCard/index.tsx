@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -18,6 +18,7 @@ import CurrencyWidget from '../CurrencyWidget';
 import TimeWidget from '../TimeWidget';
 import WeatherWidget from '../WeatherWidget';
 import { Accordion, AccordionDetails, AccordionSummary } from './Accordion';
+import { useWindowWidth } from '../../controller/utils';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -45,28 +46,10 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const getWidth = () => window.innerWidth
-  || document.documentElement.clientWidth
-  || document.body.clientWidth;
-
-function useCurrentWidth() {
-  const [width, setWidth] = useState(getWidth());
-
-  useEffect(() => {
-    const resizeListener = () => {
-      setWidth(getWidth());
-    };
-    window.addEventListener('resize', resizeListener);
-    return () => window.removeEventListener('resize', resizeListener);
-  }, []);
-
-  return width;
-}
-
 const CountryCard: React.FC<ICountryCardProps> = (props: ICountryCardProps) => {
   const classes = useStyles();
   const { t } = useTranslation();
-  let width = useCurrentWidth();
+  let width = useWindowWidth();
 
   width = (width > 400) ? 400 : width;
 

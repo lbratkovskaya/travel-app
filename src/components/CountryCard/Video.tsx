@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactPlayer from 'react-player';
-import { useWindowWidth } from '../../controller/utils';
 import { IVideoProps } from './IVideoProps';
+import { useWindowWidth } from '../../controller/utils';
 
 const Video: React.FC<IVideoProps> = (props: IVideoProps) => {
   const windowWidth = useWindowWidth();
